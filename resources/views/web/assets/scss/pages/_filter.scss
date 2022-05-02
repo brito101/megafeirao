@@ -1,0 +1,60 @@
+.realty_list {
+    width: 100%;
+    flex-basis: 100%;
+
+    .realty_list_item_actions_stats {
+        position: relative;
+        padding: 0;
+
+        ul {
+            display: block;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 0.875em;
+            margin: 0;
+            padding: 0;
+
+            li {
+                padding: 10px;
+                list-style: none;
+            }
+        }
+    }
+}
+
+.page_filter {
+    .bootstrap-select .btn {
+        background-color: #fff;
+        color: #222;
+        font-weight: 400;
+        font-size: 0.875em;
+
+        &:hover {
+            color: #111 !important;
+        }
+    }
+}
+
+.slider-custom {
+    input {
+        font-size: 0.875em;
+        color: #222;
+        font-weight: 400;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        height: 42px;
+    }
+
+    .ui-draggable,
+    .ui-droppable {
+        background-position: top;
+    }
+}

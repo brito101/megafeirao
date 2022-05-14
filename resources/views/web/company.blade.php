@@ -3,11 +3,10 @@
 @section('content')
     <section class="main_property">
         <div class="main_property_header">
-            <div class="px-0 mx-0 bg-dark mt-n1" style="border-top: 2px solid white;">
+            <div class="px-0 mx-0 bg-dark mt-n1">
                 <div class="row p-1 mx-0">
                     <div class="container">
-                        <div
-                            class="col-12 text-center text-white font-weight-bold py-2 py-md-5 d-flex flex-wrap justify-content-center">
+                        <div class="col-12 text-center text-white font-weight-bold d-flex flex-wrap justify-content-center">
                             <div class="col-12 col-md-4 d-flex align-items-center py-2 py-md-0">
                                 @if ($company->street)
                                     <div class="col-12 text-center text-md-left">
@@ -21,8 +20,8 @@
                                 @endif
                             </div>
                             <div class="col-12 col-md-4">
-                                <div class="d-flex">
-                                    <img src="{{ $company->cover() }}" class="w-100 p-0 m-auto img-thumbnail"
+                                <div class="d-flex py-1">
+                                    <img src="{{ $company->cover() }}" class="w-75 m-auto img-thumbnail"
                                         alt="{{ $company->social_name }}">
                                 </div>
                             </div>
@@ -101,31 +100,229 @@
                         <div class="tab-pane fade show active col-12 col-md-11 col-lg-11 mx-auto" id="inventory"
                             role="tabpanel" aria-labelledby="inventory-tab">
 
-                            {{-- <div class='d-flex align-items-center mb-2 mt-2 mt-md-0 flex-wrap'>
-                                <div
-                                    class="col-12 col-md-6 px-0 mx-0 d-flex flex-wrap justify-content-center justify-content-md-start">
-                                    <div class="text-grey-darker d-none d-sm-block mr-2">Ordenação por:</div>
-                                    <div class="d-flex flex-wrap">
-                                        <div id="price" class="d-flex d-inline-block mb-1 mb-sm-0">
-                                            @sortablelink('sale_price', 'Preço', ['filter' => 'visible'])
-                                        </div>
-                                        <div id="year" class="d-flex d-inline-block mb-1 mb-sm-0">
-                                            @sortablelink('year', 'Ano', ['filter' => ' visible'])
+                            @if ($automotivesForSale->count() > 0)
+                                <div class="row pb-2 pb-lg-4" style="margin-top: 20px;">
+                                    <div class="col-12">
+                                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <div class="d-flex">
+                                                        @foreach ($automotivesForSale->slice(0, 4) as $automotive)
+                                                            <article class="col-6 col-lg-3 mb-2 mb-lg-0">
+                                                                <div class="img-responsive">
+                                                                    <a
+                                                                        href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">
+                                                                        <img src="{{ $automotive->coverFront() }}"
+                                                                            class="card-img-top rounded"
+                                                                            alt="{{ $automotive->title }}"
+                                                                            style="height: auto">
+                                                                    </a>
+                                                                </div>
+                                                                <h3 class="my-2"><a
+                                                                        href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}"
+                                                                        class="text-dark main_properties_price text-truncate d-block"
+                                                                        style="font-size: 16px">{{ $automotive->title }}</a>
+                                                                </h3>
+                                                                <div class="d-flex flex-wrap justify-content-between">
+                                                                    <span
+                                                                        class="main_properties_price text-dark font-weight-bold"
+                                                                        style="font-size: 18px">R$
+                                                                        {{ $automotive->sale_price }}</span>
+                                                                    <a href="#"
+                                                                        class="ml-2 heart-like text-front icon-heart-o text-dark text-decoration-none text-right"
+                                                                        data-id="{{ $automotive->id }}"></a>
+                                                                </div>
+                                                            </article>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                                @if ($automotivesForSale->count() > 4)
+                                                    <div class="carousel-item">
+                                                        <div class="d-flex">
+                                                            @foreach ($automotivesForSale->slice(3, 4) as $automotive)
+                                                                <article class="col-6 col-lg-3 mb-2 mb-lg-0">
+                                                                    <div class="img-responsive">
+                                                                        <a
+                                                                            href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">
+                                                                            <img src="{{ $automotive->coverFront() }}"
+                                                                                class="card-img-top rounded"
+                                                                                alt="{{ $automotive->title }}"
+                                                                                style="height: auto">
+                                                                        </a>
+                                                                    </div>
+                                                                    <h3 class="my-2"><a
+                                                                            href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}"
+                                                                            class="text-dark main_properties_price text-truncate d-block"
+                                                                            style="font-size: 16px">{{ $automotive->title }}</a>
+                                                                    </h3>
+                                                                    <div class="d-flex flex-wrap justify-content-between">
+                                                                        <span
+                                                                            class="main_properties_price text-dark font-weight-bold"
+                                                                            style="font-size: 18px">R$
+                                                                            {{ $automotive->sale_price }}</span>
+                                                                        <a href="#"
+                                                                            class="ml-2 heart-like text-front icon-heart-o text-dark text-decoration-none text-right"
+                                                                            data-id="{{ $automotive->id }}"></a>
+                                                                    </div>
+                                                                </article>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                @if ($automotivesForSale->count() > 8)
+                                                    <div class="carousel-item">
+                                                        <div class="d-flex">
+                                                            @foreach ($automotivesForSale->slice(7, 4) as $automotive)
+                                                                <article class="col-6 col-lg-3 mb-2 mb-lg-0">
+                                                                    <div class="img-responsive">
+                                                                        <a
+                                                                            href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">
+                                                                            <img src="{{ $automotive->coverFront() }}"
+                                                                                class="card-img-top rounded"
+                                                                                alt="{{ $automotive->title }}"
+                                                                                style="height: auto">
+                                                                        </a>
+                                                                    </div>
+                                                                    <h3 class="my-2"><a
+                                                                            href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}"
+                                                                            class="text-dark main_properties_price text-truncate d-block"
+                                                                            style="font-size: 16px">{{ $automotive->title }}</a>
+                                                                    </h3>
+                                                                    <div class="d-flex flex-wrap justify-content-between">
+                                                                        <span
+                                                                            class="main_properties_price text-dark font-weight-bold"
+                                                                            style="font-size: 18px">R$
+                                                                            {{ $automotive->sale_price }}</span>
+                                                                        <a href="#"
+                                                                            class="ml-2 heart-like text-front icon-heart-o text-dark text-decoration-none text-right"
+                                                                            data-id="{{ $automotive->id }}"></a>
+                                                                    </div>
+                                                                </article>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                @if ($automotivesForSale->count() > 12)
+                                                    <div class="carousel-item">
+                                                        <div class="d-flex">
+                                                            @foreach ($automotivesForSale->slice(11, 4) as $automotive)
+                                                                <article class="col-6 col-lg-3 mb-2 mb-lg-0">
+                                                                    <div class="img-responsive">
+                                                                        <a
+                                                                            href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">
+                                                                            <img src="{{ $automotive->coverFront() }}"
+                                                                                class="card-img-top rounded"
+                                                                                alt="{{ $automotive->title }}"
+                                                                                style="height: auto">
+                                                                        </a>
+                                                                    </div>
+                                                                    <h3 class="my-2"><a
+                                                                            href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}"
+                                                                            class="text-dark main_properties_price text-truncate d-block"
+                                                                            style="font-size: 16px">{{ $automotive->title }}</a>
+                                                                    </h3>
+                                                                    <div class="d-flex flex-wrap justify-content-between">
+                                                                        <span
+                                                                            class="main_properties_price text-dark font-weight-bold"
+                                                                            style="font-size: 18px">R$
+                                                                            {{ $automotive->sale_price }}</span>
+                                                                        <a href="#"
+                                                                            class="ml-2 heart-like text-front icon-heart-o text-dark text-decoration-none text-right"
+                                                                            data-id="{{ $automotive->id }}"></a>
+                                                                    </div>
+                                                                </article>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                @if ($automotivesForSale->count() > 16)
+                                                    <div class="carousel-item">
+                                                        <div class="d-flex">
+                                                            @foreach ($automotivesForSale->slice(15, 4) as $automotive)
+                                                                <article class="col-6 col-lg-3 mb-2 mb-lg-0">
+                                                                    <div class="img-responsive">
+                                                                        <a
+                                                                            href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">
+                                                                            <img src="{{ $automotive->coverFront() }}"
+                                                                                class="card-img-top rounded"
+                                                                                alt="{{ $automotive->title }}"
+                                                                                style="height: auto">
+                                                                        </a>
+                                                                    </div>
+                                                                    <h3 class="my-2"><a
+                                                                            href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}"
+                                                                            class="text-dark main_properties_price text-truncate d-block"
+                                                                            style="font-size: 16px">{{ $automotive->title }}</a>
+                                                                    </h3>
+                                                                    <div class="d-flex flex-wrap justify-content-between">
+                                                                        <span
+                                                                            class="main_properties_price text-dark font-weight-bold"
+                                                                            style="font-size: 18px">R$
+                                                                            {{ $automotive->sale_price }}</span>
+                                                                        <a href="#"
+                                                                            class="ml-2 heart-like text-front icon-heart-o text-dark text-decoration-none text-right"
+                                                                            data-id="{{ $automotive->id }}"></a>
+                                                                    </div>
+                                                                </article>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                @if ($automotivesForSale->count() > 20)
+                                                    <div class="carousel-item">
+                                                        <div class="d-flex">
+                                                            @foreach ($automotivesForSale->slice(19, 4) as $automotive)
+                                                                <article class="col-6 col-lg-3 mb-2 mb-lg-0">
+                                                                    <div class="img-responsive">
+                                                                        <a
+                                                                            href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">
+                                                                            <img src="{{ $automotive->coverFront() }}"
+                                                                                class="card-img-top rounded"
+                                                                                alt="{{ $automotive->title }}"
+                                                                                style="height: auto">
+                                                                        </a>
+                                                                    </div>
+                                                                    <h3 class="my-2"><a
+                                                                            href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}"
+                                                                            class="text-dark main_properties_price text-truncate d-block"
+                                                                            style="font-size: 16px">{{ $automotive->title }}</a>
+                                                                    </h3>
+                                                                    <div class="d-flex flex-wrap justify-content-between">
+                                                                        <span
+                                                                            class="main_properties_price text-dark font-weight-bold"
+                                                                            style="font-size: 18px">R$
+                                                                            {{ $automotive->sale_price }}</span>
+                                                                        <a href="#"
+                                                                            class="ml-2 heart-like text-front icon-heart-o text-dark text-decoration-none text-right"
+                                                                            data-id="{{ $automotive->id }}"></a>
+                                                                    </div>
+                                                                </article>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                                                data-slide="prev" style="margin-top: -50px; margin-left: -80px; opacity:1;">
+                                                <span class="icon-chevron-left" aria-hidden="true"
+                                                    style="font-size: 20px; color:#aaa"></span>
+                                                <span class="sr-only">Anterior</span>
+                                            </a>
+                                            <a class="carousel-control-next overflow-hidden"
+                                                href="#carouselExampleControls" role="button" data-slide="next"
+                                                style="margin-top: -50px; margin-right: -80px; opacity:1;">
+                                                <span class="icon-chevron-right" aria-hidden="true"
+                                                    style="font-size: 20px; color:#aaa"></span>
+                                                <span class="sr-only">Próximo</span>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-
-                                @if ($automotivesForSale->count())
-                                    <div
-                                        class="d-flex justify-content-center justify-content-md-end mt-2 col-12 col-md-6 px-0 mx-0">
-                                        {{ $automotivesForSale->links() }}
-                                    </div>
-                                @endif
-                            </div> --}}
+                            @endif
 
                             <div class="row d-flex justify-content-center">
                                 @foreach ($automotivesForSale as $automotive)
-                                    <div class="col-12 col-md-6 col-lg-6 mb-4">
+                                    <div class="col-12 col-md-6 col-lg-4 mb-3 px-2">
 
                                         <article class="card main_properties_item border border-primary p-2">
                                             <h2 class="m-0 mb-2 d-flex justify-content-between">
@@ -252,40 +449,6 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&callback=markMap">
     </script>
 
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-    <script>
-        const megalike = JSON.parse(localStorage.getItem("megalike"))
-        if (megalike) {
-            $(megalike).each((e, val) => {
-                $(".icon-heart-o").each((el, value) => {
-                    if (val.id === $(value).data().id) {
-                        $(value).removeClass('icon-heart-o').addClass('icon-heart');
-                    }
-                });
-            })
-        }
-
-        $('.heart-like').click(function(e) {
-            e.preventDefault();
-            el = $(this);
-            if (el.hasClass('icon-heart-o')) {
-                el.removeClass('icon-heart-o').addClass('icon-heart');
-                if (localStorage.getItem("megalike")) {
-                    const item = (JSON.parse(localStorage.getItem("megalike")))
-                    item.push(el.data())
-                    localStorage.setItem("megalike", JSON.stringify(item))
-                } else {
-                    localStorage.setItem("megalike", JSON.stringify(Array(el.data())))
-                }
-            } else {
-                el.removeClass('icon-heart').addClass('icon-heart-o');
-                let rem = JSON.parse(localStorage.getItem("megalike"))
-                rem = rem.filter(function(item) {
-                    return item.id !== (el.data().id)
-                })
-                localStorage.setItem("megalike", JSON.stringify(rem))
-            }
-        });
-    </script>
+    <script src="{{ url(asset('frontend/assets/js/like.js')) }}"></script>
+    <script src="{{ url(asset('frontend/assets/js/jquery-ui.js')) }}"></script>
 @endsection

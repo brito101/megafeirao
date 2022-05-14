@@ -46,18 +46,16 @@
     @include('cookieConsent::index')
 
     <header class="main_header">
-
-        <div class="header_bar bg-dark">
-            <div class="container">
-                <div class="row py-1 d-flex justify-content-center">
-                    <a href="{{ route('web.register') }}"
-                        class="font-weight-bold text-decoration-none text-white px-2 text-center">Clique aqui e
-                        obtenha sua loja virtual grátis em www.megafeiraoveiculos.com.br</a>
+        @if (Route::current()->getName() != 'web.filterCompany')
+            <div class="header_bar bg-dark">
+                <div class="container">
+                    <div class="row py-1 d-flex justify-content-center">
+                        <a href="{{ route('web.register') }}"
+                            class="font-weight-bold text-decoration-none text-white px-2 text-center">Clique aqui e
+                            obtenha sua loja virtual grátis em www.megafeiraoveiculos.com.br</a>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        @if (Route::current()->getName() != 'web.filterCompany')
             <nav class="navbar navbar-expand-md navbar-light my-0" style="background-color: #FFF">
                 <div class="container">
                     <div class="navbar-brand">

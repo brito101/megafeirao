@@ -3,7 +3,7 @@
 @section('content')
     <section class="main_property">
         <div class="main_property_content py-5">
-            <div class="container border-top border-navy pt-4">
+            <div class="container">
                 <div class="row">
                     <div class="col-12 col-lg-8">
                         <h1 class="text-truncate h4">

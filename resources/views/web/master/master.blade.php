@@ -56,12 +56,12 @@
                     </div>
                 </div>
             </div>
-            <nav class="navbar navbar-expand-md navbar-light my-0" style="background-color: #FFF">
+            <nav class="navbar navbar-expand-md navbar-light my-0 py-0" style="background-color: #FFF">
                 <div class="container">
                     <div class="navbar-brand">
                         <a href="{{ route('web.home') }}">
                             <h1 class="text-hide">Mega Feirão Veículos</h1>
-                            <img src="{{ url(asset('frontend/assets/images/brand.png')) }}" width="200"
+                            <img src="{{ url(asset('frontend/assets/images/brand.png')) }}" width="175"
                                 alt="Mega Feirão Veículos" class="d-inline-block">
                         </a>
                     </div>

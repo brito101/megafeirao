@@ -4,6 +4,7 @@ namespace LaraCar\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use LaraCar\Automotive;
 use LaraCar\Console\Commands\ReactiveAutoCron;
 
 class Kernel extends ConsoleKernel
@@ -25,8 +26,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $automotives = Automotive::sale()->unavailable()->get();
+        foreach ($automotives as $auto) {
+            if ($auto->user()->first()->ads_limit > 0) {
+                $auto->active_date = date('Y-m-d');
+                $auto->save();
+                $auto->ownerObject()->reduceAdsLimit();
+            }
+        }
         $schedule->command('reactive:cron')->daily();
     }
 

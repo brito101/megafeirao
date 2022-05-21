@@ -45,10 +45,10 @@ class ReactiveAutoCron extends Command
     {
         $automotives = Automotive::sale()->unavailable()->get();
         foreach ($automotives as $auto) {
-            if ($auto->user()->first()->ads_limit > 0) {
+            if ($auto->ownerObject()->first()->ads_limit > 0) {
                 $auto->active_date = date('Y-m-d');
                 $auto->save();
-                $auto->user()->reduceAdsLimit();
+                $auto->ownerObject()->reduceAdsLimit();
             }
         }
         return Command::SUCCESS;

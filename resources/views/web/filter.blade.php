@@ -38,7 +38,7 @@
                         @endif
                     </div>
                 </div> --}}
-                <div class="d-none d-lg-block col-lg-1 px-0 px-lg-2">
+                <div class="d-none d-lg-block col-lg-1 px-0 pr-lg-2 mr-lg-4 ml-lg-n4">
                     <iframe data-aa='2008279' src='//ad.a-ads.com/2008279?size=120x600'
                         style='width:120px; height:600px; border:0px; padding:0; overflow:hidden; background-color: transparent;'></iframe>
                 </div>
@@ -400,14 +400,14 @@
                                             @endif
                                         </div>
                                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                                            data-slide="prev" style="margin-top: -50px; margin-left: -60px; opacity:1;">
+                                            data-slide="prev" style="margin-top: -50px; margin-left: -50px; opacity:1;">
                                             <span class="icon-chevron-left" aria-hidden="true"
                                                 style="font-size: 20px; color:#aaa"></span>
                                             <span class="sr-only">Anterior</span>
                                         </a>
                                         <a class="carousel-control-next overflow-hidden" href="#carouselExampleControls"
                                             role="button" data-slide="next"
-                                            style="margin-top: -50px; margin-right: -60px; opacity:1;">
+                                            style="margin-top: -50px; margin-right: -50px; opacity:1;">
                                             <span class="icon-chevron-right" aria-hidden="true"
                                                 style="font-size: 20px; color:#aaa"></span>
                                             <span class="sr-only">Próximo</span>
@@ -507,7 +507,7 @@
 
                     </div>
                 </div>
-                <div class="d-none d-lg-block col-lg-1 px-0 px-lg-2">
+                <div class="d-none d-lg-block col-lg-1 px-0 pl-lg-2 ml-lg-4 mr-lg-n4">
                     <iframe data-aa='2008279' src='//ad.a-ads.com/2008279?size=120x600'
                         style='width:120px; height:600px; border:0px; padding:0; overflow:hidden; background-color: transparent;'></iframe>
                 </div>

@@ -26,7 +26,7 @@
 
         @if (session()->exists('message'))
             @message(['color' => session()->get('color')])
-            <p class="icon-asterisk">{{ session()->get('message') }}</p>
+                <p class="icon-asterisk">{{ session()->get('message') }}</p>
             @endmessage
         @endif
 
@@ -65,78 +65,56 @@
                                 </div>
 
                                 <div class="realty_list_item_content">
-                                    <h4>#{{ $automotive->id }} {{ $automotive->title }}</h4>
+                                    <h4>#{{ $automotive->id }}
+                                        {{ $automotive->title }}<span class="ml-2"
+                                            style="font-size: 0.875rem; font-weight: lighter;">Visualizações:{{ $automotive->views }}</span>
+                                    </h4>
 
-                                    <div class="realty_list_item_card">
-                                        <div class="realty_list_item_card_image">
-                                            <span class="icon-bar-chart"></span>
-                                        </div>
-                                        <div class="realty_list_item_card_content">
-                                            <div class="text-center" style="flex-basis: 100%;">
-                                                Visualizações:{{ $automotive->views }}</div>
-                                            @if ($automotive->sale == true && !empty($automotive->sale_price))
-                                                <a href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}"
-                                                    class="btn btn-blue button_action" target="_blank">Ver Anúncio</a>
-                                            @endif
+                                    <div class="realty_list_item_card d-flex flex-wrap"
+                                        style="flex-basis: 100%; border:none; ; justify-content: space-between">
+                                        @if ($automotive->sale == true && !empty($automotive->sale_price))
+                                            <a href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}"
+                                                class="btn btn-blue button_action" target="_blank">Ver Anúncio</a>
+                                        @endif
 
-                                            @if ($automotive->rent == true && !empty($automotive->rent_price))
-                                                <a href="{{ route('web.rentAutomotive', ['slug' => $automotive->slug]) }}"
-                                                    class="btn btn-blue button_action" target="_blank">Ver Anúncio</a>
-                                            @endif
+                                        @if ($automotive->rent == true && !empty($automotive->rent_price))
+                                            <a href="{{ route('web.rentAutomotive', ['slug' => $automotive->slug]) }}"
+                                                class="btn btn-blue button_action" target="_blank">Ver Anúncio</a>
+                                        @endif
+
+                                        @php
+                                            $active = $automotive->active_date >= Carbon\Carbon::now()->subDays(30);
+                                        @endphp
+                                        <div class="text-center btn btn-orange" style="height: 35px;
+                                                        display: flex;
+                                                        align-items: center;">
+                                            {{ $active == 1 ? 'Ativo desde de ' . date('d/m/Y', strtotime($automotive->active_date)) : 'Inativo' }}
                                         </div>
+                                        @if ($active == 0)
+                                            <form
+                                                action="{{ route('admin.automotives.reactive', ['automotive' => $automotive->id]) }}"
+                                                method="post">
+                                                @csrf
+                                                <input class="btn btn-orange button_action" type="submit"
+                                                    value="Reanunciar">
+                                            </form>
+                                        @endif
+
+                                        @can('Editar Veículos')
+                                            <a href="{{ route('admin.automotives.edit', ['automotive' => $automotive->id]) }}"
+                                                class="btn btn-green button_action">Editar</a>
+                                        @endcan
+
+                                        @can('Remover Veículos')
+                                            <form
+                                                action="{{ route('admin.automotives.destroy', ['automotive' => $automotive->id]) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <input class="btn btn-red button_action" type="submit" value="Remover">
+                                            </form>
+                                        @endcan
                                     </div>
-
-                                    <div class="realty_list_item_card">
-                                        <div class="realty_list_item_card_image">
-                                            <span class="icon-upload"></span>
-                                        </div>
-                                        <div class="realty_list_item_card_content">
-                                            @php
-                                                $active = $automotive->active_date >= Carbon\Carbon::now()->subDays(30);
-                                            @endphp
-                                            <div class="text-center" style="flex-basis: 100%;">Status:
-                                                {{ $active == 1 ? 'Ativo desde de ' . date('d/m/Y', strtotime($automotive->active_date)) : 'Inativo' }}
-                                            </div>
-                                            @if ($active == 0)
-                                                <form
-                                                    action="{{ route('admin.automotives.reactive', ['automotive' => $automotive->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    <input class="btn btn-orange button_action" type="submit"
-                                                        value="Reanunciar">
-                                                </form>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    @can('Editar Veículos')
-                                        <div class="realty_list_item_card">
-                                            <div class="realty_list_item_card_image">
-                                                <span class="icon-pencil"></span>
-                                            </div>
-                                            <div class="realty_list_item_card_content">
-                                                <a href="{{ route('admin.automotives.edit', ['automotive' => $automotive->id]) }}"
-                                                    class="btn btn-green button_action">Editar</a>
-                                            </div>
-                                        </div>
-                                    @endcan
-
-                                    @can('Remover Veículos')
-                                        <div class="realty_list_item_card">
-                                            <div class="realty_list_item_card_image">
-                                                <span class="icon-trash"></span>
-                                            </div>
-                                            <div class="realty_list_item_card_content">
-                                                <form
-                                                    action="{{ route('admin.automotives.destroy', ['automotive' => $automotive->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <input class="btn btn-red button_action" type="submit" value="Remover">
-                                                </form>
-                                            </div>
-                                        </div>
-                                    @endcan
 
                                 </div>
 

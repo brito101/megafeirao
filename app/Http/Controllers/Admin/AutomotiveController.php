@@ -61,6 +61,13 @@ class AutomotiveController extends Controller
             throw new UnauthorizedException('403', 'You do not have the required authorization.');
         }
 
+        if (Auth::user()->hasRole('Anunciante')) {
+            $company = Company::where('user', Auth::user()->id)->first();
+            if (empty($company->id)) {
+                return redirect()->route('admin.companies.index')->with(['color' => 'orange', 'message' => 'É necessário a criação de uma loja inicialmente. Crie a sua agora!']);
+            }
+        }
+
         $users = User::orderBy('name')->get();
         return view('admin.automotives.create', [
             'users' => $users
@@ -93,6 +100,11 @@ class AutomotiveController extends Controller
             $company = Company::where('user', Auth::user()->id)->first();
         } else {
             $company = Company::where('user', $request->user)->first();
+        }
+
+        if (empty($company->id)) {
+            return redirect()->route('admin.automotives.index')->with(['color' => 'orange', 'message' => 'Cadastro não '
+                . 'realizado! É necessário a criação de uma loja inicialmente']);
         }
 
         $createAutomotive->zipcode = $company->zipcode;
@@ -179,6 +191,14 @@ class AutomotiveController extends Controller
         if (Auth::user()->hasRole('Anunciante') && $automotive->user != Auth::user()->id) {
             throw new UnauthorizedException('403', 'You do not have the required authorization.');
         }
+
+        if (Auth::user()->hasRole('Anunciante')) {
+            $company = Company::where('user', Auth::user()->id)->first();
+            if (empty($company->id)) {
+                return redirect()->route('admin.companies.index')->with(['color' => 'orange', 'message' => 'É necessário a criação de uma loja inicialmente. Crie a sua agora!']);
+            }
+        }
+
         $users = User::orderBy('name')->get();
         return view('admin.automotives.edit', [
             'automotive' => $automotive,
@@ -212,6 +232,11 @@ class AutomotiveController extends Controller
             $company = Company::where('user', Auth::user()->id)->first();
         } else {
             $company = Company::where('user', $request->user)->first();
+        }
+
+        if (empty($company->id)) {
+            return redirect()->route('admin.automotives.index')->with(['color' => 'orange', 'message' => 'Cadastro não '
+                . 'realizado! É necessário a criação de uma loja inicialmente']);
         }
 
         $automotive->zipcode = $company->zipcode;

@@ -22,23 +22,19 @@
         @if ($errors->all())
             @foreach ($errors->all() as $error)
                 @message(['color' => 'orange'])
-                <p class="icon-asterisk">{{ $error }}</p>
+                    <p class="icon-asterisk">{{ $error }}</p>
                 @endmessage
             @endforeach
         @endif
 
         @if (session()->exists('message'))
             @message(['color' => session()->get('color')])
-            <p class="icon-asterisk">{{ session()->get('message') }}</p>
+                <p class="icon-asterisk">{{ session()->get('message') }}</p>
             @endmessage
         @endif
 
         <div class="dash_content_app_box">
-            @if ($company->cover)
-                <div class="img-responsive-16by9 mb-1 text-center">
-                    <img src="{{ $company->cover() }}" class="radius" alt="" width="250">
-                </div>
-            @endif
+
             <div class="dash_content_app_box_stage">
                 <form class="app_form" action="{{ route('admin.companies.update', ['company' => $company]) }}"
                     method="post" enctype="multipart/form-data">
@@ -137,16 +133,92 @@
 
                     <div class="label_g2">
                         <label class="label">
+                            <span class="legend">*Link para a loja (sem espaços ou símbolos):</span>
+                            <input type="text" name="slug" class="link" placeholder="Link"
+                                value="{{ old('slug') ?? $company->slug }}" required />
+                        </label>
+                    </div>
+
+                    <div class="label_g2">
+                        <label class="label">
                             <span class="legend">Logo simples medindo até 7x4cm (horizontal).</span>
                             <input type="file" name="cover">
                         </label>
 
                         <label class="label">
-                            <span class="legend">*Link para a loja (sem espaços ou símbolos):</span>
-                            <input type="text" name="slug" class="link" placeholder="Link"
-                                value="{{ old('slug') ?? $company->slug }}" required />
+                            @if ($company->cover)
+                                <div class="img-responsive-16by9 mb-1 text-center">
+                                    <img src="{{ $company->cover() }}" alt="" width="250">
+                                </div>
+                            @endif
                         </label>
 
+                    </div>
+
+                    <div class="label_g2">
+                        <label class="label">
+                            <span class="legend">Banner Principal (topo) da loja, medindo 1900x300px (horizontal)
+                                nos formatos
+                                jpg, jpeg ou png de no máximo 1MB.</span>
+                            <input type="file" name="main_banner">
+                        </label>
+
+                        <label class="label">
+                            @if ($company->main_banner)
+                                <div class="img-responsive-16by9 mb-1 text-center">
+                                    <img src="{{ $company->mainBanner() }}" class="radius" alt="" width="100%">
+                                </div>
+                            @endif
+                        </label>
+                    </div>
+
+
+                    <div class="label_g2">
+                        <label class="label">
+                            <span class="legend">1º Banner da loja, medindo 1900x600px (horizontal) nos formatos
+                                jpg, jpeg ou png de no máximo 1MB.</span>
+                            <input type="file" name="banner1">
+                        </label>
+
+                        <label class="label">
+                            @if ($company->banner1)
+                                <div class="img-responsive-16by9 mb-1 text-center">
+                                    <img src="{{ $company->banner1() }}" class="radius" alt="" width="100%">
+                                </div>
+                            @endif
+                        </label>
+                    </div>
+
+                    <div class="label_g2">
+                        <label class="label">
+                            <span class="legend">2º Banner da loja, medindo 1900x600px (horizontal) nos formatos
+                                jpg, jpeg ou png de no máximo 1MB.</span>
+                            <input type="file" name="banner2">
+                        </label>
+
+                        <label class="label">
+                            @if ($company->banner2)
+                                <div class="img-responsive-16by9 mb-1 text-center">
+                                    <img src="{{ $company->banner2() }}" class="radius" alt="" width="100%">
+                                </div>
+                            @endif
+                        </label>
+                    </div>
+
+                    <div class="label_g2">
+                        <label class="label">
+                            <span class="legend">3º Banner da loja, medindo 1900x600px (horizontal) nos formatos
+                                jpg, jpeg ou png de no máximo 1MB.</span>
+                            <input type="file" name="banner3">
+                        </label>
+
+                        <label class="label">
+                            @if ($company->banner3)
+                                <div class="img-responsive-16by9 mb-1 text-center">
+                                    <img src="{{ $company->banner3() }}" class="radius" alt="" width="100%">
+                                </div>
+                            @endif
+                        </label>
                     </div>
 
                     <div class="text-right">

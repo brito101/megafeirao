@@ -31,7 +31,10 @@ class Company extends Model
         'slug',
         'telephone',
         'cell',
-        'email'
+        'email',
+        'banner1',
+        'banner2',
+        'banner3',
     ];
 
     /*
@@ -69,6 +72,50 @@ class Company extends Model
         return Storage::url(Cropper::thumb($cover, 1366, 768));
     }
 
+    public function mainBanner()
+    {
+        $banner = $this->main_banner;
+
+        if (empty($banner) || !File::exists('../public/storage/' . $banner)) {
+            return null;
+        }
+
+        return Storage::url(Cropper::thumb($banner, 1900, 300));
+    }
+
+    public function banner1()
+    {
+        $banner = $this->banner1;
+
+        if (empty($banner) || !File::exists('../public/storage/' . $banner)) {
+            return null;
+        }
+
+        return Storage::url(Cropper::thumb($banner, 1900, 600));
+    }
+
+    public function banner2()
+    {
+        $banner = $this->banner2;
+
+        if (empty($banner) || !File::exists('../public/storage/' . $banner)) {
+            return null;
+        }
+
+        return Storage::url(Cropper::thumb($banner, 1900, 600));
+    }
+
+    public function banner3()
+    {
+        $banner = $this->banner3;
+
+        if (empty($banner) || !File::exists('../public/storage/' . $banner)) {
+            return null;
+        }
+
+        return Storage::url(Cropper::thumb($banner, 1900, 600));
+    }
+
     public function owner()
     {
         return $this->hasOne(User::class, 'id', 'user');
@@ -86,6 +133,38 @@ class Company extends Model
     {
         if (!empty($this->cover1)) {
             return Storage::url(Cropper::thumb($this->cover1, 1366, 768));
+        }
+        return '';
+    }
+
+    public function getUrlMainBannerAttribute()
+    {
+        if (!empty($this->main_banner)) {
+            return Storage::url(Cropper::thumb($this->main_banner, 1900, 200));
+        }
+        return '';
+    }
+
+    public function getUrlBanner1Attribute()
+    {
+        if (!empty($this->banner1)) {
+            return Storage::url(Cropper::thumb($this->banner1, 1900, 600));
+        }
+        return '';
+    }
+
+    public function getUrlBanner2Attribute()
+    {
+        if (!empty($this->banner2)) {
+            return Storage::url(Cropper::thumb($this->banner1, 1900, 600));
+        }
+        return '';
+    }
+
+    public function getUrlBanner3Attribute()
+    {
+        if (!empty($this->banner3)) {
+            return Storage::url(Cropper::thumb($this->banner1, 1900, 600));
         }
         return '';
     }

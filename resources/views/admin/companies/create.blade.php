@@ -22,14 +22,14 @@
         @if ($errors->all())
             @foreach ($errors->all() as $error)
                 @message(['color' => 'orange'])
-                <p class="icon-asterisk">{{ $error }}</p>
+                    <p class="icon-asterisk">{{ $error }}</p>
                 @endmessage
             @endforeach
         @endif
 
         @if (session()->exists('message'))
             @message(['color' => session()->get('color')])
-            <p class="icon-asterisk">{{ session()->get('message') }}</p>
+                <p class="icon-asterisk">{{ session()->get('message') }}</p>
             @endmessage
         @endif
 
@@ -143,6 +143,33 @@
                             <span class="legend">*Link para a loja (sem espaços ou símbolos):</span>
                             <input type="text" name="slug" class="link" placeholder="Link"
                                 value="{{ old('slug') }}" required />
+                        </label>
+                    </div>
+
+                    <div class="label_g3">
+                        <label class="label">
+                            <span class="legend">Banner Principal (topo) da loja, medindo 1900x300px (horizontal)
+                                nos formatos
+                                jpg, jpeg ou png de no máximo 1MB.</span>
+                            <input type="file" name="main_banner">
+                        </label>
+
+                        <label class="label">
+                            <span class="legend">1º Banner da loja, medindo 1900x600px (horizontal) nos formatos
+                                jpg, jpeg ou png de no máximo 1MB.</span>
+                            <input type="file" name="banner1">
+                        </label>
+
+                        <label class="label">
+                            <span class="legend">2º Banner da loja, medindo 1900x600px (horizontal) nos formatos
+                                jpg, jpeg ou png de no máximo 1MB.</span>
+                            <input type="file" name="banner2">
+                        </label>
+
+                        <label class="label">
+                            <span class="legend">3º Banner da loja, medindo 1900x600px (horizontal) nos formatos
+                                jpg, jpeg ou png de no máximo 1MB.</span>
+                            <input type="file" name="banner3">
                         </label>
                     </div>
 

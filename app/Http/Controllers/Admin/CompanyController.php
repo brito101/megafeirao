@@ -110,6 +110,34 @@ class CompanyController extends Controller
             $createCompany->save();
         }
 
+        if (!empty($request->file('main_banner'))) {
+            $createCompany->main_banner = $request->file('main_banner')
+                ->storeAs('mainbanner', Str::slug($request->social_name) . '-main-banner-' . str_replace('.', '', microtime(true)) . '.' . $request->file('main_banner')
+                    ->extension());
+            $createCompany->save();
+        }
+
+        if (!empty($request->file('banner1'))) {
+            $createCompany->banner1 = $request->file('banner1')
+                ->storeAs('banner1', Str::slug($request->social_name) . '-banner1-' . str_replace('.', '', microtime(true)) . '.' . $request->file('banner1')
+                    ->extension());
+            $createCompany->save();
+        }
+
+        if (!empty($request->file('banner2'))) {
+            $createCompany->banner2 = $request->file('banner2')
+                ->storeAs('banner2', Str::slug($request->social_name) . '-banner2-' . str_replace('.', '', microtime(true)) . '.' . $request->file('banner2')
+                    ->extension());
+            $createCompany->save();
+        }
+
+        if (!empty($request->file('banner3'))) {
+            $createCompany->banner3 = $request->file('banner3')
+                ->storeAs('banner3', Str::slug($request->social_name) . '-banner3-' . str_replace('.', '', microtime(true)) . '.' . $request->file('banner3')
+                    ->extension());
+            $createCompany->save();
+        }
+
         return redirect()->route('admin.companies.edit', [
             'company' => $createCompany->id,
         ])->with(['color' => 'green', 'message' => 'Empresa cadastrada com sucesso!']);
@@ -212,6 +240,30 @@ class CompanyController extends Controller
             $company->cover1 = '';
         }
 
+        if (!empty($request->file('main_banner'))) {
+            Storage::delete($company->main_banner);
+            Cropper::flush($company->main_banner);
+            $company->main_banner = '';
+        }
+
+        if (!empty($request->file('banner1'))) {
+            Storage::delete($company->banner1);
+            Cropper::flush($company->banner1);
+            $company->banner1 = '';
+        }
+
+        if (!empty($request->file('banner2'))) {
+            Storage::delete($company->banner2);
+            Cropper::flush($company->banner2);
+            $company->banner2 = '';
+        }
+
+        if (!empty($request->file('banner3'))) {
+            Storage::delete($company->banner3);
+            Cropper::flush($company->banner3);
+            $company->banner3 = '';
+        }
+
         $company->fill($request->all());
 
         if (Auth::user()->hasRole('Anunciante')) {
@@ -230,6 +282,34 @@ class CompanyController extends Controller
         if (!empty($request->file('cover1'))) {
             $company->cover1 = $request->file('cover1')
                 ->storeAs('company', Str::slug($request->social_name) . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('cover1')
+                    ->extension());
+            $company->save();
+        }
+
+        if (!empty($request->file('main_banner'))) {
+            $company->main_banner = $request->file('main_banner')
+                ->storeAs('mainbanner', Str::slug($request->social_name) . '-main-banner-' . str_replace('.', '', microtime(true)) . '.' . $request->file('main_banner')
+                    ->extension());
+            $company->save();
+        }
+
+        if (!empty($request->file('banner1'))) {
+            $company->banner1 = $request->file('banner1')
+                ->storeAs('banner1', Str::slug($request->social_name) . '-banner1-' . str_replace('.', '', microtime(true)) . '.' . $request->file('banner1')
+                    ->extension());
+            $company->save();
+        }
+
+        if (!empty($request->file('banner2'))) {
+            $company->banner2 = $request->file('banner2')
+                ->storeAs('banner2', Str::slug($request->social_name) . '-banner2-' . str_replace('.', '', microtime(true)) . '.' . $request->file('banner2')
+                    ->extension());
+            $company->save();
+        }
+
+        if (!empty($request->file('banner3'))) {
+            $company->banner3 = $request->file('banner3')
+                ->storeAs('banner3', Str::slug($request->social_name) . '-banner3-' . str_replace('.', '', microtime(true)) . '.' . $request->file('banner3')
                     ->extension());
             $company->save();
         }

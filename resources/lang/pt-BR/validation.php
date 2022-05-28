@@ -266,6 +266,10 @@ return [
         'file' => 'arquivo',
         'slug' => 'link',
         'initial_ads' => 'quantidade inicial de anúncios',
-        'youtube_link' => 'link de vídeo do YouTube'
+        'youtube_link' => 'link de vídeo do YouTube',
+        'main_banner' => 'banner principal',
+        'banner1' => '1º banner',
+        'banner2' => '2º banner',
+        'banner3' => '3º banner',
     ],
 ];

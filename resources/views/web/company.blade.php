@@ -2,48 +2,108 @@
 
 @section('content')
     <section class="main_property">
+
         <div class="main_property_header">
             <div class="px-0 mx-0 bg-dark mt-n1">
-                <div class="row p-1 mx-0">
-                    <div class="container">
-                        <div class="col-12 text-center text-white font-weight-bold d-flex flex-wrap justify-content-center">
-                            <div class="col-12 col-md-4 d-flex align-items-center py-2 py-md-0">
-                                @if ($company->street)
-                                    <div class="col-12 text-center text-md-left">
-                                        {{ $company->street ? $company->street . ', ' : '' }}
-                                        {{ $company->number ? $company->number . ', ' : '' }}
-                                        {{ $company->neighborhood ? $company->neighborhood . ', ' : '' }}
-                                        {{ $company->city ? $company->city : '' }}
-                                        {{ $company->state ? '-' . $company->state . '. ' : '' }}
-                                        {{ $company->zipcode ? 'CEP: ' . $company->zipcode . '. ' : '' }}
+                @if ($company->main_banner)
+                    <div class="row col-12 px-0 mx-0" style="max-height: 300px;">
+                        <img src="{{ $company->mainBanner() }}" style="height: auto; max-width: 100%;"
+                            alt="{{ $company->social_name }}">
+                    </div>
+                    <div
+                        class="col-12 text-center text-white font-weight-bold d-flex flex-wrap justify-content-center bg-danger py-2">
+                        <div class="container d-flex flex-wrap justify-content-center">
+
+                            @if ($company->street)
+                                {{ $company->street ? $company->street . ', ' : '' }}
+                                {{ $company->number ? $company->number . ', ' : '' }}
+                                {{ $company->neighborhood ? $company->neighborhood . ', ' : '' }}
+                                {{ $company->city ? $company->city : '' }}
+                                {{ $company->state ? '-' . $company->state . '. ' : '' }}
+                                {{ $company->zipcode ? 'CEP: ' . $company->zipcode . '. ' : '' }}
+                            @endif
+
+                            @if ($company->telephone)
+                                <div>
+                                    <i class="ml-md-2 icon-phone-square text-white"></i>{{ $company->telephone }}
+                                </div>
+                            @endif
+                            @if ($company->cell)
+                                <div>
+                                    <i class="icon-whatsapp text-white"></i>{{ $company->cell }}
+                                </div>
+                            @endif
+
+                        </div>
+                    </div>
+            </div>
+        @else
+            <div class="row p-1 mx-0">
+                <div class="container">
+                    <div class="col-12 text-center text-white font-weight-bold d-flex flex-wrap justify-content-center">
+                        <div class="col-12 col-md-4 d-flex align-items-center py-2 py-md-0">
+                            @if ($company->street)
+                                <div class="col-12 text-center text-md-left">
+                                    {{ $company->street ? $company->street . ', ' : '' }}
+                                    {{ $company->number ? $company->number . ', ' : '' }}
+                                    {{ $company->neighborhood ? $company->neighborhood . ', ' : '' }}
+                                    {{ $company->city ? $company->city : '' }}
+                                    {{ $company->state ? '-' . $company->state . '. ' : '' }}
+                                    {{ $company->zipcode ? 'CEP: ' . $company->zipcode . '. ' : '' }}
+                                </div>
+                            @endif
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="d-flex py-1">
+                                <img src="{{ $company->cover() }}" class="w-75 m-auto img-thumbnail "
+                                    alt="{{ $company->social_name }}">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 d-flex flex-wrap align-items-center justify-content-end">
+                            <div class="col-12 col-md-9 col-lg-7 text-center mt-2 mt-md-0 text-md-left">
+                                @if ($company->telephone)
+                                    <div>
+                                        <i class="icon-phone-square text-success"></i>{{ $company->telephone }}
                                     </div>
                                 @endif
-                            </div>
-                            <div class="col-12 col-md-4">
-                                <div class="d-flex py-1">
-                                    <img src="{{ $company->cover() }}" class="w-75 m-auto img-thumbnail"
-                                        alt="{{ $company->social_name }}">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-4 d-flex flex-wrap align-items-center justify-content-end">
-                                <div class="col-12 col-md-9 col-lg-7 text-center mt-2 mt-md-0 text-md-left">
-                                    @if ($company->telephone)
-                                        <div>
-                                            <i class="icon-phone-square text-success"></i>{{ $company->telephone }}
-                                        </div>
-                                    @endif
-                                    @if ($company->cell)
-                                        <div>
-                                            <i class="icon-whatsapp text-success"></i>{{ $company->cell }}
-                                        </div>
-                                    @endif
-                                </div>
+                                @if ($company->cell)
+                                    <div>
+                                        <i class="icon-whatsapp text-success"></i>{{ $company->cell }}
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
         </div>
+        </div>
+
+        @if ($company->banner1() || $company->banner2() || $company->banner3())
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    @if ($company->banner1())
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="{{ $company->banner1() }}" alt="First slide"
+                                style="height: auto">
+                        </div>
+                    @endif
+                    @if ($company->banner2())
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="{{ $company->banner2() }}" alt="Second slide"
+                                style="height: auto">
+                        </div>
+                    @endif
+                    @if ($company->banner3())
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="{{ $company->banner3() }}" alt="Third slide"
+                                style="height: auto">
+                        </div>
+                    @endif
+                </div>
+            </div>
+        @endif
 
         @if ($automotivesForSale->count())
             <div class="bg-warning py-2 mb-5">
@@ -356,7 +416,8 @@
                                                                 {{ $automotive->mileage }}</p>
                                                         </div>
                                                         <div class="col-12 d-flex flex-wrap justify-content-center">
-                                                            <p class="mb-n3 mt-2 text-muted main_automotives_item">Câmbio
+                                                            <p class="mb-n3 mt-2 text-muted main_automotives_item">
+                                                                Câmbio
                                                             </p>
                                                             <p
                                                                 class="font-weight-bold text-sm text-dark text-truncate mt-2 mb-n1 w-100 text-center main_automotives_item">
@@ -402,8 +463,6 @@
             </div>
     </section>
     @endif
-
-
 @endsection
 
 @section('js')

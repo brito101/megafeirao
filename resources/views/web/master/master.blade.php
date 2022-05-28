@@ -102,7 +102,7 @@
         </div>
     </header>
 
-    <div style="min-height: calc(100vh - 115px); background-color: #FFF">
+    <div style="background-color: #FFF">
         @yield('content')
     </div>
 

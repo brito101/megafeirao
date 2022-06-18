@@ -83,13 +83,95 @@ class WebController extends Controller
             );
             // $automotivesForSale = Automotive::sale()->available()->where('user', $company->user)->sortable(['created_at' => 'desc'])->paginate(10);
 
-            $automotivesForSale = Automotive::sale()->available()->where('user', $company->user)->orderBy('created_at', 'desc')->get();
+            $automotivesForSale = Automotive::sale()->available()->where('user', $company->user)->orderBy('created_at', 'desc')->limit(12)->get();
+
+            if ($company->template == 'Alfa') {
+                return view('web.templates.template-1.company', [
+                    'head' => $head,
+                    'company' => $company,
+                    'automotivesForSale' => $automotivesForSale
+                ]);
+            }
 
             return view('web.company', [
                 'head' => $head,
                 'company' => $company,
                 'automotivesForSale' => $automotivesForSale
             ]);
+        } else {
+            return redirect()->route('web.companies');
+        }
+    }
+
+    public function filterCompanyAutomotive(Request $request)
+    {
+        $company = Company::where('slug', $request->slug)->first();
+        if ($company) {
+            $head = $this->seo->render(
+                env('APP_NAME') . ' - Loja: ' . $company->social_name . ' - Veículos',
+                $company->social_name,
+                route('web.filterCompanyAutomotive', ['slug' => $company->slug]),
+                $company->cover()
+            );
+
+            $automotivesForSale = Automotive::sale()->available()->where('user', $company->user)->orderBy('created_at', 'desc')->get();
+
+            if ($company->template == 'Alfa') {
+                return view('web.templates.template-1.list', [
+                    'head' => $head,
+                    'company' => $company,
+                    'automotivesForSale' => $automotivesForSale
+                ]);
+            } else {
+                return redirect()->route('web.filterCompany', ['slug' => $company->slug]);
+            }
+        } else {
+            return redirect()->route('web.companies');
+        }
+    }
+
+    public function filterCompanyLocation(Request $request)
+    {
+        $company = Company::where('slug', $request->slug)->first();
+        if ($company) {
+            $head = $this->seo->render(
+                env('APP_NAME') . ' - Loja: ' . $company->social_name . ' - Localização',
+                $company->social_name,
+                route('web.filterCompanyLocation', ['slug' => $company->slug]),
+                $company->cover()
+            );
+
+            if ($company->template == 'Alfa') {
+                return view('web.templates.template-1.location', [
+                    'head' => $head,
+                    'company' => $company
+                ]);
+            } else {
+                return redirect()->route('web.filterCompany', ['slug' => $company->slug]);
+            }
+        } else {
+            return redirect()->route('web.companies');
+        }
+    }
+
+    public function filterCompanyContact(Request $request)
+    {
+        $company = Company::where('slug', $request->slug)->first();
+        if ($company) {
+            $head = $this->seo->render(
+                env('APP_NAME') . ' - Loja: ' . $company->social_name . ' - Contato',
+                $company->social_name,
+                route('web.filterCompanyContact', ['slug' => $company->slug]),
+                $company->cover()
+            );
+            if ($company->template == 'Alfa') {
+                return view('web.templates.template-1.contact', [
+                    'head' => $head,
+                    'company' => $company
+                ]);
+            } else {
+                return redirect()->route('web.filterCompany', ['slug' => $company->slug]);
+            }
         } else {
             return redirect()->route('web.companies');
         }

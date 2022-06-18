@@ -158,6 +158,63 @@ mix
         "resources/views/admin/assets/images",
         "public/backend/assets/images"
     )
+    //Templates
+    .sass(
+        "resources/views/web/templates/template-1/assets/scss/style.scss",
+        "public/company-template/assets/css/style.css"
+    )
+    .sass(
+        "resources/views/web/templates/template-1/assets/scss/color.scss",
+        "public/company-template/assets/css/color.css"
+    )
+    .copyDirectory(
+        "resources/views/web/templates/template-1/assets/img",
+        "public/company-template/assets/img"
+    )
+    .styles(
+        [
+            "resources/views/web/templates/template-1/assets/css/bootstrap.css",
+            "resources/views/web/templates/template-1/assets/css/bootstrap-theme.css",
+            "resources/views/web/templates/template-1/assets/css/custom.css",
+        ],
+        "public/company-template/assets/css/lib.css"
+    )
+    .styles(
+        ["resources/views/web/templates/template-1/assets/css/carousel.css"],
+        "public/company-template/assets/css/carousel.css"
+    )
+    .scripts(
+        [
+            "resources/views/web/templates/template-1/assets/js/jquery-3.6.0.min.js",
+        ],
+        "public/company-template/assets/js/jquery.js"
+    )
+    .scripts(
+        [
+            "resources/views/web/templates/template-1/assets/js/jquery-ui.min.js",
+        ],
+        "public/company-template/assets/js/jquery-ui.js"
+    )
+    .scripts(
+        [
+            "resources/views/web/templates/template-1/assets/js/owl.carousel.min.js",
+        ],
+        "public/company-template/assets/js/carousel.js"
+    )
+    .scripts(
+        ["resources/views/web/templates/template-1/assets/js/bootstrap.js"],
+        "public/company-template/assets/js/bootstrap.js"
+    )
+    .scripts(
+        ["resources/views/web/templates/template-1/assets/js/init.js"],
+        "public/company-template/assets/js/init.js"
+    )
+    .scripts(
+        [
+            "resources/views/web/templates/template-1/assets/js/jquery.flexslider.js",
+        ],
+        "public/company-template/assets/js/flexslider.js"
+    )
     .options({
         processCssUrls: false,
     })

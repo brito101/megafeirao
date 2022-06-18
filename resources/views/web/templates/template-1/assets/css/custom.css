@@ -1,0 +1,854 @@
+.linkLateral {
+    -webkit-border-top-left-radius: 0.4rem;
+    -webkit-border-bottom-left-radius: 0.4rem;
+    -moz-border-radius-topleft: 0.4rem;
+    -moz-border-radius-bottomleft: 0.4rem;
+    border-top-left-radius: 0.4rem;
+    border-bottom-left-radius: 0.4rem;
+    -webkit-box-shadow: 0 0 0.3rem 0 rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 0 0 0.3rem 0 rgba(50, 50, 50, 0.75);
+    box-shadow: 0 0 0.3rem 0 rgba(50, 50, 50, 0.75);
+    padding: 15px 7px 15px 10px;
+    position: fixed;
+    right: 0;
+    text-align: right;
+    background-color: #313131;
+    z-index: 9997;
+}
+.linkLateral:hover {
+    padding-right: 15px;
+    background-color: #111;
+}
+.linkLateral:nth-child(2) {
+    top: 130px;
+}
+.linkLateral:nth-child(3) {
+    top: 205px;
+}
+.linkLateral:nth-child(4) {
+    top: 280px;
+}
+.linkLateral:nth-child(5) {
+    top: 355px;
+}
+.veiculo-detalhes {
+    position: relative;
+}
+.veiculo-detalhes .nav-tabs > li {
+    font-size: 16px;
+}
+.veiculo-detalhes .nav-tabs {
+    margin-top: -25px;
+    margin-bottom: 15px;
+}
+.contentDetalhesVeiculo {
+    background-color: #eee;
+    padding: 50px 0 20px;
+}
+.veiculo-detalhes .title-Veiculo {
+    padding: 12px 15px;
+    position: relative;
+    background-color: #f4f4f4;
+}
+.veiculo-detalhes .title-Veiculo h2 {
+    font-size: 16px;
+    margin-bottom: 0;
+}
+.veiculo-detalhes .title-Veiculo strong {
+    font-size: 18px;
+}
+.ad-photo-controls .prev-photo.visible,
+.veiculo-detalhes .ad-photo-controls .next-photo.visible {
+    display: inline-block;
+}
+.ad-photo-controls .prev-photo,
+.veiculo-detalhes .ad-photo-controls .next-photo {
+    cursor: pointer;
+    display: none;
+    height: 45px;
+    outline: 0;
+    position: absolute;
+    text-indent: -9999px;
+    width: 45px;
+    z-index: 9999;
+}
+.veiculo-detalhes .ad-photo-controls .next-photo {
+    background: url("../img/setas.png") no-repeat;
+    background-position: -50px -40px;
+    cursor: pointer;
+    right: 10px;
+    margin-top: 30%;
+}
+.veiculo-detalhes .ad-photo-controls .prev-photo {
+    background: url("../img/setas.png") no-repeat;
+    background-position: -10px -40px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-top: 30%;
+}
+.veiculo-detalhes .images-veiculo .featured-image .media-box .zoom,
+.veiculo-detalhes .images-veiculo .featured-image img {
+    border-radius: 3px 3px 0 0;
+}
+.veiculo-detalhes .images-veiculo .additional-images {
+    background: #f9f9f9;
+    overflow: hidden;
+    padding: 10px;
+    border-radius: 0 0 3px 3px;
+}
+.additional-images .owl-carousel {
+    margin-left: 0;
+}
+.additional-images .owl-carousel .item-video i {
+    position: absolute;
+    z-index: 9;
+    top: 50%;
+    left: 50%;
+    margin-top: -15px;
+    font-size: 30px;
+    color: rgba(255, 255, 255, 0.9);
+}
+.additional-images .owl-carousel .item {
+    margin-left: 1px;
+}
+.additional-images .owl-carousel .owl-wrapper-outer {
+    width: 100% !important;
+}
+.additional-images .owl-theme .owl-controls {
+    margin-top: 0;
+}
+.additional-images .owl-theme .owl-buttons div {
+    margin-top: -13px;
+}
+.additional-images .owl-theme .owl-buttons div.owl-prev {
+    left: 0;
+}
+.veiculo-detalhes .precoVeiculo {
+    position: relative;
+    padding: 8px 15px 8px 30px;
+    color: #fff;
+    font-size: 14px;
+    background: #0083c9;
+}
+.veiculo-detalhes .precoVeiculo strong {
+    font-size: 36px;
+    display: block;
+    line-height: normal;
+}
+.formPropostaVeiculo {
+    background: #fff;
+    padding: 20px;
+}
+.formPropostaVeiculo .listing-container {
+    padding-top: 20px;
+}
+.formPropostaVeiculo .form-control {
+    margin-bottom: 12px;
+}
+.formPropostaVeiculo .checkbox-inline {
+    display: block;
+    margin: 0 0 10px;
+}
+.formPropostaVeiculo.checkbox-inline .checkbox {
+    margin-top: 0;
+}
+.formPropostaVeiculo .btn-primary {
+    margin-top: 10px;
+}
+.veiculo-detalhes .telefone-loja {
+    background: #f4f4f4;
+    border-radius: 3px;
+    padding: 15px 20px 18px;
+    font-size: 11px;
+}
+.veiculo-detalhes .telefone-loja i {
+    font-size: 24px;
+    float: left;
+    margin-right: 10px;
+    position: relative;
+    top: 5px;
+    padding-bottom: 15px;
+}
+.veiculo-detalhes .telefone-loja .telefone {
+    font-size: 21px;
+    line-height: 21px;
+    display: block;
+    font-weight: 600;
+    list-style: none;
+    margin: 0;
+}
+.veiculo-detalhes .telefone-loja .telefone li:first-child {
+    border-right: 1px solid #ccc;
+}
+.veiculo-detalhes .telefone-loja .telefone li {
+    float: left;
+    margin-right: 10px;
+    padding-right: 10px;
+}
+.veiculo-detalhes .telefone-loja a {
+    text-decoration: underline;
+}
+.dados_anuncio .listadados {
+    text-align: center;
+    width: 99%;
+    color: #4d5c77;
+    float: left;
+}
+.dados_anuncio .listadados li.col5 {
+    width: 19%;
+}
+.dados_anuncio .listadados li,
+.dados_anuncio .listadadosmontadoraphone li {
+    margin-top: 10px;
+    border-right: 1px solid #d4d4d4;
+    text-align: center;
+    padding: 0;
+    width: 91px;
+    padding-top: 10px;
+    display: block;
+    float: left;
+    margin-right: 5px;
+    padding-right: 5px;
+    clear: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.dados_anuncio .listadados li.ultimo,
+.dados_anuncio .listadadosmontadoraphone li.ultimo {
+    border: none;
+}
+.dados_anuncio .info {
+    font-size: 1.2em;
+}
+.dados_anuncio .info_destaque {
+    font-weight: 700;
+    font-size: 1.2em;
+    line-height: 1.4em;
+}
+#vehicle-add-features {
+    margin-top: 20px;
+}
+.add-features-list {
+    margin: 0 0 15px;
+    list-style-type: none;
+}
+.add-features-list li {
+    padding: 2px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 13px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075);
+}
+#vehicle-overview {
+    text-align: justify;
+    padding-right: 20px;
+}
+.contentEstoque {
+    background: #eee;
+}
+.contentEstoque .search-filters {
+    position: relative;
+    font-size: 13px;
+}
+.contentEstoque .search-filters .accordion {
+    border: 0;
+    margin-bottom: 30px;
+}
+.contentEstoque .search-filters .accordion-group {
+    border-bottom: 1px solid #ccc;
+    padding: 0;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+.contentEstoque
+    .search-filters
+    .accordion-heading.accordionize
+    .accordion-toggle.active
+    i,
+.search-filters .accordion-heading.togglize .accordion-toggle.active i {
+    color: #777;
+}
+.contentEstoque
+    .search-filters
+    .accordion-heading.accordionize
+    .accordion-toggle
+    i,
+.search-filters .accordion-heading.togglize .accordion-toggle i {
+    right: 0;
+}
+.contentEstoque .search-filters .accordion-inner {
+    border: 0;
+    padding: 2px 0 12px;
+}
+.contentEstoque .accordion-heading {
+    background-color: #f5f6f8;
+    padding: 0 10px;
+}
+.contentEstoque .accordion-body {
+    padding: 10px;
+}
+.contentEstoque .search-filters .accordion-heading .accordion-toggle {
+    border: 0;
+    padding: 10px 0;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0;
+}
+.contentEstoque .filter-options-list.list-group {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border: 0;
+}
+.contentEstoque .filter-options-list li {
+    padding: 0;
+    border: 0;
+}
+.tipoListaVeiculos {
+    float: right;
+    margin-left: 10px;
+}
+.tipoListaVeiculos .btn {
+    height: 37px;
+    line-height: 37px;
+    padding: 10px 13px;
+    background-color: #bbb !important;
+}
+.tipoListaVeiculos .btn i {
+    font-size: 18px;
+}
+.media-box .expand,
+.media-box .zoom {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 1.5em;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    -webkit-transition: all 0.3s ease 0.2s;
+    -moz-transition: all 0.3s ease 0.2s;
+    -ms-transition: all 0.3s ease 0.2s;
+    -o-transition: all 0.3s ease 0.2s;
+    transition: all 0.3s ease 0.1s;
+}
+.media-box .expand .icon,
+.media-box .zoom .icon {
+    width: 44px;
+    height: 44px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    line-height: 44px;
+    text-align: center;
+    color: #fff !important;
+    position: absolute;
+    font-size: 1.2em;
+    top: 50%;
+    left: 50%;
+    margin: -22px 0 0 -22px;
+}
+.media-box:hover .expand,
+.media-box:hover .zoom {
+    opacity: 1;
+    -webkit-transition: opacity 0.3s 0.2s;
+    -moz-transition: opacity 0.3s 0.2s;
+    -ms-transition: opacity 0.3s 0.2s;
+    -o-transition: opacity 0.3s 0.2s;
+    transition: opacity 0.3s 0.2s;
+}
+.contentEstoque .filter-options-list li i {
+    color: #ccc;
+    margin-right: 5px;
+}
+.contentEstoque .search-filters .accordion-group a {
+    color: #777;
+}
+.contentEstoque .search-filters .accordion-group a:hover {
+    color: #000;
+}
+.contentEstoque .search-actions h4 {
+    font-size: 14px;
+    margin-bottom: 0;
+    display: inline-block;
+}
+.contentEstoque .results-grid-view .result-item-cont {
+    padding-bottom: 0;
+    padding-top: 0;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+.contentEstoque .results-grid-view .result-item-title {
+    padding-top: 5px;
+    font-size: 13px;
+    line-height: 17px;
+    text-transform: uppercase;
+    height: 65px;
+    vertical-align: bottom;
+    text-align: center;
+    overflow: hidden;
+    font-family: Roboto, sans-serif;
+    margin-bottom: 0;
+    padding: 10px 0;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+.contentEstoque .results-grid-view .result-item-pricing {
+    text-align: center;
+    padding: 5px 0;
+}
+.contentEstoque .results-grid-view .result-item-pricing .price {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 5px;
+    margin-bottom: 6px;
+}
+.contentEstoque .results-grid-view .div-hr,
+.contentEstoque .results-grid-view .result-item-block {
+    display: none;
+}
+.contentEstoque .results-grid-view .result-item-view-buttons a:first-child {
+    border-right: 1px solid #eee;
+}
+.contentEstoque .results-grid-view .result-item-view-buttons a {
+    padding: 4px 0 3px;
+}
+.contentEstoque .results-grid-view .result-item-in {
+    background: #fff;
+}
+.contentEstoque .results-grid-view .result-item-title {
+    background: 0 0;
+}
+.contentEstoque .results-grid-view .result-item-view-buttons a {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    padding: 9px 0 5px;
+    background: #f9f9f9;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: roboto condensed, sans-serif;
+    font-weight: 700;
+    color: #6a6a6a;
+}
+.contentEstoque .results-grid-view .result-item-block.col1 {
+    display: none;
+}
+.contentEstoque .results-grid-view .result-item-block.col2 {
+    width: 100%;
+}
+.contentEstoque .results-grid-view .result-item-features {
+    padding-bottom: 10px;
+}
+.contentEstoque .results-grid-view .result-item:hover {
+    background: #fbfbfb;
+}
+.contentEstoque .results-grid-view .result-item-action-buttons {
+    position: static;
+    width: 100%;
+}
+.contentEstoque .results-grid-view:before,
+.results-grid-view:after {
+    content: " ";
+    display: table;
+}
+.contentEstoque .results-grid-view:after {
+    clear: both;
+}
+.contentEstoque .results-grid-view {
+    margin-left: -2%;
+}
+.contentEstoque .results-grid-view .result-item {
+    width: 32.3%;
+    margin-left: 1%;
+    float: left;
+    margin-bottom: 30px;
+    padding: 10px 10px 0;
+    border: 1px solid #eee;
+    background: #fff;
+}
+.contentEstoque .results-grid-view .col-md-6 {
+    width: 100%;
+    padding: 0;
+}
+.result-item-pricing-home {
+    text-align: center;
+}
+.result-item-pricing-home .price {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 2px;
+    margin-bottom: 3px;
+    padding: 3px 0;
+}
+.lista-veiculos {
+    position: relative;
+}
+.results-list-view .result-item {
+    border: 0;
+    overflow: hidden;
+    margin-bottom: 30px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+.results-list-view .result-item-in {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 68%;
+    background: #fff;
+    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
+    padding: 0;
+}
+.results-list-view .result-item-title {
+    line-height: 1.3em;
+    letter-spacing: 0;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: none;
+    font-family: Roboto, sans-serif;
+    margin-bottom: 0;
+    padding: 10px 0;
+}
+.results-list-view .result-item-pricing {
+    line-height: 1.3em;
+}
+.results-list-view .result-item-pricing .price {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 5px;
+    margin-bottom: 6px;
+}
+.results-list-view .result-item-title .versaoVeiculo {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+}
+.results-list-view .result-item-block {
+    font-size: 13px;
+    width: 100%;
+    line-height: 1.5em;
+    text-align: justify;
+    padding: 15px 0;
+}
+.results-list-view .result-item-features {
+    line-height: normal;
+    padding: 20px 0;
+    text-align: justify;
+}
+.results-list-view .result-item-view-buttons a {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    padding: 6px;
+    background-color: #ececec;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: roboto condensed, sans-serif;
+    font-weight: 700;
+}
+.results-list-view .result-item-view-buttons a,
+.results-list-view .result-item-view-buttons i {
+    color: #6a6a6a;
+}
+.results-list-view .result-item-view-buttons a.btnFinanciamentoEstoque:hover {
+    background: #eaeaea;
+}
+.media-box {
+    position: relative;
+    display: block;
+    max-width: 100%;
+}
+.result-item-view-buttons a i {
+    line-height: 2em;
+}
+.div-hr {
+    margin-top: 13px;
+    border-top: 2px solid #ecedf2;
+}
+.vehicle-age {
+    position: absolute;
+    top: 5px;
+    left: 45px;
+    z-index: 9;
+    left: 5px;
+}
+.listaEspecificacoes {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+.listaEspecificacoes li {
+    text-align: center;
+    padding: 0;
+    width: calc(50% - 10px);
+    padding-top: 10px;
+    display: block;
+    float: left;
+    background: #e6e7e8;
+    margin-right: 5px;
+    padding-right: 5px;
+    clear: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.listaEspecificacoes li:hover {
+    background-color: #d0d0d0;
+}
+.listaEspecificacoes li p {
+    font-size: 15px;
+    font-weight: 700;
+    color: #666;
+}
+.veiculosHome .results-grid-view .result-item-cont {
+    padding-bottom: 0;
+    padding-top: 0;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+.veiculosHome .results-grid-view .result-item-title {
+    padding-top: 5px;
+    font-size: 13px;
+    line-height: 17px;
+    text-transform: uppercase;
+    height: 65px;
+    vertical-align: bottom;
+    text-align: center;
+    overflow: hidden;
+    font-family: Roboto, sans-serif;
+    margin-bottom: 0;
+    padding: 10px 0;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+.veiculosHome .results-grid-view .result-item-view-buttons a:first-child {
+    border-right: 1px solid #eee;
+}
+.veiculosHome .results-grid-view .result-item-view-buttons a {
+    padding: 4px 0 3px;
+}
+.veiculosHome .results-grid-view .result-item-in {
+    background: #fff;
+}
+.veiculosHome .results-grid-view .result-item-title {
+    background: 0 0;
+}
+.veiculosHome .results-grid-view .result-item-view-buttons a {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    padding: 9px 0 5px;
+    background: #f9f9f9;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: roboto condensed, sans-serif;
+    font-weight: 700;
+    color: #6a6a6a;
+}
+.veiculosHome .results-grid-view .result-item-block.col1 {
+    display: none;
+}
+.veiculosHome .results-grid-view .result-item-block.col2 {
+    width: 100%;
+}
+.veiculosHome .results-grid-view .result-item-features {
+    padding-top: 5px;
+}
+.veiculosHome .results-grid-view .result-item-action-buttons {
+    position: static;
+    width: 100%;
+}
+.results-grid-view:after,
+.veiculosHome .results-grid-view:before {
+    content: " ";
+    display: table;
+}
+.veiculosHome .results-grid-view:after {
+    clear: both;
+}
+.veiculosHome .results-grid-view {
+    margin-left: -2%;
+}
+.veiculosHome .results-grid-view .result-item {
+    width: 24%;
+    margin-left: 1%;
+    float: left;
+    margin-bottom: 30px;
+    padding: 10px 10px 0;
+    border: 1px solid #eee;
+    background: #fff;
+    min-height: 320px;
+}
+.result-item-pricing-home {
+    text-align: center;
+}
+.result-item-pricing-home .price {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 2px;
+    margin-bottom: 3px;
+    padding: 3px 0;
+}
+#showimagePopup {
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.6);
+}
+#showimagePopup .contentPopupPromocao {
+    position: relative;
+    width: 485px;
+    margin: 200px auto;
+}
+.popupPromocao {
+    overflow: hidden;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    height: 436px;
+    width: 482px;
+}
+.popupPreco {
+    right: -94px;
+    top: 16px;
+    position: absolute;
+    z-index: 999;
+}
+.popupPrecoTexto {
+    right: -45px;
+    top: 48px;
+    z-index: 9999;
+    position: absolute;
+    font-size: 28px;
+    line-height: 30px;
+    text-align: center;
+    font-weight: 700;
+    font-family: roboto condensed, sans-serif;
+}
+.popupTitulo {
+    right: -52px;
+    top: 188px;
+    position: absolute;
+    z-index: 999;
+    height: 211px;
+    max-width: 602px !important;
+}
+.popupTituloTexto1 {
+    right: 22px;
+    top: 308px;
+    z-index: 9999;
+    position: absolute;
+    font-size: 44px;
+    line-height: 30px;
+    text-align: center;
+    font-weight: 700;
+    font-family: roboto condensed, sans-serif;
+    width: 445px;
+}
+.popupTituloTexto2 {
+    right: 22px;
+    top: 338px;
+    z-index: 9999;
+    position: absolute;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: right;
+    font-weight: 700;
+    color: #666;
+    font-family: roboto condensed, sans-serif;
+    width: 445px;
+}
+@media only screen and (max-width: 767px) {
+    .veiculo-detalhes .post-title {
+        font-size: 14px;
+    }
+    .veiculo-detalhes .images-veiculo {
+        margin-bottom: 30px;
+    }
+    .veiculo-detalhes .nav-tabs {
+        margin-top: 0 !important;
+    }
+    .ad-photo-controls .next-photo,
+    .ad-photo-controls .prev-photo {
+        display: inline-block !important;
+    }
+    .veiculo-detalhes .precoVeiculo {
+        padding: 8px 15px 8px 25px !important;
+    }
+    .veiculo-detalhes .telefone-loja .telefone li {
+        padding-bottom: 5px;
+        border-right: 0 !important;
+    }
+    .veiculo-detalhes .contact-form {
+        margin-top: 20px;
+    }
+    .dados_anuncio .listadados li.col5 {
+        width: 30% !important;
+    }
+    .dados_anuncio .info_destaque {
+        font-size: 1em;
+    }
+    .results-list-view .result-item-pricing .price {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .results-list-view .result-item-pricing {
+        line-height: 1.3em;
+        padding: 4px 0;
+        margin-bottom: 10px !important;
+    }
+    .contentEstoque .results-sorter {
+        width: 100%;
+        box-shadow: none;
+    }
+    .contentEstoque .tipoListaVeiculos {
+        display: none;
+    }
+    .contentEstoque .search-filters .accordion {
+        margin-bottom: 10px;
+    }
+    .contentEstoque .search-actions {
+        padding: 10px 0 !important;
+        border-top: 1px dashed #e4e4e4;
+        margin: 5px 20px 10px;
+        border-bottom: 1px dashed #e4e4e4;
+    }
+    .contentEstoque .results-sorter .listing-sort-btn {
+        width: 92% !important;
+    }
+    .listaEspecificacoes {
+        margin: 0;
+    }
+    .listaEspecificacoes li {
+        width: 48%;
+    }
+    .veiculosHome {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .veiculosHome .results-grid-view .result-item-action-buttons {
+        width: auto !important;
+    }
+    .veiculosHome .results-grid-view .result-item {
+        height: auto !important;
+    }
+    .veiculosHome .results-grid-view .result-item {
+        width: 49% !important;
+        float: left !important;
+        min-height: 200px;
+    }
+}

@@ -55,7 +55,8 @@
                             </select>
                             @if (!empty($selected->id))
                                 <p style="margin-top: 4px;">
-                                    <a href="" class="text-orange icon-link" style="font-size: .8em;" target="_blank">Acessar
+                                    <a href="" class="text-orange icon-link" style="font-size: .8em;"
+                                        target="_blank">Acessar
                                         Cadastro</a>
                                 </p>
                             @endif
@@ -73,8 +74,8 @@
 
                         <label class="label">
                             <span class="legend">*CEP:</span>
-                            <input type="tel" name="zipcode" class="mask-zipcode zip_code_search" placeholder="Digite o CEP"
-                                value="{{ old('zipcode') }}" required />
+                            <input type="tel" name="zipcode" class="mask-zipcode zip_code_search"
+                                placeholder="Digite o CEP" value="{{ old('zipcode') }}" required />
                         </label>
                     </div>
 
@@ -86,8 +87,8 @@
                         </label>
                         <label class="label">
                             <span class="legend">*Número:</span>
-                            <input type="text" name="number" placeholder="Número do Endereço" value="{{ old('number') }}"
-                                required />
+                            <input type="text" name="number" placeholder="Número do Endereço"
+                                value="{{ old('number') }}" required />
                         </label>
                     </div>
 
@@ -128,25 +129,39 @@
 
                         <label class="label">
                             <span class="legend">*Celular:</span>
-                            <input type="tel" name="cell" class="mask-cell" placeholder="Número do Telefonce com DDD"
-                                value="{{ old('cell') }}" required />
+                            <input type="tel" name="cell" class="mask-cell"
+                                placeholder="Número do Telefonce com DDD" value="{{ old('cell') }}" required />
                         </label>
                     </div>
 
                     <div class="label_g2">
-                        <label class="label">
-                            <span class="legend">Logo simples medindo até 7x4cm (horizontal).</span>
-                            <input type="file" name="cover">
-                        </label>
 
                         <label class="label">
                             <span class="legend">*Link para a loja (sem espaços ou símbolos):</span>
                             <input type="text" name="slug" class="link" placeholder="Link"
                                 value="{{ old('slug') }}" required />
                         </label>
+
+                        <label class="label">
+                            <span class="legend">Template</span>
+                            <select name="template" class="select2">
+                                <option value="" selected>Selecione um template</option>
+                                <option value="Padrão" {{ old('template') == 'Padrão' ? 'selected' : '' }}>
+                                    Padrão
+                                </option>
+                                <option value="Alfa" {{ old('template') == 'Alfa' ? 'selected' : '' }}>
+                                    Alfa
+                                </option>
+                            </select>
+                        </label>
                     </div>
 
                     <div class="label_g3">
+                        <label class="label">
+                            <span class="legend">Logo simples medindo 340 píxels.</span>
+                            <input type="file" name="cover">
+                        </label>
+
                         <label class="label">
                             <span class="legend">Banner Principal (topo) da loja, medindo 1900x300px (horizontal)
                                 nos formatos

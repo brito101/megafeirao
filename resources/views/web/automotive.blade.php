@@ -152,8 +152,7 @@
 
                                 <div class="form-group">
                                     {{-- <label for="message">Sua Mensagem:</label> --}}
-                                    <textarea name="message" id="message" cols="30" rows="5" class="form-control"
-                                        required>Quero ter mais informações sobre o veículo {{ $automotive->title }}.</textarea>
+                                    <textarea name="message" id="message" cols="30" rows="5" class="form-control" required>Quero ter mais informações sobre o veículo {{ $automotive->title }}.</textarea>
                                 </div>
 
                                 <div class="form-group text-center">
@@ -174,7 +173,7 @@
 
                         <div class="col-12 mt-5 px-0 text-center card">
                             <a href="{{ route('web.filterCompany', ['slug' => $company->slug]) }}">
-                                <img src="{{ $company->cover() }}" class="card-img-top"
+                                <img src="{{ $company->logo() }}" class="card-img-top"
                                     alt="{{ $company->alias_name }}">
                             </a>
                             <a class="text-secondary fs-6"
@@ -187,14 +186,16 @@
                                 <a href="{{ $banner->link3 ?? route('web.register') }}"
                                     class="d-flex justify-content-center align-content-center h-100">
                                     <img src="{{ $banner->cover3 ? asset('storage/' . $banner->cover3) : url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt="" title=""></a>
+                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                        title=""></a>
                             </div>
                         @else
                             <div class="col-12 mt-5 px-0 text-center card">
                                 <a href="{{ route('web.register') }}"
                                     class="d-flex justify-content-center align-content-center h-100">
                                     <img src="{{ url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt="" title=""></a>
+                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                        title=""></a>
                             </div>
                         @endif
 
@@ -203,14 +204,16 @@
                                 <a href="{{ $banner->link4 ?? route('web.register') }}"
                                     class="d-flex justify-content-center align-content-center h-100">
                                     <img src="{{ $banner->cover4 ? asset('storage/' . $banner->cover4) : url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt="" title=""></a>
+                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                        title=""></a>
                             </div>
                         @else
                             <div class="col-12 mt-5 px-0 text-center">
                                 <a href="{{ route('web.register') }}"
                                     class="d-flex justify-content-center align-content-center h-100">
                                     <img src="{{ url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt="" title=""></a>
+                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                        title=""></a>
                             </div>
                         @endif
 

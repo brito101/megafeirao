@@ -69,8 +69,8 @@
                         </label>
                         <label class="label">
                             <span class="legend">*CEP:</span>
-                            <input type="tel" name="zipcode" class="mask-zipcode zip_code_search" placeholder="Digite o CEP"
-                                value="{{ old('zipcode') ?? $company->zipcode }}" required />
+                            <input type="tel" name="zipcode" class="mask-zipcode zip_code_search"
+                                placeholder="Digite o CEP" value="{{ old('zipcode') ?? $company->zipcode }}" required />
                         </label>
                     </div>
 
@@ -126,8 +126,9 @@
 
                         <label class="label">
                             <span class="legend">*Celular:</span>
-                            <input type="tel" name="cell" class="mask-cell" placeholder="Número do Telefonce com DDD"
-                                value="{{ old('cell') ?? $company->cell }}" required />
+                            <input type="tel" name="cell" class="mask-cell"
+                                placeholder="Número do Telefonce com DDD" value="{{ old('cell') ?? $company->cell }}"
+                                required />
                         </label>
                     </div>
 
@@ -137,18 +138,33 @@
                             <input type="text" name="slug" class="link" placeholder="Link"
                                 value="{{ old('slug') ?? $company->slug }}" required />
                         </label>
+
+                        <label class="label">
+                            <span class="legend">Template</span>
+                            <select name="template" class="select2">
+                                <option value="" selected>Selecione um template</option>
+                                <option value="Padrão"
+                                    {{ old('template') == 'Padrão' ? 'selected' : ($company->template == 'Padrão' ? 'selected' : '') }}>
+                                    Padrão
+                                </option>
+                                <option value="Alfa"
+                                    {{ old('template') == 'Alfa' ? 'selected' : ($company->template == 'Alfa' ? 'selected' : '') }}>
+                                    Alfa
+                                </option>
+                            </select>
+                        </label>
                     </div>
 
                     <div class="label_g2">
                         <label class="label">
-                            <span class="legend">Logo simples medindo até 7x4cm (horizontal).</span>
+                            <span class="legend">Logo simples medindo 340 píxels (horizontal).</span>
                             <input type="file" name="cover">
                         </label>
 
                         <label class="label">
                             @if ($company->cover)
                                 <div class="img-responsive-16by9 mb-1 text-center">
-                                    <img src="{{ $company->cover() }}" alt="" width="250">
+                                    <img src="{{ $company->logo() }}" alt="" width="250">
                                 </div>
                             @endif
                         </label>
@@ -166,12 +182,12 @@
                         <label class="label">
                             @if ($company->main_banner)
                                 <div class="img-responsive-16by9 mb-1 text-center">
-                                    <img src="{{ $company->mainBanner() }}" class="radius" alt="" width="100%">
+                                    <img src="{{ $company->mainBanner() }}" class="radius" alt=""
+                                        width="100%">
                                 </div>
                             @endif
                         </label>
                     </div>
-
 
                     <div class="label_g2">
                         <label class="label">
@@ -183,7 +199,8 @@
                         <label class="label">
                             @if ($company->banner1)
                                 <div class="img-responsive-16by9 mb-1 text-center">
-                                    <img src="{{ $company->banner1() }}" class="radius" alt="" width="100%">
+                                    <img src="{{ $company->banner1() }}" class="radius" alt=""
+                                        width="100%">
                                 </div>
                             @endif
                         </label>
@@ -199,7 +216,8 @@
                         <label class="label">
                             @if ($company->banner2)
                                 <div class="img-responsive-16by9 mb-1 text-center">
-                                    <img src="{{ $company->banner2() }}" class="radius" alt="" width="100%">
+                                    <img src="{{ $company->banner2() }}" class="radius" alt=""
+                                        width="100%">
                                 </div>
                             @endif
                         </label>
@@ -215,7 +233,8 @@
                         <label class="label">
                             @if ($company->banner3)
                                 <div class="img-responsive-16by9 mb-1 text-center">
-                                    <img src="{{ $company->banner3() }}" class="radius" alt="" width="100%">
+                                    <img src="{{ $company->banner3() }}" class="radius" alt=""
+                                        width="100%">
                                 </div>
                             @endif
                         </label>

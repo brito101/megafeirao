@@ -24,7 +24,7 @@
                 @if ($errors->all())
                     @foreach ($errors->all() as $error)
                         @message(['color' => 'orange'])
-                        <p class="icon-asterisk">{{ $error }}</p>
+                            <p class="icon-asterisk">{{ $error }}</p>
                         @endmessage
                     @endforeach
                 @endif
@@ -51,6 +51,8 @@
                                             Automóvel</option>
                                         <option value="Motocicleta"
                                             {{ old('category') == 'Motocicleta' ? 'selected' : '' }}>Motocicleta
+                                        </option>
+                                        <option value="Outros" {{ old('category') == 'Outros' ? 'selected' : '' }}>Outros
                                         </option>
                                     </select>
                                 </label>
@@ -80,12 +82,14 @@
                             <div class="label_g4">
                                 <label class="label">
                                     <span class="legend">Marca:</span>
-                                    <input type="tel" name="brand" placeholder="Marca" value="{{ old('brand') }}" />
+                                    <input type="tel" name="brand" placeholder="Marca"
+                                        value="{{ old('brand') }}" />
                                 </label>
 
                                 <label class="label">
                                     <span class="legend">Modelo:</span>
-                                    <input type="text" name="model" placeholder="Modelo" value="{{ old('model') }}" />
+                                    <input type="text" name="model" placeholder="Modelo"
+                                        value="{{ old('model') }}" />
                                 </label>
 
                                 <label class="label">

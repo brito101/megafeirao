@@ -24,14 +24,14 @@
                 @if ($errors->all())
                     @foreach ($errors->all() as $error)
                         @message(['color' => 'orange'])
-                        <p class="icon-asterisk">{{ $error }}</p>
+                            <p class="icon-asterisk">{{ $error }}</p>
                         @endmessage
                     @endforeach
                 @endif
 
                 @if (session()->exists('message'))
                     @message(['color' => session()->get('color')])
-                    <p class="icon-asterisk">{{ session()->get('message') }}</p>
+                        <p class="icon-asterisk">{{ session()->get('message') }}</p>
                     @endmessage
                 @endif
 
@@ -59,6 +59,9 @@
                                         <option value="Motocicleta"
                                             {{ old('category') == 'Motocicleta' ? 'selected' : ($automotive->category == 'Motocicleta' ? 'selected' : '') }}>
                                             Motocicleta</option>
+                                        <option value="Outros"
+                                            {{ old('category') == 'Outros' ? 'selected' : ($automotive->category == 'Outros' ? 'selected' : '') }}>
+                                            Outros</option>
                                     </select>
                                 </label>
 
@@ -135,8 +138,7 @@
 
                             <label class="label">
                                 <span class="legend">Descrição do Veículo:</span>
-                                <textarea name="description" cols="30" rows="10"
-                                    class="mce">{{ old('description') ?? $automotive->description }}</textarea>
+                                <textarea name="description" cols="30" rows="10" class="mce">{{ old('description') ?? $automotive->description }}</textarea>
                             </label>
 
                             <div>
@@ -164,7 +166,7 @@
                                 <span class="legend">Destacar Anúncio:</span>
                                 <label class="label">
                                     <input type="checkbox" name="spotlight"
-                                        {{ old('spotlight') == 'on' || old('spotlight') == true? 'checked': ($automotive->spotlight == true? 'checked': '') }}>
+                                        {{ old('spotlight') == 'on' || old('spotlight') == true ? 'checked' : ($automotive->spotlight == true ? 'checked' : '') }}>
                                     <span>
                                         @if ($automotive->spotlight == false)
                                             Será consumido um crédito adicional de anúncio

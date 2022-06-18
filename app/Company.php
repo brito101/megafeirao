@@ -35,6 +35,7 @@ class Company extends Model
         'banner1',
         'banner2',
         'banner3',
+        'template'
     ];
 
     /*
@@ -59,6 +60,17 @@ class Company extends Model
         }
 
         return Storage::url(Cropper::thumb($cover, 1366, 768));
+    }
+
+    public function logo()
+    {
+        $cover = $this->cover;
+
+        if (empty($cover) || !File::exists('../public/storage/' . $cover)) {
+            return url(asset('frontend/assets/images/share.png'));
+        }
+
+        return Storage::url(Cropper::thumb($cover, 340));
     }
 
     public function cover1()

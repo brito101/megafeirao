@@ -42,10 +42,10 @@ class Company extends FormRequest
             'telephone' => 'required',
             'cell' => 'required',
             'email' => 'required',
-            'main_banner' => 'nullable|image|mimes:jpg,png,jpeg|max:1024|dimensions:max_width=1900,max_height=300',
-            'banner1' => 'nullable|image|mimes:jpg,png,jpeg|max:1024|dimensions:max_width=1900,max_height=600',
-            'banner2' => 'nullable|image|mimes:jpg,png,jpeg|max:1024|dimensions:max_width=1900,max_height=600',
-            'banner3' => 'nullable|image|mimes:jpg,png,jpeg,|max:1024|dimensions:max_width=1900,max_height=600'
+            'main_banner' => 'nullable|image|mimes:jpg,png,jpeg|max:1024',
+            'banner1' => 'nullable|image|mimes:jpg,png,jpeg|max:1024',
+            'banner2' => 'nullable|image|mimes:jpg,png,jpeg|max:1024',
+            'banner3' => 'nullable|image|mimes:jpg,png,jpeg,|max:1024'
         ];
     }
 }

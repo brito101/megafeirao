@@ -12,7 +12,7 @@
                     </li>
                 @else
                     <li class="parallax"
-                        style="background-image: url({{ asset('company-template/assets/img/IPVA2022_3.jpg') }}); left: 50%; margin-left: -955px;">
+                        style="background-image: url({{ asset('company-template/assets/img/banner-1.png') }}); left: 50%; margin-left: -955px;">
                     </li>
                 @endif
                 @if ($company->banner2)
@@ -21,7 +21,7 @@
                     </li>
                 @else
                     <li class="parallax"
-                        style="background-image: url({{ asset('company-template/assets/img/banner1133.jpg') }}); left: 50%; margin-left: -955px;">
+                        style="background-image: url({{ asset('company-template/assets/img/banner-2.png') }}); left: 50%; margin-left: -955px;">
                     </li>
                 @endif
                 @if ($company->banner3)
@@ -30,7 +30,7 @@
                     </li>
                 @else
                     <li class="parallax"
-                        style="background-image: url({{ asset('company-template/assets/img/4234.jpg') }}); left: 50%; margin-left: -955px;">
+                        style="background-image: url({{ asset('company-template/assets/img/banner-3.png') }}); left: 50%; margin-left: -955px;">
                     </li>
                 @endif
             </ul>

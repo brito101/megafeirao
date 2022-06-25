@@ -53,9 +53,9 @@
                                 <label class="label">
                                     <span class="legend">Categoria:</span>
                                     <select name="category" class="select2">
-                                        <option value="Automóvel"
-                                            {{ old('category') == 'Automóvel' ? 'selected' : ($automotive->category == 'Automóvel' ? 'selected' : '') }}>
-                                            Automóvel</option>
+                                        <option value="Carro"
+                                            {{ old('category') == 'Carro' ? 'selected' : ($automotive->category == 'Carro' ? 'selected' : '') }}>
+                                            Carro</option>
                                         <option value="Motocicleta"
                                             {{ old('category') == 'Motocicleta' ? 'selected' : ($automotive->category == 'Motocicleta' ? 'selected' : '') }}>
                                             Motocicleta</option>

@@ -27,6 +27,7 @@ class FilterController extends Controller
         }
 
         session()->remove('user');
+        session()->remove('category');
         session()->remove('city');
         session()->remove('brand');
         session()->remove('model');
@@ -42,15 +43,43 @@ class FilterController extends Controller
             session()->put('user', $user);
             session()->put('sale', true);
             session()->remove('rent');
-            $cityAutomotives = $this->createQuery('city');
+            $categoryAutomotives = $this->createQuery('category');
         }
 
         if ($request->search === 'rent') {
             session()->put('user', $user);
             session()->put('rent', true);
             session()->remove('sale');
-            $cityAutomotives = $this->createQuery('city');
+            $categoryAutomotives = $this->createQuery('category');
         }
+
+        if ($categoryAutomotives->count()) {
+            foreach ($categoryAutomotives as $automotive) {
+                $category[] = $automotive->category;
+            }
+
+            $collect = collect($category);
+            return response()->json($this->setResponse('success', $collect->unique()->toArray()));
+        }
+
+        return response()->json($this->setResponse('fail', [], 'Ooops, não foi retornado nenhum dado para essa pesquisa!'));
+    }
+
+    public function category(Request $request)
+    {
+        session()->remove('brand');
+        session()->remove('city');
+        session()->remove('model');
+        session()->remove('price_base');
+        session()->remove('price_limit');
+        session()->remove('year_base');
+        session()->remove('year_limit');
+        session()->remove('mileage');
+        session()->remove('gear');
+        session()->remove('fuel');
+
+        session()->put('category', $request->search);
+        $cityAutomotives = $this->createQuery('city');
 
         if ($cityAutomotives->count()) {
             foreach ($cityAutomotives as $automotive) {
@@ -293,6 +322,7 @@ class FilterController extends Controller
         session()->remove('user');
         session()->remove('sale');
         session()->remove('rent');
+        session()->remove('category');
         session()->remove('city');
         session()->remove('brand');
         session()->remove('model');
@@ -307,10 +337,10 @@ class FilterController extends Controller
 
     public function createQuery($field)
     {
-
         $user = session('user');
         $sale = session('sale');
         $rent = session('rent');
+        $category = session('category');
         $city = session('city');
         $brand = session('brand');
         $model = session('model');
@@ -323,7 +353,7 @@ class FilterController extends Controller
         $fuel = session('fuel');
 
         $query = DB::table('automotives')
-            ->where('status', '=', '1')->where('sale', '1')->whereDate('active_date', '>=', Carbon::now()->subDays(30))
+            ->where('status', '1')->where('sale', '1')->whereDate('active_date', '>=', Carbon::now()->subDays(30))
             ->when($user, function ($query, $user) {
                 return $query->where('user', '=', $user);
             })
@@ -332,6 +362,9 @@ class FilterController extends Controller
             })
             ->when($rent, function ($query, $rent) {
                 return $query->where('rent', $rent);
+            })
+            ->when($category, function ($query, $category) {
+                return $query->where('category', $category);
             })
             ->when($city, function ($query, $city) {
                 return $query->where('city', $city);
@@ -391,7 +424,6 @@ class FilterController extends Controller
                 return $query->whereIn('fuel', $fuel);
             })
             ->get(explode(',', $field));
-
         return $query;
     }
 }

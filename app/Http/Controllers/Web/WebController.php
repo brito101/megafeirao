@@ -301,23 +301,25 @@ class WebController extends Controller
             $automotives[] = $automotive->id;
         }
 
-        $sort = $request->all();
-        if (isset($sort['sort'])) {
-            session()->put('sort', $sort['sort']);
-        }
-        if (isset($sort['direction'])) {
-            session()->put('direction', $sort['direction']);
-        }
+        // $sort = $request->all();
+        // if (isset($sort['sort'])) {
+        //     session()->put('sort', $sort['sort']);
+        // }
+        // if (isset($sort['direction'])) {
+        //     session()->put('direction', $sort['direction']);
+        // }
 
+        // session()->remove('sort');
+        // session()->remove('direction');
         if (!empty($automotives)) {
             $automotives = Automotive::whereIn('id', $automotives)->sale()->available()->orderBy('created_at', 'desc')->get();
             // $automotives = Automotive::whereIn('id', $automotives)->sale()->available()->sortable(['created_at' => 'desc'])->paginate(50);
             //Alterando para paginação em 2022-04-23
 
             if (session('sort') && session('direction')) {
-                $automotivesPaginate = Automotive::whereIn('id', $automotives->pluck('id'))->sale()->available()->orderBy(session('sort'), session('direction'))->paginate(14);
+                $automotivesPaginate = Automotive::whereIn('id', $automotives->pluck('id'))->sale()->available()->orderBy(session('sort'), session('direction'))->paginate(15);
             } else {
-                $automotivesPaginate = Automotive::whereIn('id', $automotives->pluck('id'))->sale()->available()->orderBy('created_at', 'desc')->paginate(14);
+                $automotivesPaginate = Automotive::whereIn('id', $automotives->pluck('id'))->sale()->available()->orderBy('created_at', 'desc')->paginate(15);
             }
         } else {
             $automotives = null;

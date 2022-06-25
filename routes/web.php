@@ -32,6 +32,7 @@ Route::get('/politica-de-privacidade', 'Web\\WebController@policy')->name('web.p
 
 /** Filtro */
 Route::post('main-filter/search', 'Web\\FilterController@search')->name('component.main-filter.search');
+Route::post('main-filter/category', 'Web\\FilterController@category')->name('component.main-filter.category');
 Route::post('main-filter/city', 'Web\\FilterController@city')->name('component.main-filter.city');
 Route::post('main-filter/brand', 'Web\\FilterController@brand')->name('component.main-filter.brand');
 Route::post('main-filter/model', 'Web\\FilterController@model')->name('component.main-filter.model');

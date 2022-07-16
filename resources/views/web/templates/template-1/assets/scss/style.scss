@@ -1081,7 +1081,6 @@ body.boxed .body {
 .site-header {
     height: 140px;
     background: url("../img/bg-header.png") no-repeat center top;
-    border-top: 8px solid #3e3e3e;
     padding: 0 0 15px;
     width: 100%;
     position: relative;
@@ -1358,13 +1357,13 @@ select.error {
 
 .main-navigation > ul > li {
     font-weight: 400;
-    font-size: 13px;
+    font-size: 1rem;
     position: relative;
     display: inline-block;
 }
 
 .main-navigation > ul > li:first-child > a {
-    border-left: 0;
+    margin-left: 20px;
 }
 
 .main-navigation > ul > li:last-child > a {
@@ -1413,7 +1412,7 @@ select.error {
     align-items: center;
     margin: 0;
     padding-top: 2px;
-    padding-left: 20px;
+    padding-left: 40px;
 }
 
 .top-bar-nav li {

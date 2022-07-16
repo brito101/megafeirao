@@ -36,12 +36,32 @@
             </ul>
         </div>
     </div>
+    <div id="search-company">
+        <form action="{{ route('web.filterCompanyAutomotiveSearch', ['slug' => $company->slug]) }}" method="POST"
+            class="container">
+            @csrf
+            <h3>ENCONTRE SEU <span>VEÍCULO</span></h3>
+            <select name="brand">
+                <option selected disabled value="">MARCA</option>
+                @foreach ($brands as $brand)
+                    <option value="{{ $brand }}">{{ $brand }}</option>
+                @endforeach
+            </select>
+            <select name="model">
+                <option selected disabled value="">MODELO</option>
+                @foreach ($models as $model)
+                    <option value="{{ $model }}">{{ $model }}</option>
+                @endforeach
+            </select>
+            <button type="submit"><i class="fa fa-car"></i> LOCALIZAR</button>
+        </form>
+    </div>
 
     <div class="main DivConteudoButton" role="main">
         <div id="content" class="content full padding-b0 contentDefault backOfertas">
             <div class="container">
                 <div class="section-header-1">
-                    <h3>OFERTAS EM DESTAQUE</h3>
+                    <h3>Ofertas em <strong>Destaque</strong></h3>
                     <h2 class="sub-text-title-ch">Carros revisados com garantia!</h2>
                     <hr class="hr-style">
                 </div>

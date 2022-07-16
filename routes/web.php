@@ -117,5 +117,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 /** Página de uma loja específica  */
 Route::get('/{slug}', 'Web\\WebController@filterCompany')->name('web.filterCompany');
 Route::get('/veiculos/{slug}', 'Web\\WebController@filterCompanyAutomotive')->name('web.filterCompanyAutomotive');
+Route::post('/veiculos/{slug}', 'Web\\WebController@filterCompanyAutomotiveSearch')->name('web.filterCompanyAutomotiveSearch');
 Route::get('/localizacao/{slug}', 'Web\\WebController@filterCompanyLocation')->name('web.filterCompanyLocation');
 Route::get('/contato/{slug}', 'Web\\WebController@filterCompanyContact')->name('web.filterCompanyContact');

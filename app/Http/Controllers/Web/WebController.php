@@ -85,11 +85,16 @@ class WebController extends Controller
 
             $automotivesForSale = Automotive::sale()->available()->where('user', $company->user)->orderBy('created_at', 'desc')->limit(12)->get();
 
+
             if ($company->template == 'Alfa') {
+                $fullList = Automotive::sale()->available()->where('user', $company->user)->get();
+
                 return view('web.templates.template-1.company', [
                     'head' => $head,
                     'company' => $company,
-                    'automotivesForSale' => $automotivesForSale
+                    'automotivesForSale' => $automotivesForSale,
+                    'brands' => $fullList->sortBy('brand')->pluck('brand')->unique(),
+                    'models' => $fullList->sortBy('model')->pluck('model')->unique(),
                 ]);
             }
 
@@ -115,6 +120,42 @@ class WebController extends Controller
             );
 
             $automotivesForSale = Automotive::sale()->available()->where('user', $company->user)->orderBy('created_at', 'desc')->get();
+
+            if ($company->template == 'Alfa') {
+                return view('web.templates.template-1.list', [
+                    'head' => $head,
+                    'company' => $company,
+                    'automotivesForSale' => $automotivesForSale
+                ]);
+            } else {
+                return redirect()->route('web.filterCompany', ['slug' => $company->slug]);
+            }
+        } else {
+            return redirect()->route('web.companies');
+        }
+    }
+
+    public function filterCompanyAutomotiveSearch(Request $request)
+    {
+        $company = Company::where('slug', $request->slug)->first();
+        if ($company) {
+            $head = $this->seo->render(
+                env('APP_NAME') . ' - Loja: ' . $company->social_name . ' - Veículos',
+                $company->social_name,
+                route('web.filterCompanyAutomotive', ['slug' => $company->slug]),
+                $company->cover()
+            );
+
+            $automotivesForSale = Automotive::sale()->available()
+                ->where('user', $company->user)
+                ->when($request->brand, function ($query, $brand) {
+                    return $query->where('brand', $brand);
+                })
+                ->when($request->model, function ($query, $model) {
+                    return $query->where('model', $model);
+                })
+                ->orderBy('created_at', 'desc')
+                ->get();
 
             if ($company->template == 'Alfa') {
                 return view('web.templates.template-1.list', [

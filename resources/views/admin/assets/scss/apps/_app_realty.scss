@@ -73,10 +73,10 @@
                 font-size: $font-size-small;
 
                 .button_action {
-                    display: flex; 
-                    justify-content: center; 
+                    display: flex;
+                    justify-content: center;
                     align-items: center;
-                    width: 120px; 
+                    width: 120px;
                     height: 35px;
                 }
 
@@ -98,7 +98,8 @@
                     color: $color-gray-medium;
                     padding: 10px;
 
-                    .realty_list_item_description_title, .realty_list_item_description_content {
+                    .realty_list_item_description_title,
+                    .realty_list_item_description_content {
                         flex-basis: 100%;
                     }
 
@@ -145,11 +146,8 @@
     }
 }
 
+.property_image,
 .content_image {
-
-}
-
-.property_image, .content_image {
     width: 100%;
     flex-basis: 100%;
     display: flex;
@@ -184,7 +182,6 @@
 }
 
 @media (max-width: $dash-rwd-breakpoint-2) {
-
     .realty_list_item {
         justify-content: center;
 
@@ -199,7 +196,8 @@
         }
 
         .realty_list_item_actions {
-            ul, div {
+            ul,
+            div {
                 flex-basis: 100%;
             }
         }

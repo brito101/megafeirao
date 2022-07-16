@@ -1,70 +1,84 @@
-/*Header da Pagina*/
-.adressHeader p, .top-navigation > li { color: #FF0!important; }
-.adressHeader, .top-navigation span { color: #FFF; }
-
+/*Header */
 .subMenuHeader ul li {
     border-left: #020202 1px solid;
     border-right: #2f2f2f 1px solid;
 }
 
 /*Menu*/
-.main-navigation > ul > li > a, .main-navigation > ul > li > a > i {color: #8e8e8e;}
-.main-navigation > ul > li > a:hover, .main-navigation > ul > li > a:hover > i {color: #8e8e8e !important;}
-
-.main-navigation > ul > li > a {
-    border-left: 1px solid #efeeee;
-    border-right: 1px solid #d0d0d0;
+.main-navigation > ul > li > a,
+.main-navigation > ul > li > a > i {
+    color: #222;
+}
+.main-navigation > ul > li > a:hover,
+.main-navigation > ul > li > a:hover > i {
+    color: #000 !important;
 }
 
-.main-navigation > ul > li > a:hover, .main-navigation > ul > li > a:hover i {
-    color: #222!important;
-}
+// .main-navigation > ul > li > a {
+//     border-left: 1px solid #efeeee;
+//     border-right: 1px solid #d0d0d0;
+// }
 
-.bt-header .box-links a:hover, .bt-header .box-links a.veiculos {
+.bt-header .box-links a:hover,
+.bt-header .box-links a.veiculos {
     background-color: #075597;
 }
 
-/*Preço do Veículo da Pagina Home*/
+/*Preï¿½o do Veï¿½culo da Pagina Home*/
 .results-grid-view .result-item-cont {
     background: #040404 !important;
 }
 
-.result-item-pricing-home .price {color: #FFF !important;}
+.result-item-pricing-home .price {
+    color: #fff !important;
+}
 
 .chamadaEstoque {
-    background: rgba(41,41,41,1);
-    background: -moz-radial-gradient(center, ellipse cover, rgba(41,41,41,1) 0%, rgba(19,19,19,1) 100%);
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(41,41,41,1)), color-stop(100%, rgba(19,19,19,1)));
-    background: -webkit-radial-gradient(center, ellipse cover, rgba(41,41,41,1) 0%, rgba(19,19,19,1) 100%);
-    background: -o-radial-gradient(center, ellipse cover, rgba(41,41,41,1) 0%, rgba(19,19,19,1) 100%);
-    background: -ms-radial-gradient(center, ellipse cover, rgba(41,41,41,1) 0%, rgba(19,19,19,1) 100%);
-    background: radial-gradient(ellipse at center, rgba(41,41,41,1) 0%, rgba(19,19,19,1) 100%);
+    background: rgba(41, 41, 41, 1);
+    background: -moz-radial-gradient(center, ellipse cover, rgba(41, 41, 41, 1) 0%, rgba(19, 19, 19, 1) 100%);
+    background: -webkit-gradient(
+        radial,
+        center center,
+        0px,
+        center center,
+        100%,
+        color-stop(0%, rgba(41, 41, 41, 1)),
+        color-stop(100%, rgba(19, 19, 19, 1))
+    );
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(41, 41, 41, 1) 0%, rgba(19, 19, 19, 1) 100%);
+    background: -o-radial-gradient(center, ellipse cover, rgba(41, 41, 41, 1) 0%, rgba(19, 19, 19, 1) 100%);
+    background: -ms-radial-gradient(center, ellipse cover, rgba(41, 41, 41, 1) 0%, rgba(19, 19, 19, 1) 100%);
+    background: radial-gradient(ellipse at center, rgba(41, 41, 41, 1) 0%, rgba(19, 19, 19, 1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#292929', endColorstr='#131313', GradientType=1 );
 }
 
-.chamadaEstoque h2, .chamadaEstoque p {
-    color: #FFF!important;
+.chamadaEstoque h2,
+.chamadaEstoque p {
+    color: #fff !important;
 }
 
-/*Preço do Veículo na Pagina de Detalhes */
+/*Preï¿½o do Veï¿½culo na Pagina de Detalhes */
 .veiculo-detalhes .precoVeiculo {
     background-color: #040404;
-    color: #FFF !important;
+    color: #fff !important;
 }
 
-
-/*Botões das Paginas*/
-.label-primary, .btn-primary, .btnFinanciamento {
+/*Botï¿½es das Paginas*/
+.label-primary,
+.btn-primary,
+.btnFinanciamento {
     background-color: #040404 !important;
-    color: #FFF !important;
+    color: #fff !important;
 }
 
-.label-primary:hover, .btn-primary:hover, .btnFinanciamento:hover {
-    background-color: #063f6f !important
+.label-primary:hover,
+.btn-primary:hover,
+.btnFinanciamento:hover {
+    background-color: #063f6f !important;
 }
 
 .result-item-view-buttons .btn-primary i {
-    color: #FFF !important;
+    color: #fff !important;
 }
 
 .result-item-view-buttons a i {
@@ -72,19 +86,26 @@
 }
 
 .bt-header {
-    background: rgba(115,126,132,1);
-    background: -moz-linear-gradient(top, rgba(115,126,132,1) 0%, rgba(77,85,90,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(115,126,132,1)), color-stop(100%, rgba(77,85,90,1)));
-    background: -webkit-linear-gradient(top, rgba(115,126,132,1) 0%, rgba(77,85,90,1) 100%);
-    background: -o-linear-gradient(top, rgba(115,126,132,1) 0%, rgba(77,85,90,1) 100%);
-    background: -ms-linear-gradient(top, rgba(115,126,132,1) 0%, rgba(77,85,90,1) 100%);
-    background: linear-gradient(to bottom, rgba(115,126,132,1) 0%, rgba(77,85,90,1) 100%);
+    background: rgba(115, 126, 132, 1);
+    background: -moz-linear-gradient(top, rgba(115, 126, 132, 1) 0%, rgba(77, 85, 90, 1) 100%);
+    background: -webkit-gradient(
+        left top,
+        left bottom,
+        color-stop(0%, rgba(115, 126, 132, 1)),
+        color-stop(100%, rgba(77, 85, 90, 1))
+    );
+    background: -webkit-linear-gradient(top, rgba(115, 126, 132, 1) 0%, rgba(77, 85, 90, 1) 100%);
+    background: -o-linear-gradient(top, rgba(115, 126, 132, 1) 0%, rgba(77, 85, 90, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(115, 126, 132, 1) 0%, rgba(77, 85, 90, 1) 100%);
+    background: linear-gradient(to bottom, rgba(115, 126, 132, 1) 0%, rgba(77, 85, 90, 1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#737e84', endColorstr='#4d555a', GradientType=0 );
 }
 
 /*Detalhes das Paginas*/
-.result-item-pricing .price, .accent-color,
-.accordion-heading .accordion-toggle, .add-features-list i,
+.result-item-pricing .price,
+.accent-color,
+.accordion-heading .accordion-toggle,
+.add-features-list i,
 .listing-header strong {
     color: #060606;
 }
@@ -93,15 +114,21 @@
     border-top: 3px solid #000000;
 }
 
-.separator span {background-color: #fe0202}
-.separator span:after, .separator span:before {border-bottom: 1px solid #fe0202; }
-
+.separator span {
+    background-color: #fe0202;
+}
+.separator span:after,
+.separator span:before {
+    border-bottom: 1px solid #fe0202;
+}
 
 /*Mobile*/
 @media only screen and (max-width: 767px) {
-
-    /*Cor dos botões menu mobile*/
-    .main-navigation > ul > li > a, .main-navigation > ul > li > a > i, .main-navigation > ul > li > a:hover, .main-navigation > ul > li > a:hover > i {
+    /*Cor dos botï¿½es menu mobile*/
+    .main-navigation > ul > li > a,
+    .main-navigation > ul > li > a > i,
+    .main-navigation > ul > li > a:hover,
+    .main-navigation > ul > li > a:hover > i {
         color: #222;
     }
 }

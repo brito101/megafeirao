@@ -14,6 +14,7 @@ use LaraCar\Support\Cropper;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use LaraCar\Automotive;
 
 class CompanyController extends Controller
 {
@@ -333,6 +334,11 @@ class CompanyController extends Controller
         $company = Company::where('id', $id)->first();
         if (Auth::user()->hasRole('Anunciante') && $company->user != Auth::user()->id) {
             throw new UnauthorizedException('403', 'You do not have the required authorization.');
+        }
+        $owner = $company->ownerObject()->id;
+        $automobiles = Automotive::where('user', $owner)->count();
+        if ($automobiles > 0) {
+            return redirect()->route('admin.companies.index')->with(['color' => 'red', 'message' => 'Empresa NÃO REMOVIDA por ter anúncios vinculados!']);
         }
         $company->delete();
         return redirect()->route('admin.companies.index')->with(['color' => 'orange', 'message' => 'Empresa removida com sucesso!']);

@@ -616,10 +616,10 @@
 }
 .veiculosHome .results-grid-view .result-item-title {
     padding-top: 5px;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 17px;
     text-transform: uppercase;
-    height: 65px;
+    /* height: 65px; */
     vertical-align: bottom;
     text-align: center;
     overflow: hidden;
@@ -685,7 +685,7 @@
     padding: 10px 10px 0;
     border: 1px solid #eee;
     background: #fff;
-    min-height: 320px;
+    min-height: 340px;
 }
 .result-item-pricing-home {
     text-align: center;
@@ -850,5 +850,11 @@
         width: 49% !important;
         float: left !important;
         min-height: 200px;
+    }
+}
+
+@media (max-width: 460px) {
+    .veiculosHome .results-grid-view .result-item {
+        width: 100% !important;
     }
 }

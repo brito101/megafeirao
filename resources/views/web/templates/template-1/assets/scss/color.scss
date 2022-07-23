@@ -7,11 +7,12 @@
 /*Menu*/
 .main-navigation > ul > li > a,
 .main-navigation > ul > li > a > i {
-    color: #222;
+    color: #fff;
+    font-weight: 700;
 }
 .main-navigation > ul > li > a:hover,
 .main-navigation > ul > li > a:hover > i {
-    color: #000 !important;
+    color: #eee !important;
 }
 
 // .main-navigation > ul > li > a {
@@ -123,12 +124,12 @@
 }
 
 /*Mobile*/
-@media only screen and (max-width: 767px) {
-    /*Cor dos bot�es menu mobile*/
-    .main-navigation > ul > li > a,
-    .main-navigation > ul > li > a > i,
-    .main-navigation > ul > li > a:hover,
-    .main-navigation > ul > li > a:hover > i {
-        color: #222;
-    }
-}
+// @media only screen and (max-width: 767px) {
+//     /*Cor dos bot�es menu mobile*/
+//     .main-navigation > ul > li > a,
+//     .main-navigation > ul > li > a > i,
+//     .main-navigation > ul > li > a:hover,
+//     .main-navigation > ul > li > a:hover > i {
+//         color: #222;
+//     }
+// }

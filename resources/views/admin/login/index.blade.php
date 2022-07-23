@@ -20,32 +20,33 @@
 
 
     <div class="dash_login">
-        <header class="logo">
+        {{-- <header class="logo">
             <div class="dash_login_box_headline_logo">
                 <a href="{{ route('web.home') }}">
                     <img src="{{ url(asset('backend/assets/images/brand.png')) }}" width="250">
                 </a>
             </div>
-        </header>
+        </header> --}}
 
-        <div class="dash_login_left">
+        {{-- <div class="dash_login_left">
             <article>
                 <p>Anuncie Grátis</p>
                 <p>Anúncios Particulares e Concessionárias</p>
                 <p>Traga sua concessionária para o nosso site e ganhe loja virtual grátis.</p>
                 <p>Sem mensalidade, sem plano de fidelidade, sem taxa de adesão, sem pagamento mínimo e muito mais.</p>
             </article>
-        </div>
+        </div> --}}
 
         <div class="dash_container_login">
-            <article class="dash_login_right_box" style="margin-bottom: 40px;">
+            <article class="dash_login_right_box">
                 <header class="dash_login_box_headline">
                     <h1>Login</h1>
                 </header>
                 <form name="login" action="{{ route('admin.login.do') }}" method="post" autocomplete="off">
                     <label>
                         <span class="field icon-envelope">E-mail:</span>
-                        <input type="email" name="email" placeholder="Informe seu e-mail" maxlength="191" required />
+                        <input type="email" name="email" placeholder="Informe seu e-mail" maxlength="191"
+                            required />
                     </label>
                     <label>
                         <span class="field icon-unlock-alt">Senha:</span>
@@ -67,13 +68,14 @@
                 <form name="newAccount" action="{{ route('admin.account.do') }}" method="post" autocomplete="off">
                     <label>
                         <span class="field icon-user">Nome:</span>
-                        <input type="text" name="name" placeholder="Informe seu nome" minlength="3" maxlength="191"
-                            required />
+                        <input type="text" name="name" placeholder="Informe seu nome" minlength="3"
+                            maxlength="191" required />
                     </label>
 
                     <label>
                         <span class="field icon-envelope">E-mail:</span>
-                        <input type="email" name="email" placeholder="Informe seu e-mail" maxlength="191" required />
+                        <input type="email" name="email" placeholder="Informe seu e-mail" maxlength="191"
+                            required />
                     </label>
 
                     <label>

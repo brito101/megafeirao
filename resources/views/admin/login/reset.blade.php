@@ -19,7 +19,7 @@
     <div class="ajax_response"></div>
 
     <div class="dash_login">
-        <header class="logo">
+        {{-- <header class="logo">
             <div class="dash_login_box_headline_logo">
                 <a href="{{ route('web.home') }}">
                     <img src="{{ url(asset('backend/assets/images/brand.png')) }}" width="250">
@@ -34,7 +34,7 @@
                 <p>Traga sua concessionária para o nosso site e ganhe loja virtual grátis.</p>
                 <p>Sem mensalidade, sem plano de fidelidade, sem taxa de adesão, sem pagamento mínimo e muito mais.</p>
             </article>
-        </div>
+        </div> --}}
 
         <div class="dash_container_login">
             <article class="dash_login_right_box">

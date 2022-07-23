@@ -35,7 +35,48 @@
 
 <body class="home">
     <div class="body">
-        <div class="site-header-wrapper">
+        <div class="custom-header">
+            <div class="custom-header-logo">
+                <h1><a href="{{ route('web.filterCompany', ['slug' => $company->slug]) }}"><img
+                            src="{{ $company->logo() }}" alt="Logo"></a></h1>
+            </div>
+            <div class="custom-header-contact">
+                <div>
+                    <span class="tel-details">
+                        <a href="tel:{{ $company->telephone }}">{{ $company->telephone }}</a>
+                    </span>
+                </div>
+                <div>
+                    <span class="tel-details">
+                        <a href="tel:{{ $company->cell }}">{{ $company->cell }}</a>
+                    </span>
+                    <a href="https://api.whatsapp.com/send?phone=+{{ $company->cell }}&text=Ola" target="_blank"><img
+                            src="{{ asset('company-template/assets/img/whatsapp-logo.png') }}" alt="whatsapp"
+                            style="width: 22px; "></a>
+
+                </div>
+            </div>
+            <div class="custom-header-navbar">
+                <!-- Main Navigation -->
+                <nav class="main-navigation" role="navigation" style="top: 0px;">
+                    <ul class="sf-menu">
+                        <li class="menuHome"><a href="{{ route('web.filterCompany', ['slug' => $company->slug]) }}"
+                                title="Home"><i class="fa fa-home"></i> Home</a></li>
+
+                        <li><a href="{{ route('web.filterCompanyAutomotive', ['slug' => $company->slug]) }}"
+                                title="Nosso Estoque"><i class="fa fa-car"></i> Veículos</a>
+                        </li>
+                        <li class="menuLocalizacao" title="Localização"><a
+                                href="{{ route('web.filterCompanyLocation', ['slug' => $company->slug]) }}"><i
+                                    class="fa fa-map-marker"></i> Localização</a></li>
+                        <li><a href="{{ route('web.filterCompanyContact', ['slug' => $company->slug]) }}"
+                                title="Contato"><i class="fa fa-envelope"></i> Contato</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        {{-- <div class="site-header-wrapper">
             <header class="site-header">
                 <div class="container sp-cont">
                     <div class="site-logo">
@@ -86,11 +127,12 @@
                         </nav>
                     </div>
                     <div class="header-right">
-                        <a href="#" class="visible-sm visible-xs" id="menu-toggle"><i class="fa fa-bars"></i></a>
+                        <a href="#" class="visible-sm visible-xs" id="menu-toggle"><i
+                                class="fa fa-bars"></i></a>
                     </div>
                 </div>
             </header>
-        </div>
+        </div> --}}
         @yield('content')
 
         <footer class="site-footer">

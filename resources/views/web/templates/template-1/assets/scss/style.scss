@@ -1080,7 +1080,7 @@ body.boxed .body {
 
 .site-header {
     height: 140px;
-    background: url("../img/bg-header.png") no-repeat center top;
+    // background: url("../img/bg-header.png") no-repeat center top;
     padding: 0 0 15px;
     width: 100%;
     position: relative;
@@ -1204,6 +1204,7 @@ body.boxed .body {
     transition: all 0.3s ease 0.1s;
     float: left;
     border: 0px;
+    background: #f00;
 }
 
 .telefone1 {
@@ -2984,7 +2985,7 @@ optional-features-list:after {
 
     .main-navigation {
         padding-left: 10px !important;
-        background-color: #fff !important;
+        // background-color: #fff !important;
         margin-top: -3px !important;
     }
 
@@ -3420,6 +3421,77 @@ optional-features-list:after {
             &:hover {
                 transform: scale(1.1);
             }
+        }
+    }
+}
+
+.custom-header {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    .custom-header-logo {
+        flex-basis: 80%;
+        display: flex;
+        justify-content: center;
+        padding-left: 20%;
+
+        @media (max-width: 768px) {
+            flex-basis: 100%;
+            padding: 0;
+        }
+    }
+
+    .custom-header-contact {
+        flex-basis: 20%;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+
+        @media (max-width: 768px) {
+            flex-basis: 100%;
+            justify-content: space-between;
+        }
+
+        i {
+            color: #000;
+            margin-right: 10px;
+        }
+
+        & > div {
+            flex-basis: 100%;
+
+            @media (max-width: 768px) {
+                flex-basis: calc(50% - 10px);
+                &:first-child {
+                    text-align: right;
+                }
+
+                &:last-child {
+                    text-align: left;
+                }
+            }
+        }
+    }
+
+    .custom-header-navbar {
+        flex-basis: 100%;
+        margin-bottom: 0;
+        z-index: 3;
+        height: 52px;
+        color: #777;
+        -webkit-transition: all 0.3s ease 0.2s;
+        -moz-transition: all 0.3s ease 0.2s;
+        -ms-transition: all 0.3s ease 0.2s;
+        -o-transition: all 0.3s ease 0.2s;
+        transition: all 0.3s ease 0.1s;
+        border: 0px;
+        background: #f00;
+
+        @media (max-width: 400px) {
+            min-height: 100px;
         }
     }
 }

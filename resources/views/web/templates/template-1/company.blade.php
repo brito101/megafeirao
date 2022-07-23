@@ -83,26 +83,26 @@
                                     <div id="results-holder" class="results-grid-view">
                                         @foreach ($automotivesForSale as $automotive)
                                             <div class="result-item">
-                                                <div class="result-item-image">
+                                                <div class="result-item-image" style="margin: -10px -10px 5px -10px;">
                                                     <a href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}"
                                                         class="media-box">
                                                         <img src="{{ $automotive->coverFront() }}" alt="">
                                                         <span class="zoom"><span class="icon"><i
                                                                     class="fa fa-plus-circle"></i></span></span>
                                                     </a>
-                                                    <div class="result-item-view-buttons">
-                                                        <a>{{ $automotive->mileage }} KM</a>
-                                                        <a>{{ $automotive->year }}</a>
-                                                    </div>
                                                 </div>
-                                                <div class="result-item-in">
-                                                    <h4 class="result-item-title"><a
-                                                            href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">{{ $automotive->title }}</a>
-                                                    </h4>
+                                                <div class="result-item-in" style="">
                                                     <div class="result-item-cont result-item-pricing-home">
                                                         <div class="price">R$ {{ $automotive->sale_price }}
                                                         </div>
                                                     </div>
+                                                    <h4 class="result-item-title"><a
+                                                            href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">{{ $automotive->title }}</a>
+                                                    </h4>
+                                                    <h5 class="result-item-title">
+                                                        <span>{{ $automotive->mileage }} KM</span>
+                                                        - <span>{{ $automotive->year }}</span>
+                                                    </h5>
                                                     <div style="clear:both"></div>
                                                 </div>
                                                 <div style="clear:both"></div>

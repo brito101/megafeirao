@@ -45,9 +45,8 @@
                                         <li data-target="#carouselProperty" data-slide-to="{{ $loop->iteration - 1 }}"
                                             {!! $loop->iteration == 1 ? 'class="active h-100"' : 'class="h-100"' !!}
                                             style="width: 100%; max-height: 100px; display: flex; justify-content: center;">
-                                            <img src="{{ $image->getUrlCroppedAttribute() }}"
-                                                class="rounded d-block w-100" alt="{{ $automotive->title }}"
-                                                style="object-fit: cover" />
+                                            <img src="{{ $image->getUrlCroppedAttribute() }}" class="rounded d-block w-100"
+                                                alt="{{ $automotive->title }}" style="object-fit: cover" />
                                         </li>
                                     @endforeach
 
@@ -121,13 +120,11 @@
 
                         <a target="_blank"
                             href="https://api.whatsapp.com/send?phone=55+{{ $company->cell }}&text=Olá, me interessei sobre o seu anúncio."
-                            class="btn btn-success btn-lg btn-block icon-whatsapp mb-3"><b>Clique para enviar whatsapp para
-                                o anunciante!</b>
+                            class="btn btn-success btn-lg btn-block icon-whatsapp mb-3"><b>Enviar WhatsApp</b>
                         </a>
 
                         <div class="main_property_contact">
-                            <h2 class="bg-front text-white icon-envelope text-center"><b>Enviar e-mail para
-                                    o anunciante!</b></h2>
+                            <h2 class="bg-front text-white icon-envelope text-center"><b>Enviar e-mail</b></h2>
 
                             <form action="{{ route('web.sendEmail') }}" method="post">
                                 @csrf

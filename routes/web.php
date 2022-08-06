@@ -21,6 +21,8 @@ Route::get('/quero-comprar/{slug}', 'Web\\WebController@buyAutomotive')->name('w
 
 /** Página de filtro */
 Route::match(['post', 'get'], '/filtro', 'Web\\WebController@filter')->name('web.filter');
+Route::get('/filtro-marca/{brand}', 'Web\\WebController@filterBrand')->name('web.filterBrand');
+Route::get('/filtro-modelo/{model}', 'Web\\WebController@filterModel')->name('web.filterModel');
 
 /** Página de contato */
 Route::get('/contato', 'Web\\WebController@contact')->name('web.contact');

@@ -8,36 +8,6 @@
     <div class="main_filter page_filter pb-2">
         <div class="container">
             <section class="row">
-                {{-- <div class="col-12 d-flex justify-content-between">
-                    <div class="col-12 col-md-9 text-center" style="margin-top: 30px;">
-                        @if ($banner->link3)
-                            <a href="{{ $banner->link3 ?? route('web.register') }}">
-                                <img src="{{ $banner->cover3? asset('storage/' . $banner->cover3): url(asset('frontend/assets/images/banner-horizontal.png')) }}"
-                                    class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt="Anuncie Grátis"
-                                    title="Anuncie Grátis"></a>
-                        @else
-                            <a href="{{ route('web.register') }}">
-                                <img src="{{ url(asset('frontend/assets/images/banner-horizontal.png')) }}"
-                                    class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt="Anuncie Grátis"
-                                    title="Anuncie Grátis"></a>
-                        @endif
-                    </div>
-                    <div class="col-12 col-md-3 text-center d-none d-md-block" style="margin-top: 30px;">
-                        @if ($banner->link2)
-                            <a href="{{ $banner->link2 ?? route('web.register') }}"
-                                class="d-flex justify-content-center align-content-center h-100">
-                                <img src="{{ $banner->cover2? asset('storage/' . $banner->cover2): url(asset('frontend/assets/images/banner-horizontal.png')) }}"
-                                    class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt="Loja do Anunciante"
-                                    title="Loja do Anunciante"></a>
-                        @else
-                            <a href="{{ route('web.register') }}"
-                                class="d-flex justify-content-center align-content-center h-100">
-                                <img src="{{ url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                    class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt="Anuncie Aqui"
-                                    title="Anuncie Aqui"></a>
-                        @endif
-                    </div>
-                </div> --}}
 
                 <div class="col-12 d-flex flex-wrap justify-content-between">
                     <div class="col-12 col-md-5 col-lg-3">
@@ -135,11 +105,6 @@
                                     <input type="text" id="mileage_input" readonly class="col-12 mb-4 px-2">
                                     <div id="mileage-range"></div>
                                 </div>
-
-                                {{-- Botão passado para baixo em 2022-04-23 --}}
-                                {{-- <div class="col-12 text-center button_search">
-                                <button class="btn btn-front icon-search">Pesquisar</button>
-                            </div> --}}
                             </div>
 
                             <div class="d-none d-md-block">
@@ -160,45 +125,45 @@
                                     </div>
                                 @endif
 
-                                @if (count($gear))
-                                    <div class="col-12 px-0 mt-3">
-                                        <div class="text-dark font-weight-normal ">Câmbio</div>
-                                        @foreach ($gear as $g)
-                                            <div class="check_filter" style="font-size: 0.875em;"
-                                                data-action="{{ route('component.main-filter.gear') }}">
-                                                <input type="checkbox" id="gear{{ $loop->index }}" name="gear"
-                                                    value="{{ $g }}">
-                                                <label for="gear{{ $loop->index }}">{{ $g }}
-                                                    ({{ count($collect->where('gear', $g)) }})
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endif
-
-                                @if (count($fuel))
-                                    <div class="col-12 px-0 mt-3">
-                                        <div class="text-dark font-weight-normal">Combustível</div>
-                                        @foreach ($fuel as $f)
-                                            <div class="check_filter" style="font-size: 0.875em;"
-                                                data-action="{{ route('component.main-filter.fuel') }}">
-                                                <input type="checkbox" id="fuel{{ $loop->index }}" name="fuel"
-                                                    value="{{ $f }}">
-                                                <label for="fuel{{ $loop->index }}">{{ $f }}
-                                                    ({{ count($collect->where('fuel', $f)) }})
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endif
-
                             </div>
 
-                            <div class="row mt-2">
+                            <div class="row my-2">
                                 <div class="col-12 text-center button_search">
                                     <button class="btn btn-front icon-search">Pesquisar</button>
                                 </div>
                             </div>
+
+                            @if (count($brand))
+                                <div class="col-12 px-0 mt-3 card d-none d-md-block">
+                                    <div class="text-dark font-weight-normal card-header">Marcas</div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled mb-0">
+                                            @foreach ($brand as $f)
+                                                <li><a href="{{ route('web.filterBrand', ['brand' => $f['link']]) }}"
+                                                        class="text-muted text-uppercase">{{ $f['title'] }}
+                                                        ({{ count($collect->where('brand', $f['title'])) }})
+                                                    </a></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
+
+                            @if (count($model))
+                                <div class="col-12 px-0 mt-3 card d-none d-md-block">
+                                    <div class="text-dark font-weight-normal card-header">Modelos</div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled mb-0">
+                                            @foreach ($model as $f)
+                                                <li><a href="{{ route('web.filterModel', ['model' => $f['link']]) }}"
+                                                        class="text-muted text-uppercase">{{ $f['title'] }}
+                                                        ({{ count($collect->where('model', $f['title'])) }})
+                                                    </a></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
                         </form>
 
                     </div>
@@ -425,26 +390,6 @@
                             </div>
                         @endif
 
-                        <div class='d-flex align-items-center mb-2 mt-2 mt-md-0 flex-wrap'>
-                            <div class="col-12 px-0 mx-0 d-flex flex-wrap justify-content-center justify-content-md-start">
-                                <div class="text-grey-darker d-none d-sm-block mr-2">Ordenar por:</div>
-                                <select id="filter-price">
-                                    <option value="ASC" {{ Request::get('direction') == 'asc' ? 'selected' : '' }}>
-                                        Preço (crescente)</option>
-                                    <option value="DESC" {{ Request::get('direction') == 'desc' ? 'selected' : '' }}>
-                                        Preço (decrescente)</option>
-                                </select>
-                                {{-- <div class="d-flex flex-wrap">
-                                    <div id="price" class="d-flex d-inline-block mb-1 mb-sm-0">
-                                        @sortablelink('sale_price', 'Preço', ['filter' => 'visible'])
-                                    </div>
-                                    <div id="year" class="d-flex d-inline-block mb-1 mb-sm-0">
-                                        @sortablelink('year', 'Ano', ['filter' => ' visible'])
-                                    </div>
-                                </div> --}}
-                            </div>
-                        </div>
-
                         <section class="row main_properties d-flex justify-content-center">
                             @if ($automotives)
                                 @foreach ($automotives->slice(0, 5) as $automotive)
@@ -452,8 +397,7 @@
                                         <article
                                             class="row mx-0 mx-md-2 border border-gray shadow-sm p-3 d-flex flex-wrap justify-content-between">
                                             <div class="col-12 col-lg-4 img-responsive p-0">
-                                                <a
-                                                    href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">
+                                                <a href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">
                                                     <img src="{{ $automotive->coverFront() }}" class="card-img-top"
                                                         alt="{{ $automotive->title }}">
                                                 </a>
@@ -520,64 +464,6 @@
                                             </div>
                                         </article>
                                     </div>
-                                    {{-- <div class="col-12 col-md-12 col-lg-6 mb-3 px-2">
-                                        <article class="card main_properties_item border border-primary p-2">
-                                            <h2 class="m-0 mb-2 d-flex justify-content-between">
-                                                <a href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}"
-                                                    class="text-dark main_properties_price text-truncate d-block">{{ $automotive->title }}</a>
-                                                <a href="#"
-                                                    class="heart-like text-front icon-heart-o text-dark text-decoration-none text-right"
-                                                    data-id="{{ $automotive->id }}"></a>
-                                            </h2>
-                                            <div class="container p-0 col-12 d-flex">
-                                                <div class="img-responsive col-7 p-0 pb-2">
-                                                    <a
-                                                        href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">
-                                                        <img src="{{ $automotive->coverFront() }}"
-                                                            class="card-img-top rounded"
-                                                            alt="{{ $automotive->title }}">
-                                                    </a>
-                                                </div>
-                                                <div class="card-body p-0 col-5 pl-2 pt-2">
-                                                    <div
-                                                        class="d-flex flex-wrap justify-content-center h-100 main_automotives_item">
-                                                        <div class="col-6 d-flex flex-wrap justify-content-center">
-                                                            <p class="mb-n5 text-muted main_automotives_item">Ano</p>
-                                                            <p
-                                                                class="font-weight-bold text-sm text-dark text-truncate mt-2 mb-n1 w-100 text-center main_automotives_item">
-                                                                {{ $automotive->year }}</p>
-                                                        </div>
-                                                        <div class="col-6 d-flex flex-wrap justify-content-center">
-                                                            <p class="mb-n5 text-muted main_automotives_item">Km</p>
-                                                            <p
-                                                                class="font-weight-bold text-sm text-dark text-truncate mt-2 mb-n1 w-100 text-center main_automotives_item">
-                                                                {{ $automotive->mileage }}</p>
-                                                        </div>
-                                                        <div class="col-12 d-flex flex-wrap justify-content-center">
-                                                            <p class="mb-n3 mt-2 text-muted main_automotives_item">Câmbio
-                                                            </p>
-                                                            <p
-                                                                class="font-weight-bold text-sm text-dark text-truncate mt-2 mb-n1 w-100 text-center main_automotives_item">
-                                                                {{ $automotive->gear ? $automotive->gear : 'Não informado' }}
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-12 d-flex flex-wrap justify-content-center">
-                                                            <p
-                                                                class="mt-2 mb-n1 text-muted text-center w-100 main_automotives_item">
-                                                                {{ $automotive->city }}</p>
-                                                            <p
-                                                                class="mb-2 text-muted main_automotives_item text-center w-100">
-                                                                {{ $automotive->neighborhood }}</p>
-                                                        </div>
-                                                        <p
-                                                            class="main_properties_price text-front text-truncate mb-0 mb-n2 text-center w-100">
-                                                            R$
-                                                            {{ $automotive->sale_price }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div> --}}
                                 @endforeach
                                 @if ($banner->cover4)
                                     <div class="col-12 my-2 text-center" style="max-height: 150px">
@@ -593,8 +479,7 @@
                                         <article
                                             class="row mx-0 mx-md-2 border border-gray shadow-sm p-3 d-flex flex-wrap justify-content-between">
                                             <div class="col-12 col-lg-4 img-responsive p-0">
-                                                <a
-                                                    href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">
+                                                <a href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">
                                                     <img src="{{ $automotive->coverFront() }}" class="card-img-top"
                                                         alt="{{ $automotive->title }}" style="min-height: ">
                                                 </a>
@@ -663,7 +548,7 @@
                                         </article>
                                     </div>
                                 @endforeach
-                                @if ($banner->cover1)
+                                @if ($automotives->count() > 5 && $banner->cover1)
                                     <div class="col-12 my-2 text-center" style="max-height: 150px">
                                         <a href="{{ $banner->link1 ?? route('web.register') }}"
                                             class="d-flex justify-content-center align-content-center h-100">

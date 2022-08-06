@@ -139,7 +139,8 @@
                                     <input type="hidden" name="company" value="{{ $company->id }}">
                                     <h4 style="font-size: 1.25rem; font-weight: 600">Envie sua mensagem</h4>
                                     <div class="form-group">
-                                        <input type="text" name="name" class="form-control" placeholder="Nome" required>
+                                        <input type="text" name="name" class="form-control" placeholder="Nome"
+                                            required>
                                     </div>
 
                                     <div class="form-group">
@@ -362,8 +363,9 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                                                data-slide="prev" style="margin-top: -50px; margin-left: -80px; opacity:1;">
+                                            <a class="carousel-control-prev" href="#carouselExampleControls"
+                                                role="button" data-slide="prev"
+                                                style="margin-top: -50px; margin-left: -80px; opacity:1;">
                                                 <span class="icon-chevron-left" aria-hidden="true"
                                                     style="font-size: 20px; color:#aaa"></span>
                                                 <span class="sr-only">Anterior</span>
@@ -403,16 +405,16 @@
                                                 <div class="card-body p-0 col-5 pl-2 pt-2">
                                                     <div
                                                         class="d-flex flex-wrap justify-content-center h-100 main_automotives_item">
-                                                        <div class="col-6 d-flex flex-wrap justify-content-center">
+                                                        <div class="col-12 d-flex flex-wrap justify-content-center">
                                                             <p class="mb-n5 text-muted main_automotives_item">Ano</p>
                                                             <p
                                                                 class="font-weight-bold text-sm text-dark text-truncate mt-2 mb-n1 w-100 text-center main_automotives_item">
                                                                 {{ $automotive->year }}</p>
                                                         </div>
-                                                        <div class="col-6 d-flex flex-wrap justify-content-center">
+                                                        <div class="col-12 d-flex flex-wrap justify-content-center">
                                                             <p class="mb-n5 text-muted main_automotives_item">Km</p>
                                                             <p
-                                                                class="font-weight-bold text-sm text-dark text-truncate mt-2 mb-n1 w-100 text-center main_automotives_item">
+                                                                class="font-weight-bold text-sm text-dark text-truncate mt-2 mb-n3 w-100 text-center main_automotives_item">
                                                                 {{ $automotive->mileage }}</p>
                                                         </div>
                                                         <div class="col-12 d-flex flex-wrap justify-content-center">
@@ -424,14 +426,7 @@
                                                                 {{ $automotive->gear ? $automotive->gear : 'Não informado' }}
                                                             </p>
                                                         </div>
-                                                        <div class="col-12 d-flex flex-wrap justify-content-center">
-                                                            <p
-                                                                class="mt-2 mb-n1 text-muted text-center w-100 main_automotives_item">
-                                                                {{ $automotive->city }}</p>
-                                                            <p
-                                                                class="mb-2 text-muted main_automotives_item text-center w-100">
-                                                                {{ $automotive->neighborhood }}</p>
-                                                        </div>
+
                                                         <p
                                                             class="main_properties_price text-front text-truncate mb-0 mb-n2 text-center w-100">
                                                             R$

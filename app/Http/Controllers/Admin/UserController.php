@@ -11,7 +11,10 @@ use LaraCar\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use LaraCar\Company;
 use LaraCar\Config;
+use LaraCar\Mail\Web\Contact;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class UserController extends Controller
@@ -254,5 +257,22 @@ class UserController extends Controller
         $user = User::where('id', $id)->first();
         $user->delete();
         return redirect()->route('admin.users.index')->with(['color' => 'orange', 'message' => 'Usuário removido com sucesso!']);
+    }
+
+    public function message(Request $request)
+    {
+        $user = User::where('id', $request->user)->first();
+
+        $data = [
+            'reply_name' => "Administração " . env('APP_NAME'),
+            'reply_email' => env('MAIL_FROM_ADDRESS'),
+            'cell' => '',
+            'message' => $request->message,
+            'company' => $user->email
+        ];
+
+        Mail::send(new Contact($data));
+
+        return \response()->json(true);
     }
 }

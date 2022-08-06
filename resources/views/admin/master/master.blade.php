@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
 
+    <link rel="stylesheet" href="{{ url(asset('backend/assets/css/bootstrap.css')) }}" />
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/reset.css')) }}" />
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/libs.css')) }}" />
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/boot.css')) }}" />
@@ -60,7 +61,7 @@
                     </li>
 
                     @if (auth()->user()->can('Listar Usuários') ||
-    auth()->user()->can('Listar Empresas'))
+                        auth()->user()->can('Listar Empresas'))
                         {{-- Menu Clientes --}}
 
                         @hasrole('Anunciante')
@@ -203,6 +204,8 @@
             </div>
 
             <script src="{{ url(mix('backend/assets/js/jquery.js')) }}"></script>
+            <script src="{{ url(asset('backend/assets/js/popper.js')) }}"></script>
+            <script src="{{ url(asset('backend/assets/js/bootstrap.js')) }}"></script>
             <script src="{{ url(asset('backend/assets/js/tinymce/tinymce.min.js')) }}"></script>
             <script src="{{ url(mix('backend/assets/js/libs.js')) }}"></script>
             <script src="{{ url(mix('backend/assets/js/scripts.js')) }}"></script>

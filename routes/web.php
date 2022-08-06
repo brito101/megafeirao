@@ -70,6 +70,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
         /** Usuários */
         Route::get('users/team', 'UserController@team')->name('users.team');
+        Route::post('users/message', 'UserController@message')->name('users.message');
         Route::resource('users', 'UserController');
 
         /** Permissões */

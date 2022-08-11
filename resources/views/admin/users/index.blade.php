@@ -1,5 +1,9 @@
 @extends('admin.master.master')
 
+@section('pre_css')
+    <link rel="stylesheet" href="{{ url(asset('backend/assets/css/bootstrap.css')) }}" />
+@endsection
+
 @section('content')
     <section class="dash_content_app">
 
@@ -38,9 +42,7 @@
                             <th>Nome Completo</th>
                             <th>E-mail</th>
                             <th>Anúncios ativos</th>
-                            @can('Remover Usuários')
-                                <th>Ações</th>
-                            @endcan
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>

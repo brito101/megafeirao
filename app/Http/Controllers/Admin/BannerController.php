@@ -66,7 +66,7 @@ class BannerController extends Controller
         $banner->save();
 
         return redirect()->route('admin.banner.index')
-            ->with(['color' => 'orange', 'message' => 'Banners criados com sucesso!']);
+            ->with(['color' => 'green', 'message' => 'Banners criados com sucesso!']);
     }
 
     /**
@@ -121,6 +121,6 @@ class BannerController extends Controller
         }
         $banner->save();
         return redirect()->route('admin.banner.index')
-            ->with(['color' => 'orange', 'message' => 'Banners atualizados com sucesso!']);
+            ->with(['color' => 'green', 'message' => 'Banners atualizados com sucesso!']);
     }
 }

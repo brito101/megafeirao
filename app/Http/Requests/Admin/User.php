@@ -27,8 +27,11 @@ class User extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:191',
+            'cell' => 'required|min:10|max:191',
             'cover' => 'image',
             'email' => (!empty($this->request->all()['id']) ? 'required|email|unique:users,email,' . $this->request->all()['id'] : 'required|email|unique:users,email'),
+            'ads_limit' => 'nullable|numeric',
+            'banner_views_limit' => 'nullable|numeric',
         ];
     }
 }

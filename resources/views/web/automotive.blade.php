@@ -6,13 +6,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-lg-8">
-                        <h1 class="text-truncate h4">
-                            <b>{{ Illuminate\Support\Str::words($automotive->title, 7) }}</b>
-                        </h1>
-                        <p lass="text-truncate h6">
-                            <b>Ano {{ $automotive->year }} - Câmbio {{ $automotive->gear }} -
-                                {{ $automotive->mileage }} Km - Combustível {{ $automotive->fuel }}</b>
-                        </p>
+                        <h2 class="text-truncate h2 my-1 d-flex justify-content-between font-weight-bold">
+                            <span>{{ Illuminate\Support\Str::words($automotive->title, 7) }}</span>
+                            <span class="text-primary">R$ {{ $automotive->sale_price }}</span>
+                        </h2>
 
                         <div id="carouselProperty" class="carousel slide" data-ride="carousel">
 
@@ -68,6 +65,44 @@
                             </ol>
                         </div>
 
+                        <div class="col-12 border rounded d-flex flex-wrap p-2">
+                            <div class="col-6 col-md-3 border-right d-flex justify-content-center align-items-center">
+                                <div class="text-center py-2" style="color: #183764; font-size: 1rem">
+                                    <p class="my-0 font-weight-bold text-truncate">{{ $automotive->year }}</p>
+                                    <p class="my-0" style="font-size: 0.825rem;">Ano/Modelo</p>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-3 d-flex d-md-none justify-content-center align-items-center">
+                                <div class="text-center py-2" style="color: #183764; font-size: 1rem">
+                                    <p class="my-0 font-weight-bold text-truncate">{{ $automotive->mileage }}</p>
+                                    <p class="my-0" style="font-size: 0.825rem;">Km</p>
+                                </div>
+                            </div>
+
+                            <div
+                                class="col-6 col-md-3 d-none d-md-flex justify-content-center align-items-center border-right">
+                                <div class="text-center py-2" style="color: #183764; font-size: 1rem">
+                                    <p class="my-0 font-weight-bold text-truncate">{{ $automotive->mileage }}</p>
+                                    <p class="my-0" style="font-size: 0.825rem;">Km</p>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-3 border-right d-flex justify-content-center align-items-center">
+                                <div class="text-center py-2" style="color: #183764; font-size: 1rem">
+                                    <p class="my-0 font-weight-bold text-truncate">{{ $automotive->fuel }}</p>
+                                    <p class="my-0" style="font-size: 0.825rem;">Combustível</p>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-3 d-flex justify-content-center align-items-center">
+                                <div class="text-center py-2" style="color: #183764; font-size: 1rem">
+                                    <p class="my-0 font-weight-bold text-truncate">{{ $automotive->gear }}</p>
+                                    <p class="my-0" style="font-size: 0.825rem;">Transmissão</p>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="main_property_price pt-4 text-muted">
 
                             @if (!empty($type))
@@ -97,29 +132,23 @@
                             </div>
                         @endif
 
-                        <div class="main_property_location">
-                            <h6 class="icon-map-marker font-weight-bolder">
-                                {{ $automotive->street }}, {{ $automotive->number }},
-                                {{ $automotive->neighborhood }},
-                                {{ $automotive->city }}/{{ $automotive->state }}
+                        @if ($company)
+                            <div class="main_property_location">
+                                <h6 class="icon-map-marker font-weight-bolder">
+                                    {{ $automotive->street }}, {{ $automotive->number }},
+                                    {{ $automotive->neighborhood }},
+                                    {{ $automotive->city }}/{{ $automotive->state }}
 
-                            </h6>
-                            <div id="map" style="width: 100%; min-height: 400px;"></div>
-                        </div>
+                                </h6>
+                                <div id="map" style="width: 100%; min-height: 400px;"></div>
+                            </div>
+                        @endif
 
                     </div>
 
                     <div class="col-12 col-lg-4 mt-3 mt-lg-0">
-                        @if (!empty($type))
-                            <h1 class="main_property_price_big d-none d-lg-block text-primary font-weight-bold">R$
-                                {{ $automotive->sale_price }}</h1>
-                        @else
-                            <h3 class="main_properties_price d-none d-lg-block font-weight-bold text-lg text-front">
-                                Entre em contato com a nossa equipe comercial!</h3>
-                        @endif
-
                         <a target="_blank"
-                            href="https://api.whatsapp.com/send?phone=55+{{ $company->cell }}&text=Olá, me interessei sobre o seu anúncio."
+                            href="https://api.whatsapp.com/send?phone=55+{{ $company->cell ?? $automotive->ownerObject()->cell }}&text=Olá, me interessei sobre o seu anúncio."
                             class="btn btn-success btn-lg btn-block icon-whatsapp mb-3"><b>Enviar WhatsApp</b>
                         </a>
 
@@ -128,7 +157,8 @@
 
                             <form action="{{ route('web.sendEmail') }}" method="post">
                                 @csrf
-                                <input type="hidden" name="company" value="{{ $company->id }}">
+                                <input type="hidden" name="ownerEmail"
+                                    value="{{ $company->email ?? $automotive->ownerObject()->email }}">
                                 <div class="form-group">
                                     {{-- <label for="name">Seu nome:</label> --}}
                                     <input type="text" class="form-control" name="name"
@@ -155,28 +185,31 @@
                                 <div class="form-group text-center">
                                     <button
                                         class="btn btn-block text-primary border border-primary bg-white">Enviar</button>
-                                    @if ($company->telephone)
+                                    @if ($company && $company->telephone)
                                         <p class="text-center text-front mb-0 mt-4 font-weight-bold">
                                             {{ $company->telephone }}</p>
                                     @endif
-                                    @if ($company->cell)
+                                    @if (($company && $company->cell) || $automotive->ownerObject()->cell)
                                         <a target="_blank"
-                                            href="https://api.whatsapp.com/send?phone=55+{{ $company->cell }}&text=Olá, me interessei sobre o seu anúncio."
-                                            class="text-dark text-decoration-none font-weight-bold mt-1 icon-whatsapp">{{ $company->cell }}</a>
+                                            href="https://api.whatsapp.com/send?phone=55+{{ $company->cell ?? $automotive->ownerObject()->cell }}&text=Olá, me interessei sobre o seu anúncio."
+                                            class="text-dark text-decoration-none font-weight-bold mt-1 icon-whatsapp">{{ $company->cell ?? $automotive->ownerObject()->cell }}</a>
                                     @endif
                                 </div>
                             </form>
                         </div>
 
-                        <div class="col-12 mt-5 px-0 text-center card">
-                            <a href="{{ route('web.filterCompany', ['slug' => $company->slug]) }}">
-                                <img src="{{ $company->logo() }}" class="card-img-top"
-                                    alt="{{ $company->alias_name }}">
-                            </a>
-                            <a class="text-secondary fs-6"
-                                href="{{ route('web.filterCompany', ['slug' => $company->slug]) }}">Ver todos os carros
-                                do anunciante</a>
-                        </div>
+                        @if ($company)
+                            <div class="col-12 mt-5 px-0 text-center card">
+                                <a href="{{ route('web.filterCompany', ['slug' => $company->slug]) }}">
+                                    <img src="{{ $company->logo() }}" class="card-img-top"
+                                        alt="{{ $company->alias_name }}">
+                                </a>
+                                <a class="text-secondary fs-6"
+                                    href="{{ route('web.filterCompany', ['slug' => $company->slug]) }}">Ver todos os
+                                    carros
+                                    do anunciante</a>
+                            </div>
+                        @endif
 
                         @if ($banner->link3)
                             <div class="col-12 mt-5 px-0 text-center card">
@@ -222,37 +255,38 @@
 @endsection
 
 @section('js')
-    <script>
-        function markMap() {
+    @if ($company)
+        <script>
+            function markMap() {
 
-            var locationJson = $.getJSON(
-                'https://maps.googleapis.com/maps/api/geocode/json?address={{ $automotive->street }},+{{ $automotive->number }}+{{ $automotive->city }}+{{ $automotive->neighborhood }}&key={{ env('GOOGLE_API_KEY') }}',
-                function(response) {
+                var locationJson = $.getJSON(
+                    'https://maps.googleapis.com/maps/api/geocode/json?address={{ $automotive->street }},+{{ $automotive->number }}+{{ $automotive->city }}+{{ $automotive->neighborhood }}&key={{ env('GOOGLE_API_KEY') }}',
+                    function(response) {
 
-                    lat = response.results[0].geometry.location.lat;
-                    lng = response.results[0].geometry.location.lng;
+                        lat = response.results[0].geometry.location.lat;
+                        lng = response.results[0].geometry.location.lng;
 
-                    const map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: 14,
-                        center: {
-                            lat: lat,
-                            lng: lng
-                        },
-                        mapTypeId: 'terrain'
+                        const map = new google.maps.Map(document.getElementById('map'), {
+                            zoom: 14,
+                            center: {
+                                lat: lat,
+                                lng: lng
+                            },
+                            mapTypeId: 'terrain'
+                        });
+
+                        const beachMarker = new google.maps.Marker({
+                            position: {
+                                lat: lat,
+                                lng: lng
+                            },
+                            map,
+                        });
                     });
-
-                    const beachMarker = new google.maps.Marker({
-                        position: {
-                            lat: lat,
-                            lng: lng
-                        },
-                        map,
-                    });
-                });
-        }
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&callback=markMap">
-    </script>
-
+            }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&callback=markMap">
+        </script>
+    @endif
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 @endsection

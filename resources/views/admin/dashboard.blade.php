@@ -41,13 +41,14 @@
                         </article>
 
                         <article class="blog radius">
-                            <h4 class="icon-picture-o">Visualizações</h4>
-                            <p>Seus anúncios e seus banners foram vistos 2.345 vezes por pessoas da sua cidade.</p>
+                            <h4 class="icon-picture-o">Total de visualizações</h4>
+                            <p><b>Banners:</b> {{ $banner->views ?? 0 }}</p>
+                            <p><b>Veículos:</b> {{ $views }}</p>
                         </article>
 
                         <article class="blog radius">
                             <h4 class="icon-bullhorn">Limite de Anúncios</h4>
-                            <p><b>Disponíveis:</b> {{ Auth::user()->ads_limit }}</p>
+                            <p><b>Anúncios restantes:</b> {{ Auth::user()->ads_limit }}</p>
                             <p class="text-red">Para inserir mais anúncios faça um PIX de qualquer valor para
                                 megafeiraoveiculos@gmail.com e envie o comprovante pelo Fale Conosco ao lado. Cada anúncio custa
                                 R$ 1,00</p>
@@ -66,18 +67,6 @@
                             </p>
                             <p class="text-red my-0">Confira se o email que você recebeu realmente é nosso antes de responder.
                             </p>
-                        </article>
-
-                        <article class="radius mt-2" style="flex-basis: 100%;">
-                            <h4 class="icon-gift">Dicas</h4>
-                            <p class="my-0">Faça fotos de boa qualidade e iluminadas.</p>
-                            <p class="my-0">Informe da frente, traseira, laterais, bancos e painel do carro.</p>
-                            <p class="my-0">Informe foto do painel mostrando a quilometragem verdadeira do carro.</p>
-                            <p class="my-0">Informe valor total no título do anúncio.</p>
-                            <p class="my-0">Informe o valor da entrada, o valor parcelado e o valor total.</p>
-                            <p class="my-0">Informe valor mínimo de entrada e dê exemplos de parcelamento.</p>
-                            <p class="my-0">Informe é possível o parcelamento para negativados.</p>
-                            <p class="my-0">Informe se há condições especiais de parcelamento para UBER, 99, etc.</p>
                         </article>
                     @endhasrole
                 </section>
@@ -123,9 +112,8 @@
                                             @php
                                                 $active = $automotive->active_date >= Carbon\Carbon::now()->subDays(30);
                                             @endphp
-                                            <div class="text-center btn btn-orange" style="height: 35px;
-                                                                display: flex;
-                                                                align-items: center;">
+                                            <div class="text-center btn btn-orange"
+                                                style="height: 35px; display: flex; align-items: center;">
                                                 {{ $active == 1 ? 'Ativo desde de ' . date('d/m/Y', strtotime($automotive->active_date)) : 'Inativo' }}
                                             </div>
                                             @if ($active == 0)

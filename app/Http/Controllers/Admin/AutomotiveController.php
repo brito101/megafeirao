@@ -61,13 +61,6 @@ class AutomotiveController extends Controller
             throw new UnauthorizedException('403', 'You do not have the required authorization.');
         }
 
-        if (Auth::user()->hasRole('Anunciante')) {
-            $company = Company::where('user', Auth::user()->id)->first();
-            if (empty($company->id)) {
-                return redirect()->route('admin.companies.index')->with(['color' => 'orange', 'message' => 'É necessário a criação de uma loja inicialmente. Crie a sua agora!']);
-            }
-        }
-
         $users = User::orderBy('name')->get();
         return view('admin.automotives.create', [
             'users' => $users
@@ -102,18 +95,15 @@ class AutomotiveController extends Controller
             $company = Company::where('user', $request->user)->first();
         }
 
-        if (empty($company->id)) {
-            return redirect()->route('admin.automotives.index')->with(['color' => 'orange', 'message' => 'Cadastro não '
-                . 'realizado! É necessário a criação de uma loja inicialmente']);
+        if (!empty($company->id)) {
+            $createAutomotive->zipcode = $company->zipcode;
+            $createAutomotive->street = $company->street;
+            $createAutomotive->number = $company->number;
+            $createAutomotive->complement = $company->complement;
+            $createAutomotive->neighborhood = $company->neighborhood;
+            $createAutomotive->state = $company->state;
+            $createAutomotive->city = $company->city;
         }
-
-        $createAutomotive->zipcode = $company->zipcode;
-        $createAutomotive->street = $company->street;
-        $createAutomotive->number = $company->number;
-        $createAutomotive->complement = $company->complement;
-        $createAutomotive->neighborhood = $company->neighborhood;
-        $createAutomotive->state = $company->state;
-        $createAutomotive->city = $company->city;
 
         if ($request->spotlight) {
             if (Auth::user()->hasRole('Anunciante')) {
@@ -192,13 +182,6 @@ class AutomotiveController extends Controller
             throw new UnauthorizedException('403', 'You do not have the required authorization.');
         }
 
-        if (Auth::user()->hasRole('Anunciante')) {
-            $company = Company::where('user', Auth::user()->id)->first();
-            if (empty($company->id)) {
-                return redirect()->route('admin.companies.index')->with(['color' => 'orange', 'message' => 'É necessário a criação de uma loja inicialmente. Crie a sua agora!']);
-            }
-        }
-
         $users = User::orderBy('name')->get();
         return view('admin.automotives.edit', [
             'automotive' => $automotive,
@@ -234,18 +217,15 @@ class AutomotiveController extends Controller
             $company = Company::where('user', $request->user)->first();
         }
 
-        if (empty($company->id)) {
-            return redirect()->route('admin.automotives.index')->with(['color' => 'orange', 'message' => 'Cadastro não '
-                . 'realizado! É necessário a criação de uma loja inicialmente']);
+        if (!empty($company->id)) {
+            $automotive->zipcode = $company->zipcode;
+            $automotive->street = $company->street;
+            $automotive->number = $company->number;
+            $automotive->complement = $company->complement;
+            $automotive->neighborhood = $company->neighborhood;
+            $automotive->state = $company->state;
+            $automotive->city = $company->city;
         }
-
-        $automotive->zipcode = $company->zipcode;
-        $automotive->street = $company->street;
-        $automotive->number = $company->number;
-        $automotive->complement = $company->complement;
-        $automotive->neighborhood = $company->neighborhood;
-        $automotive->state = $company->state;
-        $automotive->city = $company->city;
 
         $automotive->setSaleAttribute(1);
         $automotive->setAirConditioningAttribute($request->air_conditioning);
@@ -316,7 +296,7 @@ class AutomotiveController extends Controller
         }
         $automotive->delete();
 
-        return redirect()->route('admin.automotives.index')->with(['color' => 'orange', 'message' => 'Veículo removido com sucesso!']);
+        return redirect()->route('admin.automotives.index')->with(['color' => 'green', 'message' => 'Veículo removido com sucesso!']);
     }
 
     public function reactive($id)

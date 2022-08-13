@@ -100,16 +100,21 @@
 
                         @can('Listar Veículos')
                             {{-- Menu Veículos --}}
-                            <li class="dash_sidebar_nav_item {{ isActive('admin.automotives') }}">
-                                <a class="icon-car" href="javascript:void(0)">Veículos</a>
+                            <li class="dash_sidebar_nav_item {{ isActive('admin.automotives.index') }}">
                                 <ul class="dash_sidebar_nav_item">
                                     @can('Listar Veículos')
                                         <li class="{{ isActive('admin.automotives.index') }}"><a
-                                                href="{{ route('admin.automotives.index') }}">Ver Todos</a></li>
+                                                href="{{ route('admin.automotives.index') }}"><i class="icon-car"></i>Veículos
+                                                Cadastrados</a></li>
                                     @endcan
+                                </ul>
+                            </li>
+                            <li class="dash_sidebar_nav_item {{ isActive('admin.automotives.create') }}">
+                                <ul class="dash_sidebar_nav_item">
                                     @can('Cadastrar Veículos')
                                         <li class="{{ isActive('admin.automotives.create') }}"><a
-                                                href="{{ route('admin.automotives.create') }}">Criar Novo</a></li>
+                                                href="{{ route('admin.automotives.create') }}"><i class="icon-car"></i>Criar Novo
+                                                Anúncio</a></li>
                                     @endcan
                                 </ul>
                             </li>
@@ -158,6 +163,12 @@
                         @hasanyrole('Administrador|Gerente')
                             <li class="dash_sidebar_nav_item  {{ isActive('admin.banner.index') }}">
                                 <a class="icon-bookmark" href="{{ route('admin.banner.index') }}">Banner</a>
+                            </li>
+                        @endhasrole
+
+                        @hasanyrole('Anunciante')
+                            <li class="dash_sidebar_nav_item  {{ isActive('admin.client-banner.index') }}">
+                                <a class="icon-file-image-o" href="{{ route('admin.client-banner.index') }}">Cadastrar Banner</a>
                             </li>
                         @endhasrole
 

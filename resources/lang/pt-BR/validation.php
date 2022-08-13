@@ -271,5 +271,7 @@ return [
         'banner1' => '1º banner',
         'banner2' => '2º banner',
         'banner3' => '3º banner',
+        'ads_limit' => 'limite de Anúncios',
+        'banner_views_limit' => 'limite de visualizações de banner',
     ],
 ];

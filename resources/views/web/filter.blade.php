@@ -391,6 +391,15 @@
                         @endif
 
                         <section class="row main_properties d-flex justify-content-center">
+
+                            @if ($clientBanner)
+                                <div class="col-12 mb-3 text-center" style="max-height: 120px">
+                                    <img src="{{ url('storage/' . $clientBanner->cover) }}"
+                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                        title="" style="object-fit: contain;" title="Sponsor">
+                                </div>
+                            @endif
+
                             @if ($automotives)
                                 @foreach ($automotives->slice(0, 5) as $automotive)
                                     <div class="col-12 p-2">
@@ -448,17 +457,22 @@
                                                 </div>
                                                 <div class="d-none d-lg-flex col-4 align-items-center">
                                                     <div class="m-auto pl-3">
-                                                        <a
-                                                            href="{{ route('web.filterCompany', ['slug' => $automotive->ownerObject()->company->slug]) }}">
-                                                            <img src="{{ $automotive->ownerObject()->company->logo() }}"
-                                                                class="card-img-top border border-gray shadow-sm"
-                                                                alt="{{ $automotive->ownerObject()->company->alias_name }}">
-                                                        </a>
-                                                        <p class="text-muted my-1 text-center">
-                                                            {{ $automotive->ownerObject()->company->neighborhood }}</p>
-                                                        <p class="text-muted my-0 text-center">
-                                                            {{ $automotive->ownerObject()->company->city }}-{{ $automotive->ownerObject()->company->state }}
-                                                        </p>
+                                                        @if ($automotive->ownerObject()->company)
+                                                            <a
+                                                                href="{{ route('web.filterCompany', ['slug' => $automotive->ownerObject()->company->slug]) }}">
+                                                                <img src="{{ $automotive->ownerObject()->company->logo() }}"
+                                                                    class="card-img-top border border-gray shadow-sm"
+                                                                    alt="{{ $automotive->ownerObject()->company->alias_name }}">
+                                                            </a>
+                                                            <p class="text-muted my-1 text-center">
+                                                                {{ $automotive->ownerObject()->company->neighborhood }}
+                                                            </p>
+                                                            <p class="text-muted my-0 text-center">
+                                                                {{ $automotive->ownerObject()->company->city }}-{{ $automotive->ownerObject()->company->state }}
+                                                            </p>
+                                                        @else
+                                                            <p class="font-weight-bold h4">Particular</p>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -530,18 +544,22 @@
                                                 </div>
                                                 <div class="d-none d-lg-flex col-4 align-items-center">
                                                     <div class="m-auto pl-3">
-                                                        <a
-                                                            href="{{ route('web.filterCompany', ['slug' => $automotive->ownerObject()->company->slug]) }}">
-                                                            <img src="{{ $automotive->ownerObject()->company->logo() }}"
-                                                                class="card-img-top border border-gray shadow-sm"
-                                                                alt="{{ $automotive->ownerObject()->company->alias_name }}">
-                                                        </a>
-                                                        <p class="text-muted my-1 text-center">
-                                                            {{ $automotive->ownerObject()->company->neighborhood }}
-                                                        </p>
-                                                        <p class="text-muted my-0 text-center">
-                                                            {{ $automotive->ownerObject()->company->city }}-{{ $automotive->ownerObject()->company->state }}
-                                                        </p>
+                                                        @if ($automotive->ownerObject()->company)
+                                                            <a
+                                                                href="{{ route('web.filterCompany', ['slug' => $automotive->ownerObject()->company->slug]) }}">
+                                                                <img src="{{ $automotive->ownerObject()->company->logo() }}"
+                                                                    class="card-img-top border border-gray shadow-sm"
+                                                                    alt="{{ $automotive->ownerObject()->company->alias_name }}">
+                                                            </a>
+                                                            <p class="text-muted my-1 text-center">
+                                                                {{ $automotive->ownerObject()->company->neighborhood }}
+                                                            </p>
+                                                            <p class="text-muted my-0 text-center">
+                                                                {{ $automotive->ownerObject()->company->city }}-{{ $automotive->ownerObject()->company->state }}
+                                                            </p>
+                                                        @else
+                                                            <p class="font-weight-bold h4">Particular</p>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -614,18 +632,22 @@
                                                 </div>
                                                 <div class="d-none d-lg-flex col-4 align-items-center">
                                                     <div class="m-auto pl-3">
-                                                        <a
-                                                            href="{{ route('web.filterCompany', ['slug' => $automotive->ownerObject()->company->slug]) }}">
-                                                            <img src="{{ $automotive->ownerObject()->company->logo() }}"
-                                                                class="card-img-top border border-gray shadow-sm"
-                                                                alt="{{ $automotive->ownerObject()->company->alias_name }}">
-                                                        </a>
-                                                        <p class="text-muted my-1 text-center">
-                                                            {{ $automotive->ownerObject()->company->neighborhood }}
-                                                        </p>
-                                                        <p class="text-muted my-0 text-center">
-                                                            {{ $automotive->ownerObject()->company->city }}-{{ $automotive->ownerObject()->company->state }}
-                                                        </p>
+                                                        @if ($automotive->ownerObject()->company)
+                                                            <a
+                                                                href="{{ route('web.filterCompany', ['slug' => $automotive->ownerObject()->company->slug]) }}">
+                                                                <img src="{{ $automotive->ownerObject()->company->logo() }}"
+                                                                    class="card-img-top border border-gray shadow-sm"
+                                                                    alt="{{ $automotive->ownerObject()->company->alias_name }}">
+                                                            </a>
+                                                            <p class="text-muted my-1 text-center">
+                                                                {{ $automotive->ownerObject()->company->neighborhood }}
+                                                            </p>
+                                                            <p class="text-muted my-0 text-center">
+                                                                {{ $automotive->ownerObject()->company->city }}-{{ $automotive->ownerObject()->company->state }}
+                                                            </p>
+                                                        @else
+                                                            <p class="font-weight-bold h4">Particular</p>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>

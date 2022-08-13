@@ -34,9 +34,10 @@ $(function () {
         const action = form.attr('action');
         const name = form.find('input[name="name"]').val();
         const email = form.find('input[name="email"]').val();
+        const cell = form.find('input[name="cell"]').val();
         const password = form.find('input[name="password_check"]').val();
 
-        $.post(action, {name: name, email: email, password: password}, function (response) {
+        $.post(action, {name: name, email: email, password: password, cell: cell}, function (response) {
 
             if (response.message) {
                 ajaxMessage(response.message, 3);

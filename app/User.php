@@ -27,6 +27,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'name',
+        'cell',
         'email',
         'password',
         //        'genre',
@@ -35,7 +36,9 @@ class User extends Authenticatable implements JWTSubject
         //        'document_secondary_complement',
         //        'date_of_birth',
         //        'place_of_birth',
-        'cover'
+        'cover',
+
+        'banner_views_limit'
     ];
 
     /**

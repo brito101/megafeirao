@@ -20,22 +20,6 @@
 
 
     <div class="dash_login">
-        {{-- <header class="logo">
-            <div class="dash_login_box_headline_logo">
-                <a href="{{ route('web.home') }}">
-                    <img src="{{ url(asset('backend/assets/images/brand.png')) }}" width="250">
-                </a>
-            </div>
-        </header> --}}
-
-        {{-- <div class="dash_login_left">
-            <article>
-                <p>Anuncie Grátis</p>
-                <p>Anúncios Particulares e Concessionárias</p>
-                <p>Traga sua concessionária para o nosso site e ganhe loja virtual grátis.</p>
-                <p>Sem mensalidade, sem plano de fidelidade, sem taxa de adesão, sem pagamento mínimo e muito mais.</p>
-            </article>
-        </div> --}}
 
         <div class="dash_container_login">
             <article class="dash_login_right_box">
@@ -75,6 +59,12 @@
                     <label>
                         <span class="field icon-envelope">E-mail:</span>
                         <input type="email" name="email" placeholder="Informe seu e-mail" maxlength="191"
+                            required />
+                    </label>
+
+                    <label>
+                        <span class="field icon-phone">Celular:</span>
+                        <input type="tel" name="cell" placeholder="Informe seu nº de celular" maxlength="191"
                             required />
                     </label>
 

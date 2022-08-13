@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use LaraCar\Mail\Admin\ForgottenPassword;
 use Illuminate\Support\Facades\Storage;
+use LaraCar\ClientBanner;
 use LaraCar\Config;
 
 class AuthController extends Controller
@@ -62,6 +63,7 @@ class AuthController extends Controller
         $userCreate->email = filter_var($request->email, FILTER_SANITIZE_STRIPPED);
         $userCreate->password = $request->password;
         $userCreate->name = $request->name;
+        $userCreate->cell = str_replace(['.', '-', '/', '(', ')', ' '], '', filter_var($request->cell, FILTER_SANITIZE_STRIPPED));
         $userCreate->ads_limit = (Config::first())->initial_ads;
 
         if ($userCreate->save()) {
@@ -89,6 +91,7 @@ class AuthController extends Controller
             $team = User::whereHas('roles', function ($q) {
                 $q->where('name', 'Anunciante');
             })->count();
+
             $automotivesAvailable = Automotive::available()->count();
             $automotivesUnavailable = Automotive::unavailable()->count();
             $automotivesTotal = Automotive::all()->count();
@@ -106,14 +109,18 @@ class AuthController extends Controller
             $user = Auth::user()->id;
             $automotivesAvailable = Automotive::available()->where('user', $user)->count();
             $automotivesUnavailable = Automotive::unavailable()->where('user', $user)->count();
-            $automotivesTotal = Automotive::all()->where('user', $user)->count();
+            $automotivesTotal = $automotivesAvailable + $automotivesUnavailable;
             $automotives = Automotive::orderBy('id', 'DESC')->where('user', $user)->limit(3)->get();
+            $banner = ClientBanner::where('user', Auth::user()->id)->first();
 
+            $views = Automotive::where('user', $user)->sum('views');
             return view('admin.dashboard', [
                 'automotivesAvailable' => $automotivesAvailable,
                 'automotivesUnavailable' => $automotivesUnavailable,
                 'automotivesTotal' => $automotivesTotal,
                 'automotives' => $automotives,
+                'views' => $views,
+                'banner' => $banner
             ]);
         }
     }

@@ -77,6 +77,12 @@
                                     <span class="legend">Foto</span>
                                     <input type="file" name="cover">
                                 </label>
+
+                                <label class="label">
+                                    <span class="legend">Celular</span>
+                                    <input type="tel" name="cell" placeholder="Número do Celular"
+                                        value="{{ old('cell') ?? $user->cell }}" required />
+                                </label>
                             </div>
 
                             <div class="app_collapse mt-2">
@@ -95,7 +101,8 @@
 
                                         <label class="label">
                                             <span class="legend">Senha:</span>
-                                            <input type="password" name="password" placeholder="Senha de acesso" value="" />
+                                            <input type="password" name="password" placeholder="Senha de acesso"
+                                                value="" />
                                         </label>
                                     </div>
                                 </div>
@@ -186,6 +193,12 @@
                                     <span class="legend">Limite de Anúncios:</span>
                                     <input type="tel" name="ads_limit" placeholder="Quantidade liberada"
                                         value="{{ old('ads_limit') ?? $user->ads_limit }}" />
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">Limite de Visualização de Banner:</span>
+                                    <input type="tel" name="banner_views_limit" placeholder="Quantidade liberada"
+                                        value="{{ old('banner_views_limit') ?? $user->banner_views_limit }}" />
                                 </label>
 
                                 @can('Atribuir Permissões')

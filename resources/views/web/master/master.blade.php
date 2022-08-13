@@ -47,7 +47,7 @@
 
     <header class="main_header">
         @if (Route::current()->getName() != 'web.filterCompany')
-            <div class="header_bar bg-dark">
+            {{-- <div class="header_bar bg-dark">
                 <div class="container">
                     <div class="row py-1 d-flex justify-content-center">
                         <a href="{{ route('web.register') }}"
@@ -55,10 +55,10 @@
                             obtenha sua loja virtual grátis em www.megafeiraoveiculos.com.br</a>
                     </div>
                 </div>
-            </div>
-            <nav class="navbar navbar-expand-md navbar-light my-0 py-0" style="background-color: #FFF">
+            </div> --}}
+            <nav class="navbar navbar-expand-md navbar-light my-0 pb-0" style="background-color: #FFF">
                 <div class="container">
-                    <div class="navbar-brand">
+                    <div class="navbar-brand col-8 col-md-4">
                         <a href="{{ route('web.home') }}">
                             <h1 class="text-hide">Mega Feirão Veículos</h1>
                             <img src="{{ url(asset('frontend/assets/images/brand.png')) }}" width="175"
@@ -71,27 +71,23 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <div class="fb-like d-none d-xl-block ml-5 pl-5"
-                        data-href="https://www.facebook.com/megafeiraoveiculos.com.br" data-width=""
-                        data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
-
-                    <div class="collapse navbar-collapse justify-content-end" id="navbar">
-                        <ul class="navbar-nav">
-                            {{-- <li class="nav-item"><a href="{{ route('admin.account') }}"
-                                    class="nav-link text-dark" title="Novo usuário"><span
-                                        class="text-danger font-weight-bold icon-chevron-right mr-n3">
-                                    </span>
-                                    <span class="text-danger font-weight-bold icon-chevron-right mx-n1">
-                                    </span><b>Novo usuário</b></a>
-                            </li> --}}
-                            <li class="nav-item"><a href="{{ route('admin.login') }}" class="nav-link text-dark"
-                                    title="Meus Anúncios"><span
-                                        class="text-danger font-weight-bold icon-chevron-right mr-n3">
-                                    </span>
-                                    <span class="text-danger font-weight-bold icon-chevron-right mx-n1">
-                                    </span><b>Anunciar Grátis</b></a>
+                    <div class="collapse navbar-collapse justify-center col-12 col-md-4" id="navbar">
+                        <ul class="navbar-nav ">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.login') }}" class="nav-link h4 text-center font-weight-bolder"
+                                    title="Clique aqui e anuncie grátis" style="background: #0557DD;">
+                                    <span class="text-white text-uppercase"
+                                        style="-webkit-text-stroke: 1px #000; text-stroke: 1px #000;
+                                    ">Clique
+                                        aqui e anuncie grátis</span>
+                                </a>
                             </li>
                         </ul>
+                    </div>
+
+                    <div class="fb-like d-none d-md-flex justify-content-end col-12 col-md-4"
+                        data-href="https://www.facebook.com/megafeiraoveiculos.com.br" data-width=""
+                        data-layout="button_count" data-action="like" data-size="large" data-share="true">
                     </div>
                 </div>
 

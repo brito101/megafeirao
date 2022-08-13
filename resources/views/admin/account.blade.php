@@ -36,13 +36,14 @@
                 <form name="newAccount" action="{{ route('admin.account.do') }}" method="post" autocomplete="off">
                     <label>
                         <span class="field icon-user">Nome:</span>
-                        <input type="text" name="name" placeholder="Informe seu nome" minlength="3" maxlength="191"
-                            required />
+                        <input type="text" name="name" placeholder="Informe seu nome" minlength="3"
+                            maxlength="191" required />
                     </label>
 
                     <label>
                         <span class="field icon-envelope">E-mail:</span>
-                        <input type="email" name="email" placeholder="Informe seu e-mail" maxlength="191" required />
+                        <input type="email" name="email" placeholder="Informe seu e-mail" maxlength="191"
+                            required />
                     </label>
 
                     <label>

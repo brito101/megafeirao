@@ -45,8 +45,8 @@
                                 <option value="" selected>Selecione um responsável legal</option>
                                 @foreach ($users as $user)
                                     @if (!empty($selected))
-                                        <option value="{{ $user->id }}"
-                                            {{ $user->id == $selected->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                                        <option value="{{ $user->id }}" {{ $user->id == $selected->id ? 'selected' : '' }}>
+                                            {{ $user->name }}</option>
                                     @else
                                         <option value="{{ $user->id }}">{{ $user->name }}
                                         </option>
@@ -162,30 +162,6 @@
                             <input type="file" name="cover">
                         </label>
 
-                        <label class="label">
-                            <span class="legend">Banner Principal (topo) da loja, medindo 1900x300px (horizontal)
-                                nos formatos
-                                jpg, jpeg ou png de no máximo 1MB.</span>
-                            <input type="file" name="main_banner">
-                        </label>
-
-                        <label class="label">
-                            <span class="legend">1º Banner da loja, medindo 1900x600px (horizontal) nos formatos
-                                jpg, jpeg ou png de no máximo 1MB.</span>
-                            <input type="file" name="banner1">
-                        </label>
-
-                        <label class="label">
-                            <span class="legend">2º Banner da loja, medindo 1900x600px (horizontal) nos formatos
-                                jpg, jpeg ou png de no máximo 1MB.</span>
-                            <input type="file" name="banner2">
-                        </label>
-
-                        <label class="label">
-                            <span class="legend">3º Banner da loja, medindo 1900x600px (horizontal) nos formatos
-                                jpg, jpeg ou png de no máximo 1MB.</span>
-                            <input type="file" name="banner3">
-                        </label>
                     </div>
 
                     <div class="text-right">

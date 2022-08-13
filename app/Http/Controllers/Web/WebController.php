@@ -11,7 +11,9 @@ use Illuminate\Support\Str;
 use LaraCar\Company;
 use Illuminate\Support\Facades\Storage;
 use LaraCar\Banner;
+use LaraCar\ClientBanner;
 use LaraCar\Term;
+use LaraCar\User;
 
 class WebController extends Controller
 {
@@ -38,6 +40,7 @@ class WebController extends Controller
         session()->remove('price_base');
         session()->remove('price_limit');
         $banner = Banner::first();
+
         $cities = [];
         if ($cityAutomotives->count()) {
             foreach ($cityAutomotives as $automotive) {
@@ -399,6 +402,18 @@ class WebController extends Controller
             $cityState = collect(array_filter($cityState))->unique()->sort();
         }
 
+        $users = User::where('banner_views_limit', '>', 0)->get();
+        $clientBanner = ClientBanner::whereIn('user', $users->pluck('id'))->inRandomOrder()->first();
+        if ($clientBanner) {
+            $clientBanner->views = $clientBanner->views + 1;
+            $clientBanner->update();
+            $userBanner = User::where('id', $clientBanner->user)->first();
+            if ($userBanner) {
+                $userBanner->banner_views_limit = $userBanner->banner_views_limit - 1;
+                $userBanner->update();
+            }
+        }
+
         return view('web.filter', [
             'head' => $head,
             'automotives' => $automotivesPaginate,
@@ -410,7 +425,8 @@ class WebController extends Controller
             'state' => $state,
             'cityState' => $cityState,
             'collect' => $collect,
-            'mileageMax' => $mileageCar
+            'mileageMax' => $mileageCar,
+            'clientBanner' => $clientBanner,
         ]);
     }
 
@@ -579,18 +595,12 @@ class WebController extends Controller
             return redirect()->route('web.home');
         }
 
-        if (isset($request->company)) {
-            $company = Company::where('id', $request->company)->first();
-        } else {
-            $company = null;
-        }
-
         $data = [
             'reply_name' => $request->name,
             'reply_email' => $request->email,
             'cell' => $request->cell,
             'message' => $request->message,
-            'company' => ($company ? $company->email : '')
+            'company' => $request->ownerEmail
         ];
 
         Mail::send(new Contact($data));

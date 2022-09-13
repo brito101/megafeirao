@@ -494,6 +494,18 @@ class WebController extends Controller
             $cityState = collect(array_filter($cityState))->unique()->sort();
         }
 
+        $users = User::where('banner_views_limit', '>', 0)->get();
+        $clientBanner = ClientBanner::whereIn('user', $users->pluck('id'))->inRandomOrder()->first();
+        if ($clientBanner) {
+            $clientBanner->views = $clientBanner->views + 1;
+            $clientBanner->update();
+            $userBanner = User::where('id', $clientBanner->user)->first();
+            if ($userBanner) {
+                $userBanner->banner_views_limit = $userBanner->banner_views_limit - 1;
+                $userBanner->update();
+            }
+        }
+
         return view('web.filter', [
             'head' => $head,
             'automotives' => $automotives,
@@ -505,7 +517,8 @@ class WebController extends Controller
             'state' => $state,
             'cityState' => $cityState,
             'collect' => $collect,
-            'mileageMax' => $mileageCar
+            'mileageMax' => $mileageCar,
+            'clientBanner' => $clientBanner
         ]);
     }
 
@@ -574,6 +587,18 @@ class WebController extends Controller
             $cityState = collect(array_filter($cityState))->unique()->sort();
         }
 
+        $users = User::where('banner_views_limit', '>', 0)->get();
+        $clientBanner = ClientBanner::whereIn('user', $users->pluck('id'))->inRandomOrder()->first();
+        if ($clientBanner) {
+            $clientBanner->views = $clientBanner->views + 1;
+            $clientBanner->update();
+            $userBanner = User::where('id', $clientBanner->user)->first();
+            if ($userBanner) {
+                $userBanner->banner_views_limit = $userBanner->banner_views_limit - 1;
+                $userBanner->update();
+            }
+        }
+
         return view('web.filter', [
             'head' => $head,
             'automotives' => $automotives,
@@ -585,7 +610,8 @@ class WebController extends Controller
             'state' => $state,
             'cityState' => $cityState,
             'collect' => $collect,
-            'mileageMax' => $mileageCar
+            'mileageMax' => $mileageCar,
+            'clientBanner' => $clientBanner
         ]);
     }
 

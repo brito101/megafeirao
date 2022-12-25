@@ -77,3 +77,12 @@
     box-sizing: border-box;
     margin-top: -5px;
 }
+
+.filter_car_img {
+    height: 100px;
+    object-fit: cover;
+
+    @media (max-width: 991px) {
+        height: 100%;
+    }
+}

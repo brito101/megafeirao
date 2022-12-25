@@ -33,7 +33,7 @@
         }
         gtag('js', new Date());
 
-        gtag('config', {{ env('GOOGLE_TAG_MANAGER') }});
+        gtag('config', "{{ env('GOOGLE_TAG_MANAGER') }}");
     </script>
 </head>
 

@@ -253,9 +253,9 @@ class AutomotiveController extends Controller
             $automotive->setSpotlightAttribute($request->spotlight);
         }
 
-        $automotive->save();
-
         $automotive->setSlug();
+
+        $automotive->save();
 
         $validator = Validator::make($request->only('files'), ['files.*' => 'image']);
 

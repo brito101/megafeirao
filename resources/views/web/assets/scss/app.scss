@@ -9,16 +9,16 @@
 @import "addons/lightbox-reset";
 
 .img-responsive-16by9 {
-  display: block;
-  height: 0;
-  padding-bottom: 56.25%;
-  overflow: hidden;
+    display: block;
+    height: 0;
+    padding-bottom: 56.25%;
+    overflow: hidden;
 }
 
 .carousel-item {
-  img {
-    height: 450px;
-  }
+    img {
+        height: 450px;
+    }
 }
 
 @import "theme/header";
@@ -34,5 +34,5 @@
 @import "pages/register";
 
 body {
-  font-family: "Open Sans", sans-serif;
+    font-family: "Open Sans", sans-serif;
 }

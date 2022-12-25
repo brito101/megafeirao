@@ -375,8 +375,7 @@ class WebController extends Controller
         $cityCar = [];
         $mileageCar = null;
 
-        if (!empty($collect)) {
-
+        if (count($collect) > 0) {
             foreach ($collect as $automotive) {
                 $state[] = $automotive->state;
                 $cityCar[] = $automotive->city;

@@ -199,7 +199,7 @@
                                                             <div class="d-flex flex-wrap justify-content-between">
                                                                 <span
                                                                     class="main_properties_price text-dark font-weight-bold"
-                                                                    style="font-size: 18px">R$
+                                                                    style="font-size: 0.875rem">R$
                                                                     {{ $automotive->sale_price }}</span>
                                                                 <a href="#"
                                                                     class="ml-2 heart-like text-front icon-heart-o text-dark text-decoration-none text-right"

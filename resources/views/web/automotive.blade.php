@@ -6,9 +6,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-lg-8">
-                        <h2 class="text-truncate h2 my-1 d-flex justify-content-between font-weight-bold">
-                            <span>{{ Illuminate\Support\Str::words($automotive->title, 7) }}</span>
-                            <span class="text-primary">R$ {{ $automotive->sale_price }}</span>
+                        <h2 class="text-truncate h2 my-1 d-flex flex-wrap justify-content-between font-weight-bold">
+                            <span
+                                class="col-12 col-md-8 px-0 text-truncate">{{ Illuminate\Support\Str::words($automotive->title, 7) }}</span>
+                            <span class="col-12 col-md-4 px-0 text-right text-primary">R$
+                                {{ $automotive->sale_price }}</span>
                         </h2>
 
                         <div id="carouselProperty" class="carousel slide" data-ride="carousel">

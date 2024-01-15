@@ -1,4 +1,5 @@
 const mix = require("laravel-mix");
+require("laravel-mix-purgecss");
 
 /*
  |--------------------------------------------------------------------------
@@ -12,7 +13,6 @@ const mix = require("laravel-mix");
  */
 
 mix
-
     //Assets Web
     .sass(
         "resources/views/web/assets/scss/bootstrap_person.scss",
@@ -190,9 +190,7 @@ mix
         "public/company-template/assets/js/jquery.js"
     )
     .scripts(
-        [
-            "resources/views/web/templates/template-1/assets/js/jquery-ui.min.js",
-        ],
+        ["resources/views/web/templates/template-1/assets/js/jquery-ui.min.js"],
         "public/company-template/assets/js/jquery-ui.js"
     )
     .scripts(
@@ -215,7 +213,9 @@ mix
         ],
         "public/company-template/assets/js/flexslider.js"
     )
+
     .options({
         processCssUrls: false,
     })
-    .version();
+    .sourceMaps()
+    .purgeCss();

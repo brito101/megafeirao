@@ -127,9 +127,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        if (!Auth::user()->hasPermissionTo('Editar Usuários')) {
-            throw new UnauthorizedException('403', 'You do not have the required authorization.');
-        }
+        // if (!Auth::user()->hasPermissionTo('Editar Usuários')) {
+        //     throw new UnauthorizedException('403', 'You do not have the required authorization.');
+        // }
 
         if (Auth::user()->hasRole('Anunciante') && $id != Auth::user()->id) {
             throw new UnauthorizedException('403', 'You do not have the required authorization.');
@@ -140,11 +140,11 @@ class UserController extends Controller
             throw new UnauthorizedException('403', 'You do not have the required authorization.');
         }
 
-        if (Auth::user()->hasRole('Administrador')) {
+        // if (Auth::user()->hasRole('Administrador')) {
             $roles = Role::all();
-        } else {
-            $roles = Role::where('name', '!=', 'Administrador')->get();
-        }
+        // } else {
+        //     $roles = Role::where('name', '!=', 'Administrador')->get();
+        // }
         foreach ($roles as $role) {
             if ($user->hasRole($role->name)) {
                 $role->can = true;

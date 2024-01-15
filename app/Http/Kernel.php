@@ -14,12 +14,10 @@ class Kernel extends HttpKernel {
      * @var array
      */
     protected $middleware = [
-        \Fruitcake\Cors\HandleCors::class,
         \LaraCar\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \LaraCar\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \LaraCar\Http\Middleware\TrustProxies::class,
     ];
 
     /**

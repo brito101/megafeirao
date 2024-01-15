@@ -43,7 +43,7 @@
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v12.0"
         nonce="VCEFC7kz"></script>
 
-    @include('cookieConsent::index')
+    @include('vendor.cookieConsent.index')
 
     <header class="main_header">
         @if (Route::current()->getName() != 'web.filterCompany')

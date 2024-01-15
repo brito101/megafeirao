@@ -18,6 +18,14 @@ class User extends FormRequest
         return Auth::check();
     }
 
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'ads_limit' => $this->ads_limit ? $this->ads_limit : 0,
+            'banner_views_limit' => $this->banner_views_limit ? $this->ads_limit : 0,
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

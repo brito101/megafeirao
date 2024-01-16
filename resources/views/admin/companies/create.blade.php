@@ -10,9 +10,9 @@
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                        <li class="separator icon-angle-right icon-notext"></li>
+                        <li class="icon-angle-right separator icon-notext"></li>
                         <li><a href="{{ route('admin.users.index') }}">Clientes</a></li>
-                        <li class="separator icon-angle-right icon-notext"></li>
+                        <li class="icon-angle-right separator icon-notext"></li>
                         <li><a href="{{ route('admin.companies.index') }}">Lojas</a></li>
                     </ul>
                 </nav>
@@ -55,7 +55,7 @@
                             </select>
                             @if (!empty($selected->id))
                                 <p style="margin-top: 4px;">
-                                    <a href="" class="text-orange icon-link" style="font-size: .8em;"
+                                    <a href="" class="icon-link text-orange" style="font-size: .8em;"
                                         target="_blank">Acessar
                                         Cadastro</a>
                                 </p>
@@ -142,7 +142,7 @@
                                 value="{{ old('slug') }}" required />
                         </label>
 
-                        <label class="label">
+                        {{-- <label class="label">
                             <span class="legend">Template</span>
                             <select name="template" class="select2">
                                 <option value="" selected>Selecione um template</option>
@@ -153,7 +153,7 @@
                                     Alfa
                                 </option>
                             </select>
-                        </label>
+                        </label> --}}
                     </div>
 
                     <div class="label_g3">
@@ -165,7 +165,7 @@
                     </div>
 
                     <div class="text-right">
-                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Criar Loja</button>
+                        <button class="icon-check-square-o btn btn-large btn-green" type="submit">Criar Loja</button>
                     </div>
                 </form>
             </div>

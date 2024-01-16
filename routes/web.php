@@ -1,6 +1,9 @@
 <?php
 
 /** Página inicial */
+
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', 'Web\\WebController@filter')->name('web.home');
 // Route::get('/', 'Web\\WebController@home')->name('web.home');
 

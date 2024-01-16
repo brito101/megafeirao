@@ -207,7 +207,7 @@
                                 </a>
                             </h1>
                             <div class="dash_userbar_box_bar no_mobile">
-                                <a class="text-red icon-sign-out" href="{{ route('admin.logout') }}">Sair</a>
+                                <a class="icon-sign-out text-red" href="{{ route('admin.logout') }}">Sair</a>
                             </div>
                         </div>
                     </div>

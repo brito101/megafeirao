@@ -180,7 +180,7 @@
                 </div>
 
                 <div class="text-right mt-2">
-                    <button class="btn btn-large btn-green icon-check-square-o">Atualizar Banners</button>
+                    <button class="icon-check-square-o btn btn-large btn-green">Atualizar Banners</button>
                 </div>
                 </form>
             </div>

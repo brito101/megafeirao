@@ -15,14 +15,14 @@
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         @can('Listar Usuários')
-                            <li class="separator icon-angle-right icon-notext"></li>
+                            <li class="icon-angle-right separator icon-notext"></li>
                             <li><a href="{{ route('admin.users.index') }}" class="text-orange">Clientes</a></li>
                         @endcan
                     </ul>
                 </nav>
 
                 @can('Cadastrar Usuários')
-                    <a href="{{ route('admin.users.create') }}" class="btn btn-orange icon-plus ml-1">Criar Cliente</a>
+                    <a href="{{ route('admin.users.create') }}" class="icon-plus btn btn-orange ml-1">Criar Cliente</a>
                 @endcan
             </div>
         </header>

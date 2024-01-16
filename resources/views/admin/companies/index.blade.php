@@ -11,13 +11,13 @@
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                        <li class="separator icon-angle-right icon-notext"></li>
+                        <li class="icon-angle-right separator icon-notext"></li>
                         <li><a href="{{ route('admin.users.index') }}">Clientes</a></li>
                     </ul>
                 </nav>
                 @can('Cadastrar Empresas')
                     @if ((Auth::user()->hasAnyRole('Anunciante') && $companies->count() == 0) || Auth::user()->hasAnyRole(['Administrador', 'Gerente']))
-                        <a href="{{ route('admin.companies.create') }}" class="btn btn-orange icon-plus ml-1">Criar Loja</a>
+                        <a href="{{ route('admin.companies.create') }}" class="icon-plus btn btn-orange ml-1">Criar Loja</a>
                     @endif
                 @endcan
             </div>

@@ -228,6 +228,11 @@ class Company extends Model
         }
     }
 
+    public function getTemplateAttribute()
+    {
+        return 'Alfa';
+    }
+
     public function setCellAttribute($value)
     {
         $this->attributes['cell'] = (!empty($value) ? $this->clearField($value) : null);

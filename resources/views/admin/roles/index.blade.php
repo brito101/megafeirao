@@ -10,12 +10,12 @@
             <nav class="dash_content_app_breadcrumb">
                 <ul>
                     <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                    <li class="separator icon-angle-right icon-notext"></li>
+                    <li class="icon-angle-right separator icon-notext"></li>
                     <li><a href="{{ route('admin.role.index') }}" class="text-orange">Perfis</a></li>
                 </ul>
             </nav>
             @can('Cadastrar Perfis')
-            <a href="{{ route('admin.role.create') }}" class="btn btn-orange icon-plus ml-1">Criar Perfil</a>
+            <a href="{{ route('admin.role.create') }}" class="icon-plus btn btn-orange ml-1">Criar Perfil</a>
             @endcan
         </div>
     </header>

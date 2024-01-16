@@ -10,7 +10,7 @@
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                        <li class="separator icon-angle-right icon-notext"></li>
+                        <li class="icon-angle-right separator icon-notext"></li>
                         <li><a href="{{ route('admin.automotives.index') }}">Veículo</a></li>
                     </ul>
                 </nav>
@@ -161,7 +161,7 @@
                     </div>
 
                     <div class="text-right mt-2">
-                        <button class="btn btn-large btn-green icon-check-square-o">Cadastrar Veículo</button>
+                        <button class="icon-check-square-o btn btn-large btn-green">Cadastrar Veículo</button>
                     </div>
                 </form>
             </div>

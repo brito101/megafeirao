@@ -19,7 +19,7 @@
                             <h4 class="icon-list">Lista de clientes</h4>
                             <div class="d-flex justify-content-center">
                                 <a download="Clientes" href="{{ Storage::url('clientes.txt') }}" title="Clientes"
-                                    class="btn btn-orange icon-download mx-auto">Download</a>
+                                    class="icon-download btn btn-orange mx-auto">Download</a>
                             </div>
                         </article>
 
@@ -27,7 +27,7 @@
                             <h4 class="icon-list">Lista de contatos</h4>
                             <div class="d-flex justify-content-center">
                                 <a download="Contatos" href="{{ Storage::url('usuarios.txt') }}" title="Contatos"
-                                    class="btn btn-orange icon-download mx-auto">Download</a>
+                                    class="icon-download btn btn-orange mx-auto">Download</a>
                             </div>
                         </article>
                     @endhasanyrole

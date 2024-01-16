@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="text-right mt-2">
-                    <button class="btn btn-large btn-green icon-check-square-o">Atualizar</button>
+                    <button class="icon-check-square-o btn btn-large btn-green">Atualizar</button>
                 </div>
                 </form>
             </div>

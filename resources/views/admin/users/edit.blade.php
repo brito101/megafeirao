@@ -15,11 +15,11 @@
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         @can('Listar Usuários')
-                            <li class="separator icon-angle-right icon-notext"></li>
+                            <li class="icon-angle-right separator icon-notext"></li>
                             <li><a href="{{ route('admin.users.index') }}">Clientes</a></li>
                         @endcan
                         @can('Cadastrar Usuários')
-                            <li class="separator icon-angle-right icon-notext"></li>
+                            <li class="icon-angle-right separator icon-notext"></li>
                             <li><a href="{{ route('admin.users.create') }}" class="text-orange">Criar Cliente</a></li>
                         @endcan
                     </ul>
@@ -216,7 +216,7 @@
                     </div>
 
                     <div class="text-right mt-2">
-                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
+                        <button class="icon-check-square-o btn btn-large btn-green" type="submit">Salvar Alterações
                         </button>
                     </div>
                 </form>

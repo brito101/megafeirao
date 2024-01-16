@@ -10,7 +10,7 @@
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                        <li class="separator icon-angle-right icon-notext"></li>
+                        <li class="icon-angle-right separator icon-notext"></li>
                         <li><a href="{{ route('admin.permission.index') }}" class="text-orange">Permissões</a></li>
                     </ul>
                 </nav>

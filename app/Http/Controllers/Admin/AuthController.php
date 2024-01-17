@@ -64,7 +64,7 @@ class AuthController extends Controller
         $userCreate->password = $request->password;
         $userCreate->name = $request->name;
         $userCreate->cell = str_replace(['.', '-', '/', '(', ')', ' '], '', filter_var($request->cell, FILTER_SANITIZE_STRIPPED));
-        $userCreate->ads_limit = (Config::first())->initial_ads;
+        $userCreate->ads_limit = (Config::first())->initial_ads ?? 0;
 
         if ($userCreate->save()) {
             Storage::append('usuarios.txt', $userCreate->email);

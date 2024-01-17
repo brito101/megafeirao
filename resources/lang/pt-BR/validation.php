@@ -196,6 +196,7 @@ return [
         // Contact
         'telephone' => 'telefone',
         'cell' => 'celular',
+        'cell2' => 'celular secundário',
         // Spouse
         'spouse_name' => 'nome do cônjuge',
         'spouse_document' => 'CPF do cônjuge',

@@ -1,6 +1,37 @@
 @extends('admin.master.master')
 
 @section('content')
+    <style>
+        .pagination {
+            list-style: none;
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+            border-radius: .25rem;
+        }
+
+        .page-link {
+            position: relative;
+            display: block;
+            padding: .5rem .75rem;
+            margin-left: -1px;
+            line-height: 1.25;
+            color: #007bff;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-top-color: rgb(222, 226, 230);
+            border-right-color: rgb(222, 226, 230);
+            border-bottom-color: rgb(222, 226, 230);
+            border-left-color: rgb(222, 226, 230);
+        }
+
+        .page-item.active .page-link {
+            z-index: 3;
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
     <section class="dash_content_app">
 
         <header class="dash_content_app_header pb-1">
@@ -40,11 +71,23 @@
                             <input type="text" class="form-control px-1" id="filter" name="filter"
                                 placeholder="Título do anúncio..." value="{{ $filter }}">
                         </div>
-                        <button type="submit" class="btn btn-orange icon-search m-0 ml-1" title="Filtrar"></button>
+                        <button type="submit" class="icon-search btn btn-orange m-0 ml-1" title="Filtrar"></button>
 
                     </form>
-                    <a href="{{ route('admin.automotives.index') }}" class="btn btn-orange icon-undo m-0 ml-1"
+                    <a href="{{ route('admin.automotives.index') }}" class="icon-undo btn btn-orange m-0 ml-1"
                         title="Resetar"></a>
+                </div>
+
+                <div class="d-flex mb-2">
+                    <form action="{{ route('admin.automotive.reannounce') }}" method="post"
+                        class="d-flex justify-content-center align-items-center">
+                        @csrf
+                        <label class="mt-1">Reanunciar todos os anúncios inativos?</label>
+                        <input type="checkbox" name="reannounce" style="cursor: pointer; margin: 0 10px;">
+                        <div class="col-12 col-md-4">
+                            <button class="btn btn-large btn-green">Ok</button>
+                        </div>
+                    </form>
                 </div>
 
                 <div class="realty_list">
@@ -85,7 +128,8 @@
                                         @php
                                             $active = $automotive->active_date >= Carbon\Carbon::now()->subDays(30);
                                         @endphp
-                                        <div class="text-center btn btn-orange" style="height: 35px;
+                                        <div class="text-center btn btn-orange"
+                                            style="height: 35px;
                                                         display: flex;
                                                         align-items: center;">
                                             {{ $active == 1 ? 'Ativo desde de ' . date('d/m/Y', strtotime($automotive->active_date)) : 'Inativo' }}
@@ -120,6 +164,8 @@
 
                             </div>
                         @endforeach
+                        <div style="display: flex; width: 100% !important; justify-content: center !important;">
+                            {{ $automotives->appends(request()->input())->links() }}</div>
                     @else
                         <div class="no-content">Não foram encontrados registros!</div>
                     @endif

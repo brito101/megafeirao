@@ -35,7 +35,7 @@
                 <form name="forgotternAccount" action="{{ route('admin.forgotten.do') }}" method="post"
                     autocomplete="off">
                     <label>
-                        <span class="field icon-envelope">E-mail:</span>
+                        <span class="icon-envelope field">E-mail:</span>
                         <input type="email" name="email" placeholder="Informe seu e-mail cadastrado" maxlength="191"
                             required />
                     </label>

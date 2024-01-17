@@ -32,16 +32,16 @@ class AutomotiveController extends Controller
         $filter = $request->query('filter');
         if (Auth::user()->hasAnyRole(['Administrador', 'Gerente'])) {
             if (!empty($filter)) {
-                $automotives = Automotive::orderBy('id', 'DESC')->where('title', 'like', '%' . $filter . '%')->get();
+                $automotives = Automotive::orderBy('id', 'DESC')->where('title', 'like', '%' . $filter . '%')->paginate(10);
             } else {
-                $automotives = Automotive::orderBy('id', 'DESC')->get();
+                $automotives = Automotive::orderBy('id', 'DESC')->paginate(10);
             }
         } else {
             if (!empty($filter)) {
                 $automotives = Automotive::orderBy('id', 'DESC')->where('user', Auth::user()->id)
-                    ->where('title', 'like', '%' . $filter . '%')->get();
+                    ->where('title', 'like', '%' . $filter . '%')->paginate(10);
             } else {
-                $automotives = Automotive::orderBy('id', 'DESC')->where('user', Auth::user()->id)->get();
+                $automotives = Automotive::orderBy('id', 'DESC')->where('user', Auth::user()->id)->paginate(10);
             }
         }
         return view('admin.automotives.index', [
@@ -353,5 +353,56 @@ class AutomotiveController extends Controller
             'success' => true
         ];
         return response()->json($json);
+    }
+
+    public function reannounce(Request $request)
+    {
+
+        $validated = $request->validate([
+            'reannounce' => 'required|in:on,true,1',
+        ]);
+        if ($validated) {
+            if (Auth::user()->hasAnyRole(['Administrador', 'Gerente'])) {
+                $automotives = Automotive::unavailable()->get();
+            } else {
+                $automotives = Automotive::unavailable()->where('user', Auth::user()->id)->get();
+            }
+
+            $total = 0;
+            foreach ($automotives as $automotive) {
+                if (Auth::user()->hasRole('Anunciante')) {
+                    if (Auth::user()->ads_limit == 0) {
+                        if ($total <= 1) {
+                            $message = $total . ' veículo reativado. Seu limite de anúncios foi excedido. Precisando de mais anúncios? Entre em contato com a nossa equipe!';
+                        } else {
+                            $message = $total . ' veículos reativado. Seu limite de anúncios foi excedido. Precisando de mais anúncios? Entre em contato com a nossa equipe!';
+                        }
+                        return redirect()->route('admin.automotives.index')->with(
+                            [
+                                'color' => 'orange',
+                                'message' => $message
+                            ]
+                        );
+                    }
+                }
+
+                $automotive->active_date = date('Y-m-d');
+                $automotive->save();
+                $total++;
+
+                if (Auth::user()->hasRole('Anunciante')) {
+                    Auth::user()->reduceAdsLimit();
+                }
+            }
+
+            if ($total <= 1) {
+                $message = $total . ' veículo reativado"';
+            } else {
+                $message = $total . ' veículos reativados!';
+            }
+
+            return redirect()->route('admin.automotives.index')
+                ->with(['color' => 'orange', 'message' => $message]);
+        }
     }
 }

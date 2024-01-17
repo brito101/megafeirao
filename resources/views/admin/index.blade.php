@@ -33,11 +33,11 @@
                 </header>
                 <form name="login" action="{{ route('admin.login.do') }}" method="post" autocomplete="off">
                     <label>
-                        <span class="field icon-envelope">E-mail:</span>
+                        <span class="icon-envelope field">E-mail:</span>
                         <input type="email" name="email" placeholder="Informe seu e-mail" maxlength="191" required />
                     </label>
                     <label>
-                        <span class="field icon-unlock-alt">Senha:</span>
+                        <span class="icon-unlock-alt field">Senha:</span>
                         <input type="password" name="password_check" placeholder="Informe sua senha" required />
                     </label>
                     <button class="gradient gradient-yellow">Entrar</button>

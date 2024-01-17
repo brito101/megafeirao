@@ -92,6 +92,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::delete('automotives/image-remove', 'AutomotiveController@imageRemove')->name('automotives.imageRemove');
         Route::post('automotives/reactive/{automotive}', 'AutomotiveController@reactive')->name('automotives.reactive');
         Route::resource('automotives', 'AutomotiveController');
+        Route::post('automotives/reannounce', 'AutomotiveController@reannounce')->name('automotive.reannounce');
 
         /** Contratos */
         Route::post('contracts/get-data-owner', 'ContractController@getDataOwner')->name('contracts.getDataOwner');

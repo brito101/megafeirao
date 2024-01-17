@@ -31,6 +31,7 @@ class Company extends Model
         'slug',
         'telephone',
         'cell',
+        'cell2',
         'email',
         'banner1',
         'banner2',
@@ -239,6 +240,23 @@ class Company extends Model
     }
 
     public function getCellAttribute($value)
+    {
+        if (empty($value)) {
+            return null;
+        }
+        if (Str::length($value) == 11) {
+            return '(' . substr($value, 0, 2) . ')  ' . substr($value, 2, 5) . '-' . substr($value, 7, 4);
+        } else {
+            return '(' . substr($value, 0, 2) . ')  ' . substr($value, 2, 4) . '-' . substr($value, 6, 4);
+        }
+    }
+
+    public function setCell2Attribute($value)
+    {
+        $this->attributes['cell2'] = (!empty($value) ? $this->clearField($value) : null);
+    }
+
+    public function getCell2Attribute($value)
     {
         if (empty($value)) {
             return null;

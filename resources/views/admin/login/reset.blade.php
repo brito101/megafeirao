@@ -43,13 +43,13 @@
                 </header>
                 <form name="resetAccount" action="{{ route('admin.reset.do') }}" method="post" autocomplete="off">
                     <label>
-                        <span class="field icon-unlock-alt">Nova Senha:</span>
+                        <span class="icon-unlock-alt field">Nova Senha:</span>
                         <input type="password" name="password_check" placeholder="Informe sua nova senha" id="password"
                             required />
                     </label>
 
                     <label>
-                        <span class="field icon-unlock-alt">Confirmar Senha:</span>
+                        <span class="icon-unlock-alt field">Confirmar Senha:</span>
                         <input type="password" name="password_confirm" placeholder="Confirme sua nova senha"
                             id="confirm_password" required />
                     </label>

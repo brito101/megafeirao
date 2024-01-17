@@ -121,13 +121,22 @@
                             <span class="legend">Telefone Fixo:</span>
                             <input type="tel" name="telephone" class="mask-phone"
                                 placeholder="Número do Telefonce com DDD"
-                                value="{{ old('telephone') ?? $company->telephone }}" required />
+                                value="{{ old('telephone') ?? $company->telephone }}" />
                         </label>
 
                         <label class="label">
                             <span class="legend">*Celular:</span>
                             <input type="tel" name="cell" class="mask-cell"
                                 placeholder="Número do Telefonce com DDD" value="{{ old('cell') ?? $company->cell }}"
+                                required />
+                        </label>
+                    </div>
+
+                    <div class="label_g2">
+                        <label class="label">
+                            <span class="legend">Celular Secundário:</span>
+                            <input type="tel" name="cell2" class="mask-cell"
+                                placeholder="Número do Telefonce com DDD" value="{{ old('cell2') ?? $company->cell2 }}"
                                 required />
                         </label>
                     </div>

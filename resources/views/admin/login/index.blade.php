@@ -28,12 +28,12 @@
                 </header>
                 <form name="login" action="{{ route('admin.login.do') }}" method="post" autocomplete="off">
                     <label>
-                        <span class="field icon-envelope">E-mail:</span>
+                        <span class="icon-envelope field">E-mail:</span>
                         <input type="email" name="email" placeholder="Informe seu e-mail" maxlength="191"
                             required />
                     </label>
                     <label>
-                        <span class="field icon-unlock-alt">Senha:</span>
+                        <span class="icon-unlock-alt field">Senha:</span>
                         <input type="password" name="password_check" placeholder="Informe sua senha" required />
                     </label>
                     <button>Entrar</button>
@@ -51,31 +51,31 @@
                 </header>
                 <form name="newAccount" action="{{ route('admin.account.do') }}" method="post" autocomplete="off">
                     <label>
-                        <span class="field icon-user">Nome:</span>
+                        <span class="icon-user field">Nome:</span>
                         <input type="text" name="name" placeholder="Informe seu nome" minlength="3"
                             maxlength="191" required />
                     </label>
 
                     <label>
-                        <span class="field icon-envelope">E-mail:</span>
+                        <span class="icon-envelope field">E-mail:</span>
                         <input type="email" name="email" placeholder="Informe seu e-mail" maxlength="191"
                             required />
                     </label>
 
                     <label>
-                        <span class="field icon-phone">Celular:</span>
+                        <span class="icon-phone field">Celular:</span>
                         <input type="tel" name="cell" placeholder="Informe seu nº de celular" maxlength="191"
                             required />
                     </label>
 
                     <label>
-                        <span class="field icon-unlock-alt">Senha:</span>
+                        <span class="icon-unlock-alt field">Senha:</span>
                         <input type="password" name="password_check" placeholder="Informe sua senha" id="password"
                             required />
                     </label>
 
                     <label>
-                        <span class="field icon-unlock-alt">Confirmar Senha:</span>
+                        <span class="icon-unlock-alt field">Confirmar Senha:</span>
                         <input type="password" name="password_confirm" placeholder="Confirme sua nova senha"
                             id="confirm_password" required />
                     </label>

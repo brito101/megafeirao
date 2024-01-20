@@ -122,7 +122,7 @@
     <script src="{{ url(asset('frontend/assets/js/scripts.js')) }}"></script>
 
     <!-- Histats.com  START  (aync)-->
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         var _Hasync = _Hasync || [];
         _Hasync.push(['Histats.start', '1,4556851,4,137,112,33,00000010']);
         _Hasync.push(['Histats.fasi', '1']);
@@ -146,7 +146,7 @@
             }, 10000);
         }
         removeImage();
-    </script>
+    </script> --}}
 
     @hasSection('js')
         @yield('js')

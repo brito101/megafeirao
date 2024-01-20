@@ -12,7 +12,7 @@
                     <a href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}"
                         class="text-dark font-weight-bold main_properties_price text-truncate d-block">{{ $automotive->title }}</a>
                     <a href="#"
-                        class="h6 heart-like text-front icon-heart-o text-dark text-decoration-none text-right"
+                        class="icon-heart-o h6 heart-like text-front text-dark text-decoration-none text-right"
                         data-id="{{ $automotive->id }}"></a>
                 </h2>
                 <div class="row d-flex justify-content-between px-0">

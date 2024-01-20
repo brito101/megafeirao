@@ -308,8 +308,10 @@ class WebController extends Controller
             $automotive->views = $automotive->views + 1;
             $automotive->save();
             $head = $this->seo->render(
-                env('APP_NAME') . ' - Compra',
-                $automotive->headline ?? $automotive->title,
+                ($automotive->headline ?? $automotive->title) . ' - R$ ' . ($automotive->sale_price ?? $automotive->rent_price),
+                $automotive->city . '-' . $automotive->state, 
+                // env('APP_NAME') . ' - Compra',
+                // $automotive->headline ?? $automotive->title,
                 route('web.buyAutomotive', ['slug' => $automotive->slug]),
                 $automotive->cover()
             );

@@ -217,5 +217,5 @@ mix
     .options({
         processCssUrls: false,
     })
-    .sourceMaps()
-    .purgeCss();
+    .sourceMaps();
+    // .purgeCss();

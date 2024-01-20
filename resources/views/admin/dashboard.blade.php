@@ -40,7 +40,7 @@
                             <p><b>Total:</b> {{ $automotivesTotal }}</p>
                         </article>
 
-                        <article class="blog radius">
+                        {{-- <article class="blog radius">
                             <h4 class="icon-picture-o">Total de visualizações</h4>
                             <p><b>Banners:</b> {{ $banner->views ?? 0 }}</p>
                             <p><b>Veículos:</b> {{ $views }}</p>
@@ -52,9 +52,10 @@
                             <p class="text-red">Para inserir mais anúncios faça um PIX de qualquer valor para
                                 megafeiraoveiculos@gmail.com e envie o comprovante pelo Fale Conosco ao lado. Cada anúncio custa
                                 R$ 1,00</p>
-                        </article>
+                        </article> --}}
 
-                        <article class="radius mt-2" style="flex-basis: 100%;">
+                        {{-- <article class="radius mt-2" style="flex-basis: 100%;"> --}}
+                        <article class="radius mt-2" style="flex-basis: 60%;">
                             <h4 class="icon-info-circle">Informações</h4>
                             <p class="text-red my-0"><b>NUNCA</b> entraremos em contato solicitando senha, dados pessoais ou
                                 qualquer

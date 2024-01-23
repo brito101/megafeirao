@@ -27,6 +27,16 @@ class AuthController extends Controller
         return view('admin.login.index');
     }
 
+    public function showRegisterForm()
+    {
+        if (Auth::check() === true) {
+            return redirect()->route('admin.home');
+        }
+        // return view('admin.index');
+        return view('admin.login.register');
+    }
+
+
     public function newAccount()
     {
         // return view('admin.account');

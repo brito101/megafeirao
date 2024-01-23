@@ -35,6 +35,9 @@ Route::get('/contato/sucesso', 'Web\\WebController@sendEmailSuccess')->name('web
 /** Página de Política de Privacidade */
 Route::get('/politica-de-privacidade', 'Web\\WebController@policy')->name('web.policy');
 
+/** Banner */
+Route::get('/banner', 'Web\\WebController@banner')->name('web.banner');
+
 /** Filtro */
 Route::post('main-filter/search', 'Web\\FilterController@search')->name('component.main-filter.search');
 Route::post('main-filter/category', 'Web\\FilterController@category')->name('component.main-filter.category');
@@ -53,10 +56,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
     /** Formulário de Login */
     Route::get('/', 'AuthController@showLoginForm')->name('login');
+    Route::get('/register', 'AuthController@showRegisterForm')->name('register');
     Route::post('login', 'AuthController@login')->name('login.do');
 
     /** Formulário de Criação de Conta */
-    Route::get('new-account', 'AuthController@newAccount')->name('account');
+    // Route::get('new-account', 'AuthController@newAccount')->name('account');
     Route::post('create-account', 'AuthController@createAccount')->name('account.do');
 
     /** Recuperação Conta */

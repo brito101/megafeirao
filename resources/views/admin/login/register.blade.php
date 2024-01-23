@@ -22,7 +22,7 @@
     <div class="dash_login">
 
         <div class="dash_container_login">
-            <article class="dash_login_right_box">
+            {{-- <article class="dash_login_right_box">
                 <header class="dash_login_box_headline">
                     <h1>Login</h1>
                 </header>
@@ -42,9 +42,8 @@
                         <a href="{{ route('admin.forgotten') }}" style="text-decoration: none;">Recuperar Senha</a>
                     </div>
                 </form>
-            </article>
+            </article> --}}
 
-{{-- 
             <article class="dash_login_right_box">
                 <header class="dash_login_box_headline">
                     <h1>Nova Conta</h1>
@@ -81,7 +80,7 @@
                     </label>
                     <button>Enviar</button>
                 </form>
-            </article> --}}
+            </article>
         </div>
     </div>
 

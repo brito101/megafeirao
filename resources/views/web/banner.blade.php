@@ -13,7 +13,7 @@
         <li class="icon-check">Economia taxa de adesão</li>
         <li class="icon-check">Economia mensalidade</li>
         <li class="icon-check">Economia plano fidelidade</li>
-        <li class="icon-check">Economia no pagamento (apenas PIX)</li>
+        <li class="icon-check">Economia no pagamento (apenas PIX)</li> 
         <li class="icon-check">Economia progressivos</li>
         <li class="icon-check">Economia grátis para novos anunciantes</li>
         <li class="icon-check">Economia especiais</li>

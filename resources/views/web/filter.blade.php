@@ -20,8 +20,11 @@
                                         data-actions-box="true" data-index="1"
                                         data-action="{{ route('component.main-filter.category') }}">
                                         <option value="Carro">Carro</option>
-                                        <option value="Motocicleta">Motocicleta</option>
-                                        <option value="Outros">Outros</option>
+                                        <option value="Moto">Moto</option>
+                                        <option value="Caminhão">Caminhão</option>
+                                        <option value="Ônibus">Ônibus</option>
+                                        <option value="Náutica">Náutica</option>
+                                        <option value="Agrícola">Agrícola</option>
                                     </select>
                                 </div>
 

@@ -688,4 +688,21 @@ class WebController extends Controller
             'term' => $term,
         ]);
     }
+
+    public function banner()
+    {
+        $head = $this->seo->render(
+            env('APP_NAME') . ' - Cadastre-se',
+            'Cadastre-se namelhor plataforma web do Rio de Janeiro',
+            route('web.banner'),
+            asset('frontend/assets/images/share.png')
+        );
+        $forSale = Automotive::sale()->available()->first();
+        $forRent = Automotive::rent()->available()->first();
+        return view('web.banner', [
+            'head' => $head,
+            'forSale' => $forSale,
+            'forRent' => $forRent,
+        ]);
+    }
 }

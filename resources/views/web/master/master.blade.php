@@ -71,9 +71,9 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <div class="collapse navbar-collapse justify-center col-12 col-md-4" id="navbar">
+                    <div class="collapse navbar-collapse justify-center col-12" id="navbar">
                         <ul class="navbar-nav ">
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="{{ route('admin.login') }}" class="nav-link h4 text-center font-weight-bolder"
                                     title="Clique aqui e anuncie grátis" style="background: #0557DD;">
                                     <span class="text-white text-uppercase"
@@ -81,14 +81,30 @@
                                     ">Clique
                                         aqui e anuncie grátis</span>
                                 </a>
+                            </li> --}}
+                            <li class="nav-item">
+                                <a href="{{ route('web.policy') }}" class="nav-link text-center font-weight-bolder text-dark"
+                                    title="Política de Privacidade"><i class="icon-angle-right separator icon-notext"></i> Política de Privacidade</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('web.banner') }}" class="nav-link text-center font-weight-bolder text-dark"
+                                    title="Banners"><i class="icon-angle-right separator icon-notext"></i> Banners</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.register') }}" class="nav-link text-center font-weight-bolder text-dark"
+                                    title="Anuncie Grátis"><i class="icon-angle-right separator icon-notext"></i> Anuncie Grátis</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.login') }}" class="ml-md-3 nav-link text-center font-weight-bolder btn btn-danger text-white"
+                                    title="Minha Conta"><i class="icon-user separator icon-notext"></i> Minha Conta</a>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="fb-like d-none d-md-flex justify-content-end col-12 col-md-4"
+                    {{-- <div class="fb-like d-none d-md-flex justify-content-end col-12 col-md-4"
                         data-href="https://www.facebook.com/megafeiraoveiculos.com.br" data-width=""
                         data-layout="button_count" data-action="like" data-size="large" data-share="true">
-                    </div>
+                    </div> --}}
                 </div>
 
             </nav>

@@ -27,7 +27,7 @@ class Automotive extends FormRequest
     {
         return [
             'user' => 'required',
-            'category' => 'required',
+            'category' => 'required|in:Carro,Moto,Caminhão,Ônibus,Náutica,Agrícola',
             'sale_price' => 'required',
             'description' => 'required',
             'model' => 'required',

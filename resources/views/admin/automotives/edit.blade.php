@@ -56,12 +56,26 @@
                                         <option value="Carro"
                                             {{ old('category') == 'Carro' ? 'selected' : ($automotive->category == 'Carro' ? 'selected' : '') }}>
                                             Carro</option>
-                                        <option value="Motocicleta"
-                                            {{ old('category') == 'Motocicleta' ? 'selected' : ($automotive->category == 'Motocicleta' ? 'selected' : '') }}>
-                                            Motocicleta</option>
-                                        <option value="Outros"
-                                            {{ old('category') == 'Outros' ? 'selected' : ($automotive->category == 'Outros' ? 'selected' : '') }}>
-                                            Outros</option>
+                                        <option value="Moto"
+                                            {{ old('category') == 'Moto' ? 'selected' : ($automotive->category == 'Moto' ? 'selected' : '') }}>
+                                            Moto
+                                        </option>
+                                        <option value="Caminhão"
+                                            {{ old('category') == 'Caminhão' ? 'selected' : ($automotive->category == 'Caminhão' ? 'selected' : '') }}>
+                                            Caminhão
+                                        </option>
+                                        <option value="Ônibus"
+                                            {{ old('category') == 'Ônibus' ? 'selected' : ($automotive->category == 'Ônibus' ? 'selected' : '') }}>
+                                            Ônibus
+                                        </option>
+                                        <option value="Náutica"
+                                            {{ old('category') == 'Náutica' ? 'selected' : ($automotive->category == 'Náutica' ? 'selected' : '') }}>
+                                            Náutica
+                                        </option>
+                                        <option value="Agrícola"
+                                            {{ old('category') == 'Agrícola' ? 'selected' : ($automotive->category == 'Agrícola' ? 'selected' : '') }}>
+                                            Agrícola
+                                        </option>
                                     </select>
                                 </label>
 

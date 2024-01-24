@@ -49,7 +49,7 @@
             </div>
             <div class="d-none d-lg-flex col-4 align-items-center">
                 <div class="m-auto">
-                    @if ($automotive->ownerObject()->company)
+                    @if ($automotive->ownerObject()->company && $automotive->ownerObject()->company->type == 'concessionaria')
                         <a
                             href="{{ route('web.filterCompany', ['slug' => $automotive->ownerObject()->company->slug]) }}">
                             <img src="{{ $automotive->ownerObject()->company->logo() }}"

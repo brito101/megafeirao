@@ -36,7 +36,8 @@ class Company extends Model
         'banner1',
         'banner2',
         'banner3',
-        'template'
+        'template',
+        'type',
     ];
 
     /*

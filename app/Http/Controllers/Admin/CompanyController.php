@@ -46,6 +46,7 @@ class CompanyController extends Controller
      */
     public function create(Request $request)
     {
+       
         if (!Auth::user()->hasPermissionTo('Cadastrar Empresas')) {
             throw new UnauthorizedException('403', 'You do not have the required authorization.');
         }
@@ -71,16 +72,18 @@ class CompanyController extends Controller
             throw new UnauthorizedException('403', 'You do not have the required authorization.');
         }
 
-        $validatorSlug = Validator::make($request->all(), [
-            'slug' => [
-                'required',
-                Rule::unique('companies')
-            ],
-        ]);
+        if ($request->type == 'concessionaria') {
+            $validatorSlug = Validator::make($request->all(), [
+                'slug' => [
+                    'required',
+                    Rule::unique('companies')
+                ],
+            ]);
 
-        if ($validatorSlug->fails()) {
-            return redirect()->back()->withInput()
-                ->with(['color' => 'orange', 'message' => 'O nome do link já se encontra em uso!']);
+            if ($validatorSlug->fails()) {
+                return redirect()->back()->withInput()
+                    ->with(['color' => 'orange', 'message' => 'O nome do link já se encontra em uso!']);
+            }
         }
 
         $validatorEmail = Validator::make($request->all(), [
@@ -141,7 +144,7 @@ class CompanyController extends Controller
 
         return redirect()->route('admin.companies.edit', [
             'company' => $createCompany->id,
-        ])->with(['color' => 'green', 'message' => 'Empresa cadastrada com sucesso!']);
+        ])->with(['color' => 'green', 'message' => 'Cadastro realizado com sucesso!']);
     }
 
     /**
@@ -203,17 +206,19 @@ class CompanyController extends Controller
             throw new UnauthorizedException('403', 'You do not have the required authorization.');
         }
 
-        $validatorSlug = Validator::make($request->all(), [
-            'slug' => [
-                'required',
-                Rule::unique('companies')->ignore($company->id),
-            ],
-        ]);
+        if ($request->type == 'concessionaria') {
+            $validatorSlug = Validator::make($request->all(), [
+                'slug' => [
+                    'required',
+                    Rule::unique('companies')->ignore($company->id),
+                ],
+            ]);
 
-        if ($validatorSlug->fails()) {
-            return redirect()->route('admin.companies.edit', [
-                'company' => $company->id,
-            ])->with(['color' => 'orange', 'message' => 'O nome do link já se encontra em uso!']);
+            if ($validatorSlug->fails()) {
+                return redirect()->route('admin.companies.edit', [
+                    'company' => $company->id,
+                ])->with(['color' => 'orange', 'message' => 'O nome do link já se encontra em uso!']);
+            }
         }
 
         $validatorEmail = Validator::make($request->all(), [
@@ -266,7 +271,7 @@ class CompanyController extends Controller
         }
 
         $company->fill($request->all());
-
+        
         if (Auth::user()->hasRole('Anunciante')) {
             $company->setUserAttribute(Auth::user()->id);
         }
@@ -277,47 +282,43 @@ class CompanyController extends Controller
             $company->cover = $request->file('cover')
                 ->storeAs('company', Str::slug($request->social_name) . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('cover')
                     ->extension());
-            $company->save();
         }
 
         if (!empty($request->file('cover1'))) {
             $company->cover1 = $request->file('cover1')
                 ->storeAs('company', Str::slug($request->social_name) . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('cover1')
-                    ->extension());
-            $company->save();
+                    ->extension());            
         }
 
         if (!empty($request->file('main_banner'))) {
             $company->main_banner = $request->file('main_banner')
                 ->storeAs('mainbanner', Str::slug($request->social_name) . '-main-banner-' . str_replace('.', '', microtime(true)) . '.' . $request->file('main_banner')
                     ->extension());
-            $company->save();
         }
 
         if (!empty($request->file('banner1'))) {
             $company->banner1 = $request->file('banner1')
                 ->storeAs('banner1', Str::slug($request->social_name) . '-banner1-' . str_replace('.', '', microtime(true)) . '.' . $request->file('banner1')
                     ->extension());
-            $company->save();
         }
 
         if (!empty($request->file('banner2'))) {
             $company->banner2 = $request->file('banner2')
                 ->storeAs('banner2', Str::slug($request->social_name) . '-banner2-' . str_replace('.', '', microtime(true)) . '.' . $request->file('banner2')
                     ->extension());
-            $company->save();
         }
 
         if (!empty($request->file('banner3'))) {
             $company->banner3 = $request->file('banner3')
                 ->storeAs('banner3', Str::slug($request->social_name) . '-banner3-' . str_replace('.', '', microtime(true)) . '.' . $request->file('banner3')
                     ->extension());
-            $company->save();
         }
+
+        $company->save();
 
         return redirect()->route('admin.companies.edit', [
             'company' => $company->id,
-        ])->with(['color' => 'green', 'message' => 'Empresa atualizada com sucesso!']);
+        ])->with(['color' => 'green', 'message' => 'Cadastro atualizado com sucesso!']);
     }
 
     /**
@@ -338,9 +339,9 @@ class CompanyController extends Controller
         $owner = $company->ownerObject()->id;
         $automobiles = Automotive::where('user', $owner)->count();
         if ($automobiles > 0) {
-            return redirect()->route('admin.companies.index')->with(['color' => 'red', 'message' => 'Empresa NÃO REMOVIDA por ter anúncios vinculados!']);
+            return redirect()->route('admin.companies.index')->with(['color' => 'red', 'message' => 'Cadastro NÃO REMOVIDO por ter anúncios vinculados!']);
         }
         $company->delete();
-        return redirect()->route('admin.companies.index')->with(['color' => 'orange', 'message' => 'Empresa removida com sucesso!']);
+        return redirect()->route('admin.companies.index')->with(['color' => 'orange', 'message' => 'Cadastro removido com sucesso!']);
     }
 }

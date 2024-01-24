@@ -55,7 +55,7 @@
                         </article> --}}
 
                         {{-- <article class="radius mt-2" style="flex-basis: 100%;"> --}}
-                        <article class="radius mt-2" style="flex-basis: 60%;">
+                        <article class="radius" style="flex-basis: 67%;">
                             <h4 class="icon-info-circle">Informações</h4>
                             <p class="text-red my-0"><b>NUNCA</b> entraremos em contato solicitando senha, dados pessoais ou
                                 qualquer

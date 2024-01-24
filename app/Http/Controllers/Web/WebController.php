@@ -78,10 +78,11 @@ class WebController extends Controller
     public function filterCompany(Request $request)
     {
         $company = Company::where('slug', $request->slug)->first();
+        
         if ($company) {
             $head = $this->seo->render(
-                env('APP_NAME') . ' - Loja: ' . $company->social_name,
-                $company->social_name,
+                env('APP_NAME') . ' - Loja: ' . $company->social_name ?? 'Particular',
+                $company->social_name ?? 'Particular',
                 route('web.filterCompany', ['slug' => $company->slug]),
                 $company->cover()
             );
@@ -117,8 +118,8 @@ class WebController extends Controller
         $company = Company::where('slug', $request->slug)->first();
         if ($company) {
             $head = $this->seo->render(
-                env('APP_NAME') . ' - Loja: ' . $company->social_name . ' - Veículos',
-                $company->social_name,
+                env('APP_NAME') . ' - Loja: ' . ($company->social_name ?? 'Particular') . ' - Veículos',
+                $company->social_name ?? 'Particular',
                 route('web.filterCompanyAutomotive', ['slug' => $company->slug]),
                 $company->cover()
             );
@@ -144,8 +145,8 @@ class WebController extends Controller
         $company = Company::where('slug', $request->slug)->first();
         if ($company) {
             $head = $this->seo->render(
-                env('APP_NAME') . ' - Loja: ' . $company->social_name . ' - Veículos',
-                $company->social_name,
+                env('APP_NAME') . ' - Loja: ' . ($company->social_name ?? 'Particular') . ' - Veículos',
+                $company->social_name ?? 'Particular',
                 route('web.filterCompanyAutomotive', ['slug' => $company->slug]),
                 $company->cover()
             );
@@ -180,8 +181,8 @@ class WebController extends Controller
         $company = Company::where('slug', $request->slug)->first();
         if ($company) {
             $head = $this->seo->render(
-                env('APP_NAME') . ' - Loja: ' . $company->social_name . ' - Localização',
-                $company->social_name,
+                env('APP_NAME') . ' - Loja: ' . ($company->social_name ?? 'Particular') . ' - Localização',
+                $company->social_name ?? 'Particular',
                 route('web.filterCompanyLocation', ['slug' => $company->slug]),
                 $company->cover()
             );
@@ -204,8 +205,8 @@ class WebController extends Controller
         $company = Company::where('slug', $request->slug)->first();
         if ($company) {
             $head = $this->seo->render(
-                env('APP_NAME') . ' - Loja: ' . $company->social_name . ' - Contato',
-                $company->social_name,
+                env('APP_NAME') . ' - Loja: ' . ($company->social_name ?? 'Particular') . ' - Contato',
+                $company->social_name ?? 'Particular',
                 route('web.filterCompanyContact', ['slug' => $company->slug]),
                 $company->cover()
             );

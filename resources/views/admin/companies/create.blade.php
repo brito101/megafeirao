@@ -4,7 +4,7 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header pb-1">
-            <h2 class="icon-building-o">Nova Loja</h2>
+            <h2 class="icon-building-o">Novo Anunciante</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
@@ -13,7 +13,7 @@
                         <li class="icon-angle-right separator icon-notext"></li>
                         <li><a href="{{ route('admin.users.index') }}">Clientes</a></li>
                         <li class="icon-angle-right separator icon-notext"></li>
-                        <li><a href="{{ route('admin.companies.index') }}">Lojas</a></li>
+                        <li><a href="{{ route('admin.companies.index') }}">Anunciante</a></li>
                     </ul>
                 </nav>
             </div>
@@ -34,10 +34,30 @@
         @endif
 
         <div class="dash_content_app_box">
+
+            @hasanyrole('Anunciante')
+                <div class="bg-orange px-1 my-1" style="color: #fff; line-height: 40px; font-weight: bold;">
+                    <span class="legend">Você é</span>
+                    <label class="label" style="cursor: pointer;">
+                        <input type="radio" name="type_company" style="cursor: pointer;" value="particular"
+                            {{ old('type') == 'particular' ? 'checked' : '' }}>
+                        <span>particular</span>
+                    </label>
+                    <span>ou</span>
+                    <label class="label" style="cursor: pointer;">
+                        <input type="radio" name="type_company" style="cursor: pointer;" value="concessionaria"
+                            {{ old('type') == 'concessionaria' ? 'checked' : '' }}>
+                        <span>concessionária?</span>
+                    </label>
+                    </span>
+                </div>
+            @endhasanyrole
+
             <div class="dash_content_app_box_stage">
                 <form class="app_form" action="{{ route('admin.companies.store') }}" method="post"
                     enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="type" id="type" value="{{ old('type') ?? null }}">
                     @hasanyrole('Administrador|Gerente')
                         <label class="label">
                             <span class="legend">Responsável Legal:</span>
@@ -65,38 +85,38 @@
                         <input type="hidden" name="user" value="{{ Auth::user()->id }}">
                     @endhasanyrole
 
-                    <div class="label_g2">
+                    <div class="label_g2 concessionaria">
                         <label class="label">
                             <span class="legend">*Razão Social:</span>
                             <input type="text" name="social_name" placeholder="Razão Social"
-                                value="{{ old('social_name') }}" required />
+                                value="{{ old('social_name') }}" />
                         </label>
 
                         <label class="label">
                             <span class="legend">*CEP:</span>
                             <input type="tel" name="zipcode" class="mask-zipcode zip_code_search"
-                                placeholder="Digite o CEP" value="{{ old('zipcode') }}" required />
+                                placeholder="Digite o CEP" value="{{ old('zipcode') }}" />
                         </label>
                     </div>
 
-                    <div class="label_g2">
+                    <div class="label_g2 concessionaria">
                         <label class="label">
                             <span class="legend">*Endereço:</span>
                             <input type="text" name="street" class="street" placeholder="Endereço Completo"
-                                value="{{ old('street') }}" required />
+                                value="{{ old('street') }}" />
                         </label>
                         <label class="label">
                             <span class="legend">*Número:</span>
                             <input type="text" name="number" placeholder="Número do Endereço"
-                                value="{{ old('number') }}" required />
+                                value="{{ old('number') }}" />
                         </label>
                     </div>
 
                     <div class="label_g2">
-                        <label class="label">
+                        <label class="label concessionaria">
                             <span class="legend">*Bairro:</span>
                             <input type="text" name="neighborhood" class="neighborhood" placeholder="Bairro"
-                                value="{{ old('neighborhood') }}" required />
+                                value="{{ old('neighborhood') }}" />
                         </label>
 
                         <label class="label">
@@ -115,7 +135,7 @@
 
                         <label class="label">
                             <span class="legend">*E-mail:</span>
-                            <input type="email" name="email" class="email" placeholder="E-mail da loja"
+                            <input type="email" name="email" class="email" placeholder="E-mail"
                                 value="{{ old('email') }}" required />
                         </label>
                     </div>
@@ -134,21 +154,20 @@
                         </label>
                     </div>
 
-                    <div class="label_g2">
+                    <div class="label_g2 concessionaria">
                         <label class="label">
                             <span class="legend">Celular Secundário:</span>
                             <input type="tel" name="cell2" class="mask-cell"
-                                placeholder="Número do Telefonce com DDD" value="{{ old('cell2') }}"
-                                required />
+                                placeholder="Número do Telefonce com DDD" value="{{ old('cell2') }}" />
                         </label>
                     </div>
 
                     <div class="label_g2">
 
-                        <label class="label">
+                        <label class="label concessionaria">
                             <span class="legend">*Link para a loja (sem espaços ou símbolos):</span>
                             <input type="text" name="slug" class="link" placeholder="Link"
-                                value="{{ old('slug') }}" required />
+                                value="{{ old('slug') }}" />
                         </label>
 
                         {{-- <label class="label">
@@ -165,7 +184,7 @@
                         </label> --}}
                     </div>
 
-                    <div class="label_g3">
+                    <div class="label_g3 concessionaria">
                         <label class="label">
                             <span class="legend">Logo simples medindo 340 píxels.</span>
                             <input type="file" name="cover">
@@ -174,10 +193,41 @@
                     </div>
 
                     <div class="text-right">
-                        <button class="icon-check-square-o btn btn-large btn-green" type="submit">Criar Loja</button>
+                        <button class="icon-check-square-o btn btn-large btn-green" type="submit">Criar
+                            Anunciante</button>
                     </div>
                 </form>
             </div>
         </div>
     </section>
 @endsection
+
+@hasanyrole('Anunciante')
+    @section('js')
+        <script>
+            $(".concessionaria").hide();
+            $("#type").val('particular');
+            @if (old('company') == 'concessionaria')
+                $(".concessionaria").show();
+                $("#type").val('concessionaria')
+            @else
+                $(".concessionaria").hide();
+                $("#type").val('particular');
+            @endif
+
+
+            $('input[type=radio][name=type_company]').on('change', function() {
+                switch ($(this).val()) {
+                    case 'particular':
+                        $(".concessionaria").hide();
+                        $("#type").val('particular')
+                        break;
+                    case 'concessionaria':
+                        $(".concessionaria").show();
+                        $("#type").val('concessionaria')
+                        break;
+                }
+            });
+        </script>
+    @endsection
+@endhasanyrole

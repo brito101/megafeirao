@@ -27,16 +27,16 @@ class Company extends FormRequest
     {
         return [
             'user' => 'required',
-            'social_name' => 'required|min:5|max:191',
+            'social_name' => 'nullable|min:5|max:191',
             // 'alias_name' => 'required',
             // 'headline' => 'required',
             'cover' => 'image',
             'cover1' => 'image',
             // Address
-            'zipcode' => 'required|min:8|max:10',
-            'street' => 'required',
-            'number' => 'required',
-            'neighborhood' => 'required',
+            'zipcode' => 'nullable|min:8|max:10',
+            'street' => 'nullable',
+            'number' => 'nullable',
+            'neighborhood' => 'nullable',
             'state' => 'required',
             'city' => 'required',
             'telephone' => 'nullable|max:20',
@@ -46,7 +46,8 @@ class Company extends FormRequest
             'main_banner' => 'nullable|image|mimes:jpg,png,jpeg|max:1024',
             'banner1' => 'nullable|image|mimes:jpg,png,jpeg|max:1024',
             'banner2' => 'nullable|image|mimes:jpg,png,jpeg|max:1024',
-            'banner3' => 'nullable|image|mimes:jpg,png,jpeg,|max:1024'
+            'banner3' => 'nullable|image|mimes:jpg,png,jpeg,|max:1024',
+            'type' => 'nullable|in:concessionaria,particular'
         ];
     }
 }

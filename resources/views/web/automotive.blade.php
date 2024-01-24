@@ -134,12 +134,12 @@
                             </div>
                         @endif
 
-                        @if ($company)
+                        @if ($company && $company->type == 'concessionaria')
                             <div class="main_property_location">
                                 <h6 class="icon-map-marker font-weight-bolder">
-                                    {{ $automotive->street }}, {{ $automotive->number }},
-                                    {{ $automotive->neighborhood }},
-                                    {{ $automotive->city }}/{{ $automotive->state }}
+                                    {{ $company->street != '' ? $company->street . ',' : '' }}
+                                    {{ $company->number != '' ? $company->number . ',' : '' }}
+                                    {{ $company->neighborhood != '' ? $company->neighborhood . ', ' : '' }}{{ $company->city }}-{{ $company->state }}{{ $company->zipcode != '' ? '. CEP: ' . $company->zipcode : '' }}
 
                                 </h6>
                                 <div id="map" style="width: 100%; min-height: 400px;"></div>
@@ -200,7 +200,7 @@
                             </form>
                         </div>
 
-                        @if ($company)
+                        @if ($company && $company->type == 'concessionaria')
                             <div class="col-12 mt-5 px-0 text-center card">
                                 <a href="{{ route('web.filterCompany', ['slug' => $company->slug]) }}">
                                     <img src="{{ $company->logo() }}" class="card-img-top"
@@ -213,7 +213,7 @@
                             </div>
                         @endif
 
-                        @if ($banner->link3)
+                        @if ($banner && $banner->link3)
                             <div class="col-12 mt-5 px-0 text-center card">
                                 <a href="{{ $banner->link3 ?? route('web.register') }}"
                                     class="d-flex justify-content-center align-content-center h-100">
@@ -231,7 +231,7 @@
                             </div>
                         @endif
 
-                        @if ($banner->link4)
+                        @if ($banner && $banner->link4)
                             <div class="col-12 mt-5 px-0 text-center">
                                 <a href="{{ $banner->link4 ?? route('web.register') }}"
                                     class="d-flex justify-content-center align-content-center h-100">
@@ -257,12 +257,12 @@
 @endsection
 
 @section('js')
-    @if ($company)
+    @if ($company && $company->type == 'concessionaria')
         <script>
             function markMap() {
 
                 var locationJson = $.getJSON(
-                    'https://maps.googleapis.com/maps/api/geocode/json?address={{ $automotive->street }},+{{ $automotive->number }}+{{ $automotive->city }}+{{ $automotive->neighborhood }}&key={{ env('GOOGLE_API_KEY') }}',
+                    'https://maps.googleapis.com/maps/api/geocode/json?address={{ $company->street }},+{{ $company->number }}+{{ $company->city }}+{{ $company->neighborhood }}&key={{ env('GOOGLE_API_KEY') }}',
                     function(response) {
 
                         lat = response.results[0].geometry.location.lat;

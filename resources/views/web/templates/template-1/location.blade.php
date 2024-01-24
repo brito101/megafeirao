@@ -21,59 +21,66 @@
             <div class="container">
                 <div class="listing-header margin-40">
                     <span>Onde <strong>Estamos</strong></span>
-                    <p>{{ $company->street }}, {{ $company->number }}, {{ $company->neighborhood }},
-                        {{ $company->city }}-{{ $company->state }}. CEP:
-                        {{ $company->zipcode }}</p>
+                    <p> {{ $company->street != '' ? $company->street . ',' : '' }}
+                        {{ $company->number != '' ? $company->number . ',' : '' }}
+                        {{ $company->neighborhood != '' ? $company->neighborhood . ', ' : '' }}{{ $company->city }}-{{ $company->state }}{{ $company->zipcode != '' ? '. CEP: ' . $company->zipcode : '' }}
+                    </p>
+
                 </div>
 
-                <div id="locations" class="page-header parallax">
-                    <div id="map" style="width: 100%; min-height: 400px;"></div>
-                </div>
+                @if ($company->type == 'concessionaria')
+                    <div id="locations" class="page-header parallax">
+                        <div id="map" style="width: 100%; min-height: 400px;"></div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
 @endsection
 
 @section('js')
-    <script>
-        function markMap() {
+    @if ($company->type == 'concessionaria')
+        <script>
+            function markMap() {
 
-            var locationJson = $.getJSON(
-                'https://maps.googleapis.com/maps/api/geocode/json?address={{ $company->street }},+{{ $company->number }}+{{ $company->city }}+{{ $company->neighborhood }}&key={{ env('GOOGLE_API_KEY') }}',
-                function(response) {
+                var locationJson = $.getJSON(
+                    'https://maps.googleapis.com/maps/api/geocode/json?address={{ $company->street }},+{{ $company->number }}+{{ $company->city }}+{{ $company->neighborhood }}&key={{ env('GOOGLE_API_KEY') }}',
+                    function(response) {
+                        
+                            lat = response.results[0].geometry.location.lat;
+                            lng = response.results[0].geometry.location.lng;
 
-                    lat = response.results[0].geometry.location.lat;
-                    lng = response.results[0].geometry.location.lng;
+                            var citymap = {
+                                automotive: {
+                                    center: {
+                                        lat: lat,
+                                        lng: lng
+                                    },
+                                    population: 100
+                                }
+                            };
 
-                    var citymap = {
-                        automotive: {
-                            center: {
-                                lat: lat,
-                                lng: lng
-                            },
-                            population: 100
-                        }
-                    };
+                            const map = new google.maps.Map(document.getElementById('map'), {
+                                zoom: 14,
+                                center: {
+                                    lat: lat,
+                                    lng: lng
+                                },
+                                mapTypeId: 'terrain'
+                            });
 
-                    const map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: 14,
-                        center: {
-                            lat: lat,
-                            lng: lng
-                        },
-                        mapTypeId: 'terrain'
+                            const beachMarker = new google.maps.Marker({
+                                position: {
+                                    lat: lat,
+                                    lng: lng
+                                },
+                                map,
+                            });
+                        
                     });
-
-                    const beachMarker = new google.maps.Marker({
-                        position: {
-                            lat: lat,
-                            lng: lng
-                        },
-                        map,
-                    });
-                });
-        }
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&callback=markMap">
-    </script>
+            }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&callback=markMap">
+        </script>
+    @endif
 @endsection

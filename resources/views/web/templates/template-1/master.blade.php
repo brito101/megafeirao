@@ -172,8 +172,9 @@
                                 <h4 class="widgettitle"
                                     style="margin-bottom: 10px; padding-bottom: 5px; padding-top: 25px;">Endereço</h4>
                                 <p class="endereco">
-                                    {{ $company->street }}, {{ $company->number }}<br />
-                                    {{ $company->neighborhood }}, {{ $company->city }}-{{ $company->state }}
+                                    {{ $company->street != '' ? $company->street . ',' : '' }}
+                                    {{ $company->number != '' ? $company->number . ',' : '' }}<br />
+                                    {{ $company->neighborhood != '' ? $company->neighborhood . ', ' : '' }}{{ $company->city }}-{{ $company->state }}
                                 </p>
                             </section>
                         </div>

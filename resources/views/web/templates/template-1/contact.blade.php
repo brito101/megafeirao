@@ -25,12 +25,14 @@
                             <span><strong>Contatos</strong></span>
                         </div>
                         <div class="boxEndereco">
-                            <div class="titleEndereco">
-                                <b><i class="fa fa-map-marker" style="margin-right: 5px"></i>Endereço</b><br>
-                            </div>
-                            {{ $company->street }}, {{ $company->number }}, {{ $company->neighborhood }},
-                            {{ $company->city }}-{{ $company->state }}. CEP:
-                            {{ $company->zipcode }}<br><br>
+                            @if ($company && $company->type == 'concessionaria')
+                                <div class="titleEndereco">
+                                    <b><i class="fa fa-map-marker" style="margin-right: 5px"></i>Endereço</b><br>
+                                </div>
+                                {{ $company->street != '' ? $company->street . ',' : '' }}
+                                {{ $company->number != '' ? $company->number . ',' : '' }}
+                                {{ $company->neighborhood != '' ? $company->neighborhood . ', ' : '' }}{{ $company->city }}-{{ $company->state }}{{ $company->zipcode != '' ? '. CEP: ' . $company->zipcode : '' }}<br><br>
+                            @endif
                             <div class="titleEndereco">
                                 <i class="fa fa-phone" style="margin-right: 5px"></i><b>Telefone</b><br>
                             </div>
@@ -43,8 +45,7 @@
                         <div class="listing-header margin-40">
                             <span>Fale <strong>Conosco</strong></span>
                         </div>
-                        <form action="{{ route('web.sendEmail') }}" method="post" style="max-width: 800px"
-                            class="w-100">
+                        <form action="{{ route('web.sendEmail') }}" method="post" style="max-width: 800px" class="w-100">
                             @csrf
                             <input type="hidden" name="company" value="{{ $company->id }}">
                             <div class="form-group">

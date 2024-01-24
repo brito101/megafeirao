@@ -94,11 +94,9 @@
                                 class="dash_sidebar_nav_item  {{ isActive('admin.users') }} {{ isActive('admin.companies') }}">
                                 @if (isset(Auth::user()->company->id))
                                     <a class="icon-building"
-                                        href="{{ route('admin.companies.edit', ['company' => Auth::user()->company->id]) }}">Criar
-                                        Loja Virtual</a>
+                                        href="{{ route('admin.companies.edit', ['company' => Auth::user()->company->id]) }}">Anunciante</a>
                                 @else
-                                    <a class="icon-building" href="{{ route('admin.companies.create') }}">Criar Loja
-                                        Virtual</a>
+                                    <a class="icon-building" href="{{ route('admin.companies.create') }}">Anunciante</a>
                                 @endif
                             @else
                             <li

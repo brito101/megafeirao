@@ -30,7 +30,7 @@ class FilterController extends Controller
         session()->remove('category');
         session()->remove('city');
         session()->remove('brand');
-        session()->remove('model');
+        // session()->remove('model');
         session()->remove('price_base');
         session()->remove('price_limit');
         session()->remove('year_base');
@@ -69,7 +69,7 @@ class FilterController extends Controller
     {
         session()->remove('brand');
         session()->remove('city');
-        session()->remove('model');
+        // session()->remove('model');
         session()->remove('price_base');
         session()->remove('price_limit');
         session()->remove('year_base');
@@ -83,7 +83,8 @@ class FilterController extends Controller
 
         if ($cityAutomotives->count()) {
             foreach ($cityAutomotives as $automotive) {
-                $city[] = $automotive->city;
+                // $city[] = $automotive->city;
+                $city[] = $automotive->state;
             }
 
             $collect = collect($city);
@@ -96,7 +97,7 @@ class FilterController extends Controller
     public function city(Request $request)
     {
         session()->remove('brand');
-        session()->remove('model');
+        // session()->remove('model');
         session()->remove('price_base');
         session()->remove('price_limit');
         session()->remove('year_base');
@@ -125,7 +126,7 @@ class FilterController extends Controller
 
     public function brand(Request $request)
     {
-        session()->remove('model');
+        // session()->remove('model');
         session()->remove('price_base');
         session()->remove('price_limit');
         session()->remove('year_base');
@@ -135,35 +136,19 @@ class FilterController extends Controller
         session()->remove('fuel');
 
         session()->put('brand', $request->search);
-        $modelAutomotives = $this->createQuery('model');
+        // $modelAutomotives = $this->createQuery('model');
 
-        if ($modelAutomotives->count()) {
-            foreach ($modelAutomotives as $automotive) {
-                $model[] = $automotive->model;
-            }
+        // if ($modelAutomotives->count()) {
+        //     foreach ($modelAutomotives as $automotive) {
+        //         $model[] = $automotive->model;
+        //     }
 
-            $model[] = 'Indiferente';
+        //     $model[] = 'Indiferente';
 
-            $collect = collect($model)->unique()->toArray();
-            sort($collect);
-            return response()->json($this->setResponse('success', $collect));
-        }
-
-        return response()->json($this->setResponse('fail', [], 'Ooops, não foi retornado nenhum dado para essa pesquisa!'));
-    }
-
-    public function model(Request $request)
-    {
-        session()->remove('price_base');
-        session()->remove('price_limit');
-        session()->remove('year_base');
-        session()->remove('year_limit');
-        session()->remove('mileage');
-        session()->remove('gear');
-        session()->remove('fuel');
-
-        session()->put('model', $request->search);
-
+        //     $collect = collect($model)->unique()->toArray();
+        //     sort($collect);
+        //     return response()->json($this->setResponse('success', $collect));
+        // }
         $priceBaseAutomotives = $this->createQuery('sale_price as price');
 
         if ($priceBaseAutomotives->count()) {
@@ -178,6 +163,33 @@ class FilterController extends Controller
 
         return response()->json($this->setResponse('fail', [], 'Ooops, não foi retornado nenhum dado para essa pesquisa!'));
     }
+
+    // public function model(Request $request)
+    // {
+    //     session()->remove('price_base');
+    //     session()->remove('price_limit');
+    //     session()->remove('year_base');
+    //     session()->remove('year_limit');
+    //     session()->remove('mileage');
+    //     session()->remove('gear');
+    //     session()->remove('fuel');
+
+    //     session()->put('model', $request->search);
+
+    //     $priceBaseAutomotives = $this->createQuery('sale_price as price');
+
+    //     if ($priceBaseAutomotives->count()) {
+    //         foreach ($priceBaseAutomotives as $automotive) {
+    //             $price[] = $automotive->price;
+    //         }
+
+    //         $collect = collect($price)->unique()->toArray();
+    //         sort($collect);
+    //         return response()->json($this->setResponse('success', $collect));
+    //     }
+
+    //     return response()->json($this->setResponse('fail', [], 'Ooops, não foi retornado nenhum dado para essa pesquisa!'));
+    // }
 
     public function priceBase(Request $request)
     {
@@ -325,7 +337,7 @@ class FilterController extends Controller
         session()->remove('category');
         session()->remove('city');
         session()->remove('brand');
-        session()->remove('model');
+        // session()->remove('model');
         session()->remove('price_base');
         session()->remove('price_limit');
         session()->remove('year_base');
@@ -343,7 +355,7 @@ class FilterController extends Controller
         $category = session('category');
         $city = session('city');
         $brand = session('brand');
-        $model = session('model');
+        // $model = session('model');
         $priceBase = session('price_base');
         $priceLimit = session('price_limit');
         $yearBase = session('year_base');
@@ -366,8 +378,11 @@ class FilterController extends Controller
             ->when($category, function ($query, $category) {
                 return $query->where('category', $category);
             })
+            // ->when($city, function ($query, $city) {
+            //     return $query->where('city', $city);
+            // })
             ->when($city, function ($query, $city) {
-                return $query->where('city', $city);
+                return $query->where('state', $city);
             })
             ->when($brand, function ($query, $brand) {
 
@@ -376,13 +391,13 @@ class FilterController extends Controller
                 }
                 return $query->where('brand', $brand);
             })
-            ->when($model, function ($query, $model) {
+            // ->when($model, function ($query, $model) {
 
-                if ($model == 'Indiferente') {
-                    return $query;
-                }
-                return $query->where('model', $model);
-            })
+            //     if ($model == 'Indiferente') {
+            //         return $query;
+            //     }
+            //     return $query->where('model', $model);
+            // })
             ->when($priceBase, function ($query, $priceBase) {
                 if ($priceBase == 'Indiferente') {
                     return $query;

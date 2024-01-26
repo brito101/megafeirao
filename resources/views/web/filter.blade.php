@@ -10,9 +10,9 @@
             <section class="row">
 
                 <div class="col-12 d-flex flex-wrap justify-content-between">
-                    <div
-                        class="col-12 col-md-3 {{ $banner && ($banner->cover5 || $banner->cover6 || $banner->cover7 || $banner->cover8 || $banner->cover9) ? 'col-lg-2' : 'col-lg-3' }} px-0">
-                        <form action="{{ route('web.filter') }}" method="post" class="w-100 px-0 py-3 mb-0">
+                    {{-- <div class="col-12 col-md-3 {{ $banner && ($banner->cover5 || $banner->cover6 || $banner->cover7 || $banner->cover8 || $banner->cover9) ? 'col-lg-2' : 'col-lg-3' }} px-0"> --}}
+                    <div class="col-12 col-md-3">
+                        <form action="{{ route('web.filter') }}" method="post" class="w-100 px-0 py-3 mb-0 px-2">
                             @csrf
                             <div class="row">
                                 <div class="form-group col-12 mt-3">
@@ -28,7 +28,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group col-12">
+                                {{-- <div class="form-group col-12">
                                     <select class="selectpicker" name="filter_city" id="city" title="Cidade"
                                         data-actions-box="true" data-index="2"
                                         data-action="{{ route('component.main-filter.city') }}">
@@ -37,21 +37,33 @@
                                             <option>{{ $city }}</option>
                                         @endforeach
                                     </select>
+                                </div> --}}
+
+                                <div class="form-group col-12">
+                                    <select class="selectpicker" name="filter_city" id="city" title="Estado"
+                                        data-actions-box="true" data-index="2"
+                                        data-action="{{ route('component.main-filter.city') }}">
+                                        <option value="">Indiferente</option>
+                                        @foreach ($state as $item)
+                                            <option>{{ $item }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <select class="selectpicker" name="filter_brand" id="brand" title="Marca"
+                                    <select class="selectpicker" name="filter_brand" id="brand" title="Fabricante"
                                         data-index="3" data-action="{{ route('component.main-filter.brand') }}">
                                         <option disabled>Selecione o filtro anterior</option>
                                     </select>
                                 </div>
 
-                                <div class="form-group col-12">
+                                {{-- <div class="form-group col-12">
                                     <select class="selectpicker" name="filter_model" id="model" title="Modelo"
                                         data-index="4" data-action="{{ route('component.main-filter.model') }}">
                                         <option disabled>Selecione o filtro anterior</option>
                                     </select>
-                                </div>
+                                </div> --}}
+
                                 <div class="col-12 text-dark font-weight-normal mb-2">Preço</div>
                                 <div class="form-group col-6 d-none">
                                     <select class="selectpicker" name="filter_base" id="base" title="Mínimo"
@@ -110,7 +122,7 @@
                                 </div>
                             </div>
 
-                            <div class="d-none d-md-block">
+                            {{-- <div class="d-none d-md-block">
 
                                 @if (count($cityState))
                                     <div class="col-12 px-0 mt-5">
@@ -128,7 +140,7 @@
                                     </div>
                                 @endif
 
-                            </div>
+                            </div> --}}
 
                             <div class="row my-2">
                                 <div class="col-12 text-center button_search">
@@ -136,7 +148,7 @@
                                 </div>
                             </div>
 
-                            @if (count($brand))
+                            {{-- @if (count($brand))
                                 <div class="col-12 px-0 mt-3 card d-none d-md-block">
                                     <div class="text-dark font-weight-normal card-header">Marcas</div>
                                     <div class="card-body">
@@ -151,9 +163,9 @@
                                         </ul>
                                     </div>
                                 </div>
-                            @endif
+                            @endif --}}
 
-                            @if (count($model))
+                            {{-- @if (count($model))
                                 <div class="col-12 px-0 mt-3 card d-none d-md-block">
                                     <div class="text-dark font-weight-normal card-header">Modelos</div>
                                     <div class="card-body">
@@ -168,13 +180,65 @@
                                         </ul>
                                     </div>
                                 </div>
-                            @endif
+                            @endif --}}
                         </form>
+                        @if ($banner)
+                            <div class="col-12 d-flex flex-wrap justify-content-center align-content-start">
+                                @if ($banner->cover5)
+                                    <div class="col-12 col-sm-4 px-2 px-lg-0 col-lg-12 my-2 text-center">
+                                        <a href="{{ $banner->link5 ?? route('web.register') }}"
+                                            class="d-flex justify-content-center align-content-center h-100">
+                                            <img src="{{ asset('storage/' . $banner->cover5) }}"
+                                                class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                                title="" style="object-fit: contain;"></a>
+                                    </div>
+                                @endif
 
+                                @if ($banner->cover6)
+                                    <div class="col-12 col-sm-4 px-2 px-lg-0 col-lg-12 my-2 text-center">
+                                        <a href="{{ $banner->link6 ?? route('web.register') }}"
+                                            class="d-flex justify-content-center align-content-center h-100">
+                                            <img src="{{ asset('storage/' . $banner->cover6) }}"
+                                                class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                                title="" style="object-fit: contain;"></a>
+                                    </div>
+                                @endif
+
+                                @if ($banner->cover7)
+                                    <div class="col-12 col-sm-4 px-2 px-lg-0 col-lg-12 my-2 text-center">
+                                        <a href="{{ $banner->link7 ?? route('web.register') }}"
+                                            class="d-flex justify-content-center align-content-center h-100">
+                                            <img src="{{ asset('storage/' . $banner->cover7) }}"
+                                                class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                                title="" style="object-fit: contain;"></a>
+                                    </div>
+                                @endif
+
+                                @if ($banner->cover8)
+                                    <div class="col-12 col-sm-4 px-2 px-lg-0 col-lg-12 my-2 text-center">
+                                        <a href="{{ $banner->link8 ?? route('web.register') }}"
+                                            class="d-flex justify-content-center align-content-center h-100">
+                                            <img src="{{ asset('storage/' . $banner->cover8) }}"
+                                                class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                                title="" style="object-fit: contain;"></a>
+                                    </div>
+                                @endif
+
+                                @if ($banner->cover9)
+                                    <div class="col-12 col-sm-4 px-2 px-lg-0 col-lg-12 my-2 text-center">
+                                        <a href="{{ $banner->link9 ?? route('web.register') }}"
+                                            class="d-flex justify-content-center align-content-center h-100">
+                                            <img src="{{ asset('storage/' . $banner->cover9) }}"
+                                                class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                                title="" style="object-fit: contain;"></a>
+                                    </div>
+                                @endif
+                            </div>
+                        @endif
                     </div>
 
-                    <div
-                        class="col-12 col-md-9 {{ $banner && ($banner->cover5 || $banner->cover6 || $banner->cover7 || $banner->cover8 || $banner->cover9) ? 'col-lg-8' : 'col-lg-9' }} overflow-hidden">
+                    {{-- <div class="col-12 col-md-9 {{ $banner && ($banner->cover5 || $banner->cover6 || $banner->cover7 || $banner->cover8 || $banner->cover9) ? 'col-lg-8' : 'col-lg-9' }} overflow-hidden"> --}}
+                    <div class="col-12 col-md-9 overflow-hidden bg-light border">
 
                         @if ($spotlight->count() > 0)
                             <div class="row pb-2 pb-lg-5" style="margin-top: 30px;">
@@ -183,7 +247,7 @@
                                         <div class="carousel-inner">
                                             <div class="carousel-item active">
                                                 <div class="d-flex">
-                                                    @foreach ($spotlight->slice(0, 4) as $automotive)
+                                                    @foreach ($spotlight->slice(0, 12) as $automotive)
                                                         @include('web.components.spotlight')
                                                     @endforeach
                                                 </div>
@@ -255,15 +319,51 @@
                         <section class="row main_properties d-flex justify-content-center">
 
                             @if ($clientBanner)
-                                <div class="col-12 mb-3 text-center" style="max-height: 120px">
+                                <div class="col-12 my-3 text-center" style="max-height: 120px">
                                     <img src="{{ url('storage/' . $clientBanner->cover) }}"
                                         class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt="Sponsor"
                                         style="object-fit: contain; max-height: 120px" title="Sponsor">
                                 </div>
                             @endif
 
+                            <div class="col-12 d-flex flex-wrap justify-content-between">
+                                <div class="input-group mb-3 col-12 col-md-5">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="city-state"><i
+                                                class="icon icon-map-marker"></i></label>
+                                    </div>
+                                    <select class="custom-select" id="city-state">
+                                        <option value="" disabled selected>Selecione</option>
+                                        @foreach ($cityState as $f)
+                                            <option value="{{ route('web.filterCity', ['city' => $f]) }}">
+                                                {{ $f }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="input-group mb-3 col-12 col-md-5">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="ordenation">Ordenação</label>
+                                    </div>
+                                    <select class="custom-select" id="ordenation">
+                                        <option value="" disabled selected>Selecione</option>
+                                        <option
+                                            value="{{ route('web.filterOrder', ['type' => 'preco', 'order' => 'menor']) }}">
+                                            Menor Preço</option>
+                                        <option
+                                            value="{{ route('web.filterOrder', ['type' => 'preco', 'order' => 'maior']) }}">
+                                            Maior Preço</option>
+                                        <option
+                                            value="{{ route('web.filterOrder', ['type' => 'uso', 'order' => 'novo']) }}">
+                                            Mais Novo</option>
+                                        <option
+                                            value="{{ route('web.filterOrder', ['type' => 'km', 'order' => 'menor']) }}">
+                                            Menor Km</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             @if ($automotives)
-                                @foreach ($automotives->slice(0, 5) as $automotive)
+                                @foreach ($automotives->slice(0, 12) as $automotive)
                                     @include('web.components.automotives')
                                 @endforeach
                                 @if ($banner && $banner->cover4)
@@ -275,7 +375,7 @@
                                                 title="" style="object-fit: contain;"></a>
                                     </div>
                                 @endif
-                                @foreach ($automotives->slice(5, 5) as $automotive)
+                                @foreach ($automotives->slice(12, 24) as $automotive)
                                     @include('web.components.automotives')
                                 @endforeach
                                 @if ($automotives->count() > 5 && $banner->cover1)
@@ -287,7 +387,7 @@
                                                 title="" style="object-fit: contain;"></a>
                                     </div>
                                 @endif
-                                @foreach ($automotives->slice(10, 5) as $automotive)
+                                @foreach ($automotives->slice(24, 36) as $automotive)
                                     @include('web.components.automotives')
                                 @endforeach
                                 <div class="w-100 d-flex justify-content-center">
@@ -305,7 +405,7 @@
 
                     </div>
 
-                    @if ($banner)
+                    {{-- @if ($banner)
                         <div
                             class="col-12 col-lg-2 py-3 px-0 {{ $banner && ($banner->cover5 || $banner->cover6 || $banner->cover7 || $banner->cover8 || $banner->cover9) ? 'd-flex' : 'd-none' }} flex-wrap justify-content-center align-content-start">
                             @if ($banner->cover5)
@@ -358,7 +458,7 @@
                                 </div>
                             @endif
                         </div>
-                    @endif
+                    @endif --}}
                 </div>
 
             </section>
@@ -380,5 +480,13 @@
                 location.href = '{{ env('APP_URL') }}/?sort=sale_price&direction=desc'
             }
         });
+    </script>
+    <script>
+        $("#city-state").on("change", function() {
+            window.location.href = this.value;
+        })
+        $("#ordenation").on("change", function() {
+            window.location.href = this.value;
+        })
     </script>
 @endsection

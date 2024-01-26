@@ -78,7 +78,7 @@ class WebController extends Controller
     public function filterCompany(Request $request)
     {
         $company = Company::where('slug', $request->slug)->first();
-        
+
         if ($company) {
             $head = $this->seo->render(
                 env('APP_NAME') . ' - Loja: ' . $company->social_name ?? 'Particular',
@@ -310,7 +310,7 @@ class WebController extends Controller
             $automotive->save();
             $head = $this->seo->render(
                 ($automotive->headline ?? $automotive->title) . ' - R$ ' . ($automotive->sale_price ?? $automotive->rent_price),
-                $automotive->city . '-' . $automotive->state, 
+                $automotive->city . '-' . $automotive->state,
                 // env('APP_NAME') . ' - Compra',
                 // $automotive->headline ?? $automotive->title,
                 route('web.buyAutomotive', ['slug' => $automotive->slug]),
@@ -350,8 +350,7 @@ class WebController extends Controller
 
         if (!empty($automotives)) {
             $automotives = Automotive::whereIn('id', $automotives)->sale()->available()->inRandomOrder()->get();
-
-            $automotivesPaginate = Automotive::whereIn('id', $automotives->pluck('id'))->sale()->available()->inRandomOrder()->paginate();
+            $automotivesPaginate = Automotive::whereIn('id', $automotives->pluck('id'))->sale()->available()->inRandomOrder()->paginate(36);
         } else {
             $automotives = null;
             $automotivesPaginate = null;
@@ -372,8 +371,8 @@ class WebController extends Controller
 
         $spotlight = Automotive::sale()->available()->spotlight()->inRandomOrder()->take(12)->get();
 
-        $brand = [];
-        $model = [];
+        // $brand = [];
+        // $model = [];
         $state = [];
         $cityCar = [];
         $mileageCar = null;
@@ -382,27 +381,35 @@ class WebController extends Controller
             foreach ($collect as $automotive) {
                 $state[] = $automotive->state;
                 $cityCar[] = $automotive->city;
-                $brand[] = ['title' => $automotive->brand, 'link' => Str::slug($automotive->brand)];
-                $model[] = ['title' => $automotive->model, 'link' => Str::slug($automotive->model)];
+                // $brand[] = ['title' => $automotive->brand, 'link' => Str::slug($automotive->brand)];
+                // $model[] = ['title' => $automotive->model, 'link' => Str::slug($automotive->model)];
                 $mileageCar[] = floatVal($automotive->mileage);
             }
 
             $state = collect(array_filter($state))->unique()->sort();
-            $brand = collect(array_filter($brand))->unique()->sort();
-            $model = collect(array_filter($model))->unique()->sort();
+            // $brand = collect(array_filter($brand))->unique()->sort();
+            // $model = collect(array_filter($model))->unique()->sort();
             $cityCar = collect(array_filter($cityCar))->unique()->sort();
             $mileageCar = collect(array_filter($mileageCar))->unique()->sort()->max();
         }
 
         $cityState = [];
-        if (count($state) && count($cityCar)) {
-            foreach ($collect as $automotive) {
-                if ($state->contains($automotive->state) && !$cityCar->contains($automotive->city)) {
-                    $cityState[] = $automotive->city;
-                }
+        // if (count($state) && count($cityCar)) {
+        //     foreach ($collect as $automotive) {
+        //         if ($state->contains($automotive->state) && !$cityCar->contains($automotive->city)) {
+        //             $cityState[] = $automotive->city;
+        //         }
+        //     }
+        //     $cityState = collect(array_filter($cityState))->unique()->sort();
+        // }
+
+        foreach ($collect as $automotive) {
+            if ($automotive->city && $automotive->state) {
+                $cityState[] = $automotive->city . '-' . $automotive->state;
             }
-            $cityState = collect(array_filter($cityState))->unique()->sort();
         }
+        $cityState = collect(array_filter($cityState))->unique()->sort();
+
 
         $users = User::where('banner_views_limit', '>', 0)->get();
         $clientBanner = ClientBanner::whereIn('user', $users->pluck('id'))->inRandomOrder()->first();
@@ -422,8 +429,8 @@ class WebController extends Controller
             'cities' => $cities,
             'banner' => $banner,
             'spotlight' => $spotlight,
-            'brand' => $brand,
-            'model' => $model,
+            // 'brand' => $brand,
+            // 'model' => $model,
             'state' => $state,
             'cityState' => $cityState,
             'collect' => $collect,
@@ -614,6 +621,264 @@ class WebController extends Controller
             'collect' => $collect,
             'mileageMax' => $mileageCar,
             'clientBanner' => $clientBanner
+        ]);
+    }
+
+    public function filterCity($request)
+    {
+
+        $head = $this->seo->render(
+            env('APP_NAME'),
+            'Encontre o veículo dos seus sonhos na melhor plataforma web do Rio de Janeiro',
+            route('web.filter'),
+            asset('frontend/assets/images/share.png')
+        );
+
+        $filter = new FilterController();
+        $itemAutomotives = $filter->createQuery('id');
+        foreach ($itemAutomotives as $automotive) {
+            $automotives[] = $automotive->id;
+        }
+
+        $cityRequest = explode('-', $request)[0];
+        $stateRequest = explode('-', $request)[1];
+
+        if (!empty($automotives)) {
+            $automotives = Automotive::whereIn('id', $automotives)
+                ->where('city', $cityRequest)->where('state', $stateRequest)
+                ->sale()->available()->inRandomOrder()->get();
+            $automotivesPaginate = Automotive::whereIn('id', $automotives->pluck('id'))
+                ->where('city', $cityRequest)->where('state', $stateRequest)
+                ->sale()->available()->inRandomOrder()->paginate(36);
+        } else {
+            $automotives = null;
+            $automotivesPaginate = null;
+        }
+
+        $filter->clearAllData();
+
+        $collect = Automotive::sale()->available()->get();
+        $cities = [];
+        if ($collect->count()) {
+            foreach ($collect as $automotive) {
+                $city[] = $automotive->city;
+            }
+            $cities = collect(array_filter($city))->unique()->sort();
+        }
+
+        $banner = Banner::first();
+
+        $spotlight = Automotive::sale()->available()->spotlight()->inRandomOrder()->take(12)->get();
+
+        // $brand = [];
+        // $model = [];
+        $state = [];
+        $cityCar = [];
+        $mileageCar = null;
+
+        if (count($collect) > 0) {
+            foreach ($collect as $automotive) {
+                $state[] = $automotive->state;
+                $cityCar[] = $automotive->city;
+                // $brand[] = ['title' => $automotive->brand, 'link' => Str::slug($automotive->brand)];
+                // $model[] = ['title' => $automotive->model, 'link' => Str::slug($automotive->model)];
+                $mileageCar[] = floatVal($automotive->mileage);
+            }
+
+            $state = collect(array_filter($state))->unique()->sort();
+            // $brand = collect(array_filter($brand))->unique()->sort();
+            // $model = collect(array_filter($model))->unique()->sort();
+            $cityCar = collect(array_filter($cityCar))->unique()->sort();
+            $mileageCar = collect(array_filter($mileageCar))->unique()->sort()->max();
+        }
+
+        $cityState = [];
+        // if (count($state) && count($cityCar)) {
+        //     foreach ($collect as $automotive) {
+        //         if ($state->contains($automotive->state) && !$cityCar->contains($automotive->city)) {
+        //             $cityState[] = $automotive->city;
+        //         }
+        //     }
+        //     $cityState = collect(array_filter($cityState))->unique()->sort();
+        // }
+
+        foreach ($collect as $automotive) {
+            if ($automotive->city && $automotive->state) {
+                $cityState[] = $automotive->city . '-' . $automotive->state;
+            }
+        }
+        $cityState = collect(array_filter($cityState))->unique()->sort();
+
+
+        $users = User::where('banner_views_limit', '>', 0)->get();
+        $clientBanner = ClientBanner::whereIn('user', $users->pluck('id'))->inRandomOrder()->first();
+        if ($clientBanner) {
+            $clientBanner->views = $clientBanner->views + 1;
+            $clientBanner->update();
+            $userBanner = User::where('id', $clientBanner->user)->first();
+            if ($userBanner) {
+                $userBanner->banner_views_limit = $userBanner->banner_views_limit - 1;
+                $userBanner->update();
+            }
+        }
+
+        return view('web.filter', [
+            'head' => $head,
+            'automotives' => $automotivesPaginate,
+            'cities' => $cities,
+            'banner' => $banner,
+            'spotlight' => $spotlight,
+            // 'brand' => $brand,
+            // 'model' => $model,
+            'state' => $state,
+            'cityState' => $cityState,
+            'collect' => $collect,
+            'mileageMax' => $mileageCar,
+            'clientBanner' => $clientBanner,
+        ]);
+    }
+
+    public function filterOrder($type, $order)
+    {
+
+
+        $head = $this->seo->render(
+            env('APP_NAME'),
+            'Encontre o veículo dos seus sonhos na melhor plataforma web do Rio de Janeiro',
+            route('web.filter'),
+            asset('frontend/assets/images/share.png')
+        );
+
+        $filter = new FilterController();
+        $itemAutomotives = $filter->createQuery('id');
+        foreach ($itemAutomotives as $automotive) {
+            $automotives[] = $automotive->id;
+        }
+
+
+        if (!empty($automotives) && $type == 'preco') {
+            if ($order == 'menor') {
+                $automotives = Automotive::whereIn('id', $automotives)
+                    ->sale()->available()
+                    ->orderBy('sale_price')
+                    ->get();
+                $automotivesPaginate = Automotive::whereIn('id', $automotives->pluck('id'))
+                    ->sale()->available()
+                    ->orderBy('sale_price')
+                    ->paginate(36);
+            } else {
+                $automotives = Automotive::whereIn('id', $automotives)
+                    ->sale()->available()
+                    ->orderBy('sale_price', 'desc')
+                    ->get();
+                $automotivesPaginate = Automotive::whereIn('id', $automotives->pluck('id'))
+                    ->sale()->available()
+                    ->orderBy('sale_price', 'desc')
+                    ->paginate(36);
+            }
+        } elseif (!empty($automotives) && $type == 'uso') {
+            $automotives = Automotive::whereIn('id', $automotives)
+                ->sale()->available()
+                ->orderBy('year', 'desc')
+                ->get();
+            $automotivesPaginate = Automotive::whereIn('id', $automotives->pluck('id'))
+                ->sale()->available()
+                ->orderBy('year', 'desc')
+                ->paginate(36);
+        } elseif (!empty($automotives) && $type == 'km') {
+            $automotives = Automotive::whereIn('id', $automotives)
+                ->sale()->available()
+                ->orderBy('mileage')
+                ->get();
+            $automotivesPaginate = Automotive::whereIn('id', $automotives->pluck('id'))
+                ->sale()->available()
+                ->orderBy('mileage')
+                ->paginate(36);
+        } else {
+            $automotives = null;
+            $automotivesPaginate = null;
+        }
+
+        $filter->clearAllData();
+
+        $collect = Automotive::sale()->available()->get();
+        $cities = [];
+        if ($collect->count()) {
+            foreach ($collect as $automotive) {
+                $city[] = $automotive->city;
+            }
+            $cities = collect(array_filter($city))->unique()->sort();
+        }
+
+        $banner = Banner::first();
+
+        $spotlight = Automotive::sale()->available()->spotlight()->inRandomOrder()->take(12)->get();
+
+        // $brand = [];
+        // $model = [];
+        $state = [];
+        $cityCar = [];
+        $mileageCar = null;
+
+        if (count($collect) > 0) {
+            foreach ($collect as $automotive) {
+                $state[] = $automotive->state;
+                $cityCar[] = $automotive->city;
+                // $brand[] = ['title' => $automotive->brand, 'link' => Str::slug($automotive->brand)];
+                // $model[] = ['title' => $automotive->model, 'link' => Str::slug($automotive->model)];
+                $mileageCar[] = floatVal($automotive->mileage);
+            }
+
+            $state = collect(array_filter($state))->unique()->sort();
+            // $brand = collect(array_filter($brand))->unique()->sort();
+            // $model = collect(array_filter($model))->unique()->sort();
+            $cityCar = collect(array_filter($cityCar))->unique()->sort();
+            $mileageCar = collect(array_filter($mileageCar))->unique()->sort()->max();
+        }
+
+        $cityState = [];
+        // if (count($state) && count($cityCar)) {
+        //     foreach ($collect as $automotive) {
+        //         if ($state->contains($automotive->state) && !$cityCar->contains($automotive->city)) {
+        //             $cityState[] = $automotive->city;
+        //         }
+        //     }
+        //     $cityState = collect(array_filter($cityState))->unique()->sort();
+        // }
+
+        foreach ($collect as $automotive) {
+            if ($automotive->city && $automotive->state) {
+                $cityState[] = $automotive->city . '-' . $automotive->state;
+            }
+        }
+        $cityState = collect(array_filter($cityState))->unique()->sort();
+
+
+        $users = User::where('banner_views_limit', '>', 0)->get();
+        $clientBanner = ClientBanner::whereIn('user', $users->pluck('id'))->inRandomOrder()->first();
+        if ($clientBanner) {
+            $clientBanner->views = $clientBanner->views + 1;
+            $clientBanner->update();
+            $userBanner = User::where('id', $clientBanner->user)->first();
+            if ($userBanner) {
+                $userBanner->banner_views_limit = $userBanner->banner_views_limit - 1;
+                $userBanner->update();
+            }
+        }
+
+        return view('web.filter', [
+            'head' => $head,
+            'automotives' => $automotivesPaginate,
+            'cities' => $cities,
+            'banner' => $banner,
+            'spotlight' => $spotlight,
+            // 'brand' => $brand,
+            // 'model' => $model,
+            'state' => $state,
+            'cityState' => $cityState,
+            'collect' => $collect,
+            'mileageMax' => $mileageCar,
+            'clientBanner' => $clientBanner,
         ]);
     }
 

@@ -360,7 +360,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function reduceAdsLimit()
     {
-        $this->ads_limit -= 1;
-        $this->save();
+        if ($this->ads_limit > 0) {
+            $this->ads_limit -= 1;
+            $this->save();
+        }
     }
 }

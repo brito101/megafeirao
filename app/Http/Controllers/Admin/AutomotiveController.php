@@ -80,7 +80,7 @@ class AutomotiveController extends Controller
         }
 
         if (Auth::user()->hasRole('Anunciante')) {
-            if (Auth::user()->ads_limit == 0) {
+            if (Auth::user()->ads_limit <= 0) {
                 return redirect()->route('admin.automotives.index')->with(['color' => 'orange', 'message' => 'Cadastro não '
                     . 'realizado! Seu limite de anúncios foi excedido. Precisando de mais anúncios? Entre em contato com a nossa equipe!']);
             }
@@ -107,7 +107,7 @@ class AutomotiveController extends Controller
 
         if ($request->spotlight) {
             if (Auth::user()->hasRole('Anunciante')) {
-                if (Auth::user()->ads_limit == 0) {
+                if (Auth::user()->ads_limit <= 0) {
                     return redirect()->route('admin.automotives.index')->with(['color' => 'orange', 'message' => 'Cadastro não '
                         . 'realizado! Seu limite de anúncios foi excedido. Precisando de mais anúncios? Entre em contato com a nossa equipe!']);
                 } else {
@@ -235,7 +235,7 @@ class AutomotiveController extends Controller
 
         if ($request->spotlight) {
             if (Auth::user()->hasRole('Anunciante')) {
-                if (Auth::user()->ads_limit == 0) {
+                if (Auth::user()->ads_limit <= 0) {
                     return redirect()->route('admin.automotives.edit', [
                         'automotive' => $automotive->id
                     ])->with(['color' => 'orange', 'message' => 'Cadastro não '
@@ -371,7 +371,7 @@ class AutomotiveController extends Controller
             $total = 0;
             foreach ($automotives as $automotive) {
                 if (Auth::user()->hasRole('Anunciante')) {
-                    if (Auth::user()->ads_limit == 0) {
+                    if (Auth::user()->ads_limit <= 0) {
                         if ($total <= 1) {
                             $message = $total . ' veículo reativado. Seu limite de anúncios foi excedido. Precisando de mais anúncios? Entre em contato com a nossa equipe!';
                         } else {

@@ -22,7 +22,7 @@ class User extends FormRequest
     {
         $this->merge([
             'ads_limit' => $this->ads_limit ? $this->ads_limit : 0,
-            'banner_views_limit' => $this->banner_views_limit ? $this->ads_limit : 0,
+            'banner_views_limit' => $this->banner_views_limit ? $this->banner_views_limit : 0,
         ]);
     }
 

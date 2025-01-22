@@ -2,6 +2,7 @@
 
 namespace LaraCar\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use LaraCar\Http\Controllers\Controller;
 use LaraCar\Banner;
 use LaraCar\Http\Requests\Admin\Banner as BannerRequest;
@@ -18,9 +19,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        /** @var User $user */
-        $user = Auth::user();
-        if (! $user->hasAnyRole(['Administrador', 'Gerente'])) {
+        if (!Auth::user()->hasAnyRole(['Administrador', 'Gerente'])) {
             throw new UnauthorizedException('403', 'You do not have the required authorization.');
         }
         $banner = Banner::first();
@@ -110,39 +109,39 @@ class BannerController extends Controller
     public function update(BannerRequest $request, $id)
     {
         $banner = Banner::first();
-        if (!empty($request->file('cover1')) && !empty($banner->cover1)) {
+        if (!empty($request->file('cover1'))) {
             Storage::delete($banner->cover1);
             $banner->cover1 = '';
         }
-        if (!empty($request->file('cover2')) && !empty($banner->cover2)) {
+        if (!empty($request->file('cover2'))) {
             Storage::delete($banner->cover2);
             $banner->cover2 = '';
         }
-        if (!empty($request->file('cover3')) && !empty($banner->cover3)) {
+        if (!empty($request->file('cover3'))) {
             Storage::delete($banner->cover3);
             $banner->cover3 = '';
         }
-        if (!empty($request->file('cover4')) && !empty($banner->cover4)) {
+        if (!empty($request->file('cover4'))) {
             Storage::delete($banner->cover4);
             $banner->cover4 = '';
         }
-        if (!empty($request->file('cover5')) && !empty($banner->cover5)) {
+        if (!empty($request->file('cover5'))) {
             Storage::delete($banner->cover5);
             $banner->cover5 = '';
         }
-        if (!empty($request->file('cover6')) && !empty($banner->cover6)) {
+        if (!empty($request->file('cover6'))) {
             Storage::delete($banner->cover6);
             $banner->cover6 = '';
         }
-        if (!empty($request->file('cover7')) && !empty($banner->cover7)) {
+        if (!empty($request->file('cover7'))) {
             Storage::delete($banner->cover7);
             $banner->cover7 = '';
         }
-        if (!empty($request->file('cover8')) && !empty($banner->cover8)) {
+        if (!empty($request->file('cover8'))) {
             Storage::delete($banner->cover8);
             $banner->cover8 = '';
         }
-        if (!empty($request->file('cover9')) && !empty($banner->cover9)) {
+        if (!empty($request->file('cover9'))) {
             Storage::delete($banner->cover9);
             $banner->cover9 = '';
         }

@@ -18,7 +18,7 @@ use LaraCar\User;
 class WebController extends Controller
 {
 
-    public function filter(Request $request)
+    public function home(Request $request)
     {
         $head = $this->seo->render(
             env('APP_NAME'),
@@ -80,7 +80,7 @@ class WebController extends Controller
         }
         $cityState = collect(array_filter($cityState))->unique()->sort();
 
-        return view('web.filter', [
+        return view('web.home', [
             'head' => $head,
             'automotives' => $automotivesPaginate,
             'cities' => $cities,

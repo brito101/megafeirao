@@ -4,7 +4,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'Web\\WebController@home')->name('web.home');
+Route::get('/', 'Web\\WebController@filter')->name('web.home');
+// Route::get('/', 'Web\\WebController@home')->name('web.home');
 
 /** Página Destaque */
 Route::get('/destaque', 'Web\\WebController@spotlight')->name('web.spotlight');
@@ -22,7 +23,7 @@ Route::get('/quero-comprar', 'Web\\WebController@buy')->name('web.buy');
 Route::get('/quero-comprar/{slug}', 'Web\\WebController@buyAutomotive')->name('web.buyAutomotive');
 
 /** Página de filtro */
-Route::match(['post', 'get'], '/filtro', 'Web\\WebController@home')->name('web.filter');
+Route::match(['post', 'get'], '/filtro', 'Web\\WebController@filter')->name('web.filter');
 Route::get('/filtro-marca/{brand}', 'Web\\WebController@filterBrand')->name('web.filterBrand');
 Route::get('/filtro-modelo/{model}', 'Web\\WebController@filterModel')->name('web.filterModel');
 Route::get('/filtro-cidade/{city}', 'Web\\WebController@filterCity')->name('web.filterCity');
@@ -40,11 +41,8 @@ Route::get('/politica-de-privacidade', 'Web\\WebController@policy')->name('web.p
 Route::get('/banner', 'Web\\WebController@banner')->name('web.banner');
 
 /** Filtro */
-Route::post('main-filter/category', 'Web\\FilterController@category')->name('component.main-filter.category');
-
 Route::post('main-filter/search', 'Web\\FilterController@search')->name('component.main-filter.search');
-Route::post('main-filter/state', 'Web\\FilterController@state')->name('component.main-filter.state');
-
+Route::post('main-filter/category', 'Web\\FilterController@category')->name('component.main-filter.category');
 Route::post('main-filter/city', 'Web\\FilterController@city')->name('component.main-filter.city');
 Route::post('main-filter/brand', 'Web\\FilterController@brand')->name('component.main-filter.brand');
 Route::post('main-filter/model', 'Web\\FilterController@model')->name('component.main-filter.model');

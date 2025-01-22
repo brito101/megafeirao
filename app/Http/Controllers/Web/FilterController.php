@@ -28,16 +28,8 @@ class FilterController extends Controller
 
         session()->remove('user');
         session()->remove('category');
-        session()->remove('city');
-        session()->remove('brand');
-        // session()->remove('model');
-        session()->remove('price_base');
-        session()->remove('price_limit');
-        session()->remove('year_base');
-        session()->remove('year_limit');
-        session()->remove('mileage');
-        session()->remove('gear');
-        session()->remove('fuel');
+        session()->remove('state');
+        session()->remove('model');
 
         if ($request->search === 'buy') {
             session()->put('user', $user);
@@ -67,255 +59,64 @@ class FilterController extends Controller
 
     public function category(Request $request)
     {
-        session()->remove('brand');
-        session()->remove('city');
-        // session()->remove('model');
-        session()->remove('price_base');
-        session()->remove('price_limit');
-        session()->remove('year_base');
-        session()->remove('year_limit');
-        session()->remove('mileage');
-        session()->remove('gear');
-        session()->remove('fuel');
+        session()->remove('category');
+        session()->remove('state');
+        session()->remove('model');
 
         session()->put('category', $request->search);
-        $cityAutomotives = $this->createQuery('city');
+        $stateAutomotives = $this->createQuery('state');
 
-        if ($cityAutomotives->count()) {
-            foreach ($cityAutomotives as $automotive) {
-                // $city[] = $automotive->city;
-                $city[] = $automotive->state;
+        if ($stateAutomotives->count()) {
+            foreach ($stateAutomotives as $item) {
+                $states[] = $item->state;
             }
 
-            $collect = collect($city);
-            return response()->json($this->setResponse('success', $collect->unique()->toArray()));
+            if (!empty(array_filter($states))) {
+                $collect = collect($states);
+                return response()->json($this->setResponse('success', $collect->unique()->toArray()));
+            } else {
+                return response()->json($this->setResponse('success', ['Indiferente']));
+            }
+        } else {
+            return response()->json($this->setResponse('success', ['Sem resultados']));
         }
 
         return response()->json($this->setResponse('fail', [], 'Ooops, não foi retornado nenhum dado para essa pesquisa!'));
     }
 
-    public function city(Request $request)
+    public function state(Request $request)
     {
-        session()->remove('brand');
-        // session()->remove('model');
-        session()->remove('price_base');
-        session()->remove('price_limit');
-        session()->remove('year_base');
-        session()->remove('year_limit');
-        session()->remove('mileage');
-        session()->remove('gear');
-        session()->remove('fuel');
+        session()->remove('state');
+        session()->remove('model');
 
-        session()->put('city', $request->search);
-        $brandAutomotives = $this->createQuery('brand');
+        session()->put('state', $request->search);
+        $modelAutomotives = $this->createQuery('model');
 
-        if ($brandAutomotives->count()) {
-            foreach ($brandAutomotives as $automotive) {
-                $brand[] = $automotive->brand;
+        if ($modelAutomotives->count()) {
+            foreach ($modelAutomotives as $item) {
+                $models[] = $item->model;
             }
 
-            $brand[] = 'Indiferente';
-
-            $collect = collect($brand)->unique()->toArray();
-            sort($collect);
-            return response()->json($this->setResponse('success', $collect));
+            if (!empty(array_filter($models))) {
+                $collect = collect($models);
+                return response()->json($this->setResponse('success', $collect->unique()->toArray()));
+            } else {
+                return response()->json($this->setResponse('success', ['Indiferente']));
+            }
+        } else {
+            return response()->json($this->setResponse('success', ['Sem resultados']));
         }
 
         return response()->json($this->setResponse('fail', [], 'Ooops, não foi retornado nenhum dado para essa pesquisa!'));
     }
 
-    public function brand(Request $request)
-    {
-        // session()->remove('model');
-        session()->remove('price_base');
-        session()->remove('price_limit');
-        session()->remove('year_base');
-        session()->remove('year_limit');
-        session()->remove('mileage');
-        session()->remove('gear');
-        session()->remove('fuel');
 
-        session()->put('brand', $request->search);
-        // $modelAutomotives = $this->createQuery('model');
-
-        // if ($modelAutomotives->count()) {
-        //     foreach ($modelAutomotives as $automotive) {
-        //         $model[] = $automotive->model;
-        //     }
-
-        //     $model[] = 'Indiferente';
-
-        //     $collect = collect($model)->unique()->toArray();
-        //     sort($collect);
-        //     return response()->json($this->setResponse('success', $collect));
-        // }
-        $priceBaseAutomotives = $this->createQuery('sale_price as price');
-
-        if ($priceBaseAutomotives->count()) {
-            foreach ($priceBaseAutomotives as $automotive) {
-                $price[] = $automotive->price;
-            }
-
-            $collect = collect($price)->unique()->toArray();
-            sort($collect);
-            return response()->json($this->setResponse('success', $collect));
-        }
-
-        return response()->json($this->setResponse('fail', [], 'Ooops, não foi retornado nenhum dado para essa pesquisa!'));
-    }
-
-    // public function model(Request $request)
-    // {
-    //     session()->remove('price_base');
-    //     session()->remove('price_limit');
-    //     session()->remove('year_base');
-    //     session()->remove('year_limit');
-    //     session()->remove('mileage');
-    //     session()->remove('gear');
-    //     session()->remove('fuel');
-
-    //     session()->put('model', $request->search);
-
-    //     $priceBaseAutomotives = $this->createQuery('sale_price as price');
-
-    //     if ($priceBaseAutomotives->count()) {
-    //         foreach ($priceBaseAutomotives as $automotive) {
-    //             $price[] = $automotive->price;
-    //         }
-
-    //         $collect = collect($price)->unique()->toArray();
-    //         sort($collect);
-    //         return response()->json($this->setResponse('success', $collect));
-    //     }
-
-    //     return response()->json($this->setResponse('fail', [], 'Ooops, não foi retornado nenhum dado para essa pesquisa!'));
-    // }
-
-    public function priceBase(Request $request)
-    {
-        session()->remove('price_limit');
-        session()->remove('year_base');
-        session()->remove('year_limit');
-        session()->remove('mileage');
-        session()->remove('gear');
-        session()->remove('fuel');
-
-        session()->put('price_base', $request->search);
-
-        $priceLimitAutomotives = $this->createQuery('sale_price as price');
-
-        if ($priceLimitAutomotives->count()) {
-            foreach ($priceLimitAutomotives as $automotive) {
-                $price[] = $automotive->price;
-            }
-
-            $collect = collect($price)->unique()->toArray();
-            sort($collect);
-            return response()->json($this->setResponse('success', $collect));
-        }
-
-        return response()->json($this->setResponse('fail', [], 'Ooops, não foi retornado nenhum dado para essa pesquisa!'));
-    }
-
-    public function priceLimit(Request $request)
-    {
-        session()->remove('year_base');
-        session()->remove('year_limit');
-        session()->remove('mileage');
-        session()->remove('gear');
-        session()->remove('fuel');
-
-        session()->put('price_limit', $request->search);
-
-        $yearAutomotives = $this->createQuery('year');
-
-        if ($yearAutomotives->count()) {
-            foreach ($yearAutomotives as $automotive) {
-                $year[] = $automotive->year;
-            }
-
-            $year[] = 'Indiferente';
-
-            $collect = collect($year)->unique()->toArray();
-            sort($collect);
-            return response()->json($this->setResponse('success', $collect));
-        }
-
-        return response()->json($this->setResponse('fail', [], 'Ooops, não foi retornado nenhum dado para essa pesquisa!'));
-    }
-
-    public function yearBase(Request $request)
-    {
-        session()->remove('year_limit');
-        session()->remove('mileage');
-        session()->remove('gear');
-        session()->remove('fuel');
-
-        session()->put('year_base', $request->search);
-
-        $yearAutomotives = $this->createQuery('year');
-
-        if ($yearAutomotives->count()) {
-            foreach ($yearAutomotives as $automotive) {
-                $year[] = $automotive->year;
-            }
-
-            $year[] = 'Indiferente';
-
-            $collect = collect($year)->unique()->toArray();
-            sort($collect);
-            return response()->json($this->setResponse('success', $collect));
-        }
-
-        return response()->json($this->setResponse('fail', [], 'Ooops, não foi retornado nenhum dado para essa pesquisa!'));
-    }
-
-    public function yearLimit(Request $request)
-    {
-        session()->remove('mileage');
-        session()->remove('gear');
-        session()->remove('fuel');
-
-        session()->put('year_limit', $request->search);
-
-        $mileageAutmotives = $this->createQuery('mileage');
-
-        if ($mileageAutmotives->count()) {
-            foreach ($mileageAutmotives as $automotive) {
-                $mileage[] = (int)$automotive->mileage;
-            }
-
-            $mileage[] = 'Indiferente';
-
-            $collect = collect($mileage)->unique()->toArray();
-            sort($collect);
-            return response()->json($this->setResponse('success', $collect));
-        }
-
-        return response()->json($this->setResponse('fail', [], 'Ooops, não foi retornado nenhum dado para essa pesquisa!'));
-    }
-
-    public function mileage(Request $request)
+    public function model(Request $request)
     {
 
-        session()->remove('gear');
-        session()->remove('fuel');
+        session()->remove('model');
 
-        session()->put('mileage', $request->search);
-
-        return response()->json($this->setResponse('success', []));
-    }
-
-    public function gear(Request $request)
-    {
-        session()->put('gear', $request->search);
-
-        return response()->json($this->setResponse('success', []));
-    }
-
-    public function fuel(Request $request)
-    {
-        session()->put('fuel', $request->search);
+        session()->put('model', $request->search);
 
         return response()->json($this->setResponse('success', []));
     }
@@ -335,16 +136,8 @@ class FilterController extends Controller
         session()->remove('sale');
         session()->remove('rent');
         session()->remove('category');
-        session()->remove('city');
-        session()->remove('brand');
-        // session()->remove('model');
-        session()->remove('price_base');
-        session()->remove('price_limit');
-        session()->remove('year_base');
-        session()->remove('year_limit');
-        session()->remove('mileage');
-        session()->remove('gear');
-        session()->remove('fuel');
+        session()->remove('state');
+        session()->remove('model');
     }
 
     public function createQuery($field)
@@ -353,16 +146,8 @@ class FilterController extends Controller
         $sale = session('sale');
         $rent = session('rent');
         $category = session('category');
-        $city = session('city');
-        $brand = session('brand');
-        // $model = session('model');
-        $priceBase = session('price_base');
-        $priceLimit = session('price_limit');
-        $yearBase = session('year_base');
-        $yearLimit = session('year_limit');
-        $mileage = session('mileage');
-        $gear = session('gear');
-        $fuel = session('fuel');
+        $state = session('state');
+        $model = session('model');
 
         $query = DB::table('automotives')
             ->where('status', '1')->where('sale', '1')->whereDate('active_date', '>=', Carbon::now()->subDays(30))
@@ -378,65 +163,18 @@ class FilterController extends Controller
             ->when($category, function ($query, $category) {
                 return $query->where('category', $category);
             })
-            // ->when($city, function ($query, $city) {
-            //     return $query->where('city', $city);
-            // })
-            ->when($city, function ($query, $city) {
-                return $query->where('state', $city);
+            ->when($state, function ($query, $state) {
+                if ($state == 'Indiferente') {
+                    return $query;
+                }
+                return $query->where('state', $state);
             })
-            ->when($brand, function ($query, $brand) {
+            ->when($model, function ($query, $model) {
 
-                if ($brand == 'Indiferente') {
+                if ($model == 'Indiferente') {
                     return $query;
                 }
-                return $query->where('brand', $brand);
-            })
-            // ->when($model, function ($query, $model) {
-
-            //     if ($model == 'Indiferente') {
-            //         return $query;
-            //     }
-            //     return $query->where('model', $model);
-            // })
-            ->when($priceBase, function ($query, $priceBase) {
-                if ($priceBase == 'Indiferente') {
-                    return $query;
-                }
-                $priceBase = (float) $priceBase;
-                return $query->where('sale_price', '>=', $priceBase);
-            })
-            ->when($priceLimit, function ($query, $priceLimit) {
-                if ($priceLimit == 'Indiferente') {
-                    return $query;
-                }
-                $priceLimit = (float) $priceLimit;
-                return $query->where('sale_price', '<=', $priceLimit);
-            })
-            ->when($yearBase, function ($query, $yearBase) {
-                if ($yearBase == 'Indiferente') {
-                    return $query;
-                }
-                $yearBase = (int) $yearBase;
-                return $query->where('year', '>=', $yearBase);
-            })
-            ->when($yearLimit, function ($query, $yearLimit) {
-                if ($yearLimit == 'Indiferente') {
-                    return $query;
-                }
-                $yearLimit = (int) $yearLimit;
-                return $query->where('year', '<=', $yearLimit);
-            })
-            ->when($mileage, function ($query, $mileage) {
-                if ($mileage == 'Indiferente') {
-                    return $query;
-                }
-                return $query->where('mileage', '<=', (int) $mileage);
-            })
-            ->when($gear, function ($query, $gear) {
-                return $query->whereIn('gear', $gear);
-            })
-            ->when($fuel, function ($query, $fuel) {
-                return $query->whereIn('fuel', $fuel);
+                return $query->where('model', $model);
             })
             ->get(explode(',', $field));
         return $query;

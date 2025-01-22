@@ -1,168 +1,148 @@
 @extends('web.master.master')
 
+@section('css')
+    <link rel="stylesheet" href="{{ url(asset('frontend/assets/libs/libs.css')) }}">
+@endsection
+
 @section('content')
-    <div class="main_slide d-none d-sm-block mt-4 pt-2">
-        <div class="container" style="height: 100%;">
-            <div class="row align-items-center" style="height: 100%;">
-                <div class="col-12 rounded border border-primary">
+    <div class="main_filter page_filter pb-2">
+        <div class="container">
+            <section class="row">
 
-                    <div class="main_filter">
-                        <div class="container my-4">
+                <div class="col-12 d-flex flex-wrap justify-content-between">
+
+                    <div class="col-12 col-md-3">
+                        <form action="{{ route('web.filter') }}" method="post" class="w-100 px-0 py-3 mb-0 px-2">
+                            @csrf
                             <div class="row">
-                                <form action="{{ route('web.filter') }}" method="post"
-                                    class="form-inline w-100 text-dark form_home">
-                                    @csrf
+                                <div class="form-group col-12 mt-3">
+                                    <select class="selectpicker" name="filter_category" id="category" title="Veículo"
+                                        data-actions-box="true" data-index="0"
+                                        data-action="{{ route('component.main-filter.category') }}">
+                                        <option value="Carro">Carro</option>
+                                        <option value="Moto">Moto</option>
+                                        <option value="Caminhão">Caminhão</option>
+                                        <option value="Ônibus">Ônibus</option>
+                                        <option value="Náutica">Náutica</option>
+                                        <option value="Agrícola">Agrícola</option>
+                                    </select>
+                                </div>
 
-                                    <div class="form-group col-12 col-sm-6 mt-sm-2 col-lg-3 mt-lg-0">
-                                        <label for="city" class="mb-2"><b>Onde você quer?</b></label>
-                                        <select class="selectpicker" name="filter_city" id="city" title="Escolha..."
-                                            data-index="1" data-action="{{ route('component.main-filter.city') }}"
-                                            multiple data-actions-box="true">
-                                            @foreach ($cities as $city)
-                                                <option>{{ $city }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                <div class="form-group col-12">
+                                    <select class="selectpicker" name="filter_state" id="state" title="Estado"
+                                        data-actions-box="true" data-index="1"
+                                        data-action="{{ route('component.main-filter.state') }}">
+                                        <option value="">Indiferente</option>
+                                        <option disabled>Selecione o filtro anterior</option>
+                                    </select>
+                                </div>
 
-                                    <div class="form-group col-12 col-sm-6 mt-sm-2 col-lg-3 mt-lg-0">
-                                        <label for="brand" class="mb-2"><b>Marca</b></label>
-                                        <select class="selectpicker" name="filter_brand" data-index="2"
-                                            data-action="{{ route('component.main-filter.brand') }}" id="brand"
-                                            title="Escolha...">
-                                            <option disabled>Selecione o filtro anterior</option>
-                                        </select>
-                                    </div>
+                                <div class="form-group col-12">
+                                    <select class="selectpicker" name="filter_model" id="model" title="Modelo"
+                                        data-actions-box="true" data-index="2"
+                                        data-action="{{ route('component.main-filter.model') }}">
+                                        <option value="">Indiferente</option>
+                                        <option disabled>Selecione o filtro anterior</option>
+                                    </select>
+                                </div>
 
-                                    <div class="form-group col-12 col-sm-6 mt-sm-2 col-lg-3 mt-lg-0">
-                                        <label for="model" class="mb-2"><b>Modelo</b></label>
-                                        <select class="selectpicker" name="filter_model" id="model" title="Escolha..."
-                                            data-index="3" data-action="{{ route('component.main-filter.model') }}">
-                                            <option disabled>Selecione o filtro anterior</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-12 col-sm-6 col-lg-3 justify-content-center">
-                                        <button class="btn btn-front icon-search mb-n4">Pesquisar</button>
-                                    </div>
-
-                                </form>
                             </div>
-                        </div>
+
+                            <div class="row my-2">
+                                <div class="col-12 text-center button_search">
+                                    <button class="btn btn-front icon-search">Pesquisar</button>
+                                </div>
+                            </div>
+
+                        </form>
+                        @if ($banner)
+                            <div class="col-12 d-flex flex-wrap justify-content-center align-content-start">
+                                @if ($banner->cover1)
+                                    <div class="col-12 col-sm-4 px-2 px-lg-0 col-lg-12 my-2 text-center">
+                                        <a href="{{ $banner->link1 ?? route('web.register') }}"
+                                            class="d-flex justify-content-center align-content-center h-100">
+                                            <img src="{{ asset('storage/' . $banner->cover5) }}"
+                                                class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                                title="" style="object-fit: contain;"></a>
+                                    </div>
+                                @endif
+
+                                @if ($banner->cover2)
+                                    <div class="col-12 col-sm-4 px-2 px-lg-0 col-lg-12 my-2 text-center">
+                                        <a href="{{ $banner->link2 ?? route('web.register') }}"
+                                            class="d-flex justify-content-center align-content-center h-100">
+                                            <img src="{{ asset('storage/' . $banner->cover6) }}"
+                                                class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                                title="" style="object-fit: contain;"></a>
+                                    </div>
+                                @endif
+
+                                @if ($banner->cover3)
+                                    <div class="col-12 col-sm-4 px-2 px-lg-0 col-lg-12 my-2 text-center">
+                                        <a href="{{ $banner->link3 ?? route('web.register') }}"
+                                            class="d-flex justify-content-center align-content-center h-100">
+                                            <img src="{{ asset('storage/' . $banner->cover7) }}"
+                                                class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                                title="" style="object-fit: contain;"></a>
+                                    </div>
+                                @endif
+                            </div>
+                        @endif
                     </div>
+
+                    <div class="col-12 col-md-9 overflow-hidden bg-light border">
+
+                        <section class="row main_properties d-flex justify-content-center">
+
+                            @if ($automotives)
+                                @foreach ($automotives as $automotive)
+                                    @include('web.components.automotives')
+                                @endforeach
+
+
+                                <div class="w-100 d-flex justify-content-center">
+                                    {{ $automotives->appends(request()->input())->links() }}</div>
+                            @else
+                                <div class="col-12 p-5 bg-white my-5">
+                                    <h2 class="text-front icon-info text-center">
+                                        Ooops, não encontramos nenhum veículo para você comprar!</h2>
+                                    <p class="text-center">
+                                        Utiliza o filtro avançado para encontrar o veículo dos seus sonhos...
+                                    </p>
+                                </div>
+                            @endif
+                        </section>
+
+                    </div>
+
                 </div>
-            </div>
+
+            </section>
         </div>
     </div>
-
-    @if ($automotivesForSale->count())
-        <section class="main_properties py-5">
-            <div class="container px-3 px-md-0">
-
-                <div class="row d-flex justify-content-center">
-
-                    @foreach ($automotivesForSale as $automotive)
-                        <div class="col-12 col-md-6 col-lg-3 mb-4">
-                            <article class="card main_properties_item">
-                                <div class="img-responsive-16by9">
-                                    <a href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">
-                                        <img src="{{ $automotive->cover() }}" class="card-img-top"
-                                            alt="{{ $automotive->title }}">
-                                    </a>
-                                </div>
-                                <div class="card-body py-0">
-                                    <h2 class="my-0"><a
-                                            href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}"
-                                            class="text-dark text-truncate d-block">{{ $automotive->title }}</a>
-                                    </h2>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <p class="main_properties_price text-dark mb-0">R$ {{ $automotive->sale_price }}
-                                        </p>
-                                        <a href="#" class="heart-like icon-heart-o text-front text-decoration-none"
-                                            data-id="{{ $automotive->id }}"></a>
-                                    </div>
-                                    <div class="main_properties_complement">
-                                        <span>{{ $automotive->year }}</span>
-                                        <span>{{ $automotive->mileage }} km</span>
-                                    </div>
-                                </div>
-
-                            </article>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </section>
-    @endif
-
-    <div class="container px-3 px-md-0 pb-5">
-        <div class="row">
-            <div class="col-12 col-md-4 text-center">
-                @if ($banner)
-                    <a href="{{ $banner->link2 ?? route('web.register') }}">
-                        <img src="{{ $banner->cover2 ? asset('storage/' . $banner->cover2) : url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                            width="300" class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt="Anuncie Grátis"
-                            title="Anuncie Grátis"></a>
-                @else
-                    <a href="{{ route('web.register') }}">
-                        <img src="{{ url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}" width="300"
-                            class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt="Anuncie Grátis"
-                            title="Anuncie Grátis"></a>
-                @endif
-
-            </div>
-
-            <div class="col-12 col-md-8 text-center pt-4 pt-md-0">
-                @if ($banner)
-                    <a href="{{ $banner->link3 ?? route('web.register') }}">
-                        <img src="{{ $banner->cover3 ? asset('storage/' . $banner->cover3) : url(asset('frontend/assets/images/banner-horizontal.png')) }}"
-                            class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=" Anuncie Grátis"
-                            title="Anuncie Grátis"></a>
-
-                @else
-                    <a href="{{ route('web.register') }}">
-                        <img src="{{ url(asset('frontend/assets/images/banner-horizontal.png')) }}"
-                            class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt="Anuncie Grátis"
-                            title="Anuncie Grátis"></a>
-                @endif
-            </div>
-        </div>
-    </div>
-
 @endsection
 
 @section('js')
+    <script src="{{ url(asset('frontend/assets/js/like.js')) }}"></script>
+    <script src="{{ url(asset('frontend/assets/js/jquery-ui.js')) }}"></script>
+    <script src="{{ url(asset('frontend/assets/js/filter.js')) }}"></script>
     <script>
-        const megalike = JSON.parse(localStorage.getItem("megalike"))
-        if (megalike) {
-            $(megalike).each((e, val) => {
-                $(".icon-heart-o").each((el, value) => {
-                    if (val.id === $(value).data().id) {
-                        $(value).removeClass('icon-heart-o').addClass('icon-heart');
-                    }
-                });
-            })
-        }
-
-        $('.heart-like').click(function(e) {
+        $("#filter-price").on('change', function(e) {
             e.preventDefault();
-            el = $(this);
-            if (el.hasClass('icon-heart-o')) {
-                el.removeClass('icon-heart-o').addClass('icon-heart');
-                if (localStorage.getItem("megalike")) {
-                    const item = (JSON.parse(localStorage.getItem("megalike")))
-                    item.push(el.data())
-                    localStorage.setItem("megalike", JSON.stringify(item))
-                } else {
-                    localStorage.setItem("megalike", JSON.stringify(Array(el.data())))
-                }
+            let val = $(e.target).val();
+            if (val == 'ASC') {
+                location.href = '{{ env('APP_URL') }}/?sort=sale_price&direction=asc'
             } else {
-                el.removeClass('icon-heart').addClass('icon-heart-o');
-                let rem = JSON.parse(localStorage.getItem("megalike"))
-                rem = rem.filter(function(item) {
-                    return item.id !== (el.data().id)
-                })
-                localStorage.setItem("megalike", JSON.stringify(rem))
+                location.href = '{{ env('APP_URL') }}/?sort=sale_price&direction=desc'
             }
         });
+    </script>
+    <script>
+        $("#city-state").on("change", function() {
+            window.location.href = this.value;
+        })
+        $("#ordenation").on("change", function() {
+            window.location.href = this.value;
+        })
     </script>
 @endsection

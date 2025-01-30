@@ -1,6 +1,62 @@
 @extends('web.templates.template-1.master')
 
 @section('content')
+    <div class="hero-area">
+        <!-- Start Hero Slider -->
+        <div class="hero-slider heroflex flexslider clearfix" data-autoplay="yes" data-pagination="no" data-arrows="yes"
+            data-style="fade" data-speed="3000" data-pause="no">
+            <ul class="slides">
+                @if ($company->banner1)
+                    <li class="parallax"
+                        style="background-image: url({{ $company->banner1() }}); left: 50%; margin-left: -955px;">
+                    </li>
+                @else
+                    <li class="parallax"
+                        style="background-image: url({{ asset('company-template/assets/img/banner-1.png') }}); left: 50%; margin-left: -955px;">
+                    </li>
+                @endif
+                @if ($company->banner2)
+                    <li class="parallax"
+                        style="background-image: url({{ $company->banner2() }}); left: 50%; margin-left: -955px;">
+                    </li>
+                @else
+                    <li class="parallax"
+                        style="background-image: url({{ asset('company-template/assets/img/banner-2.png') }}); left: 50%; margin-left: -955px;">
+                    </li>
+                @endif
+                @if ($company->banner3)
+                    <li class="parallax"
+                        style="background-image: url({{ $company->banner3() }}); left: 50%; margin-left: -955px;">
+                    </li>
+                @else
+                    <li class="parallax"
+                        style="background-image: url({{ asset('company-template/assets/img/banner-3.png') }}); left: 50%; margin-left: -955px;">
+                    </li>
+                @endif
+            </ul>
+        </div>
+    </div>
+    <div id="search-company">
+        <form action="{{ route('web.filterCompanyAutomotiveSearch', ['slug' => $company->slug]) }}" method="POST"
+            class="container">
+            @csrf
+            <h3>ENCONTRE SEU <span>VEÍCULO</span></h3>
+            <select name="brand">
+                <option selected disabled value="">MARCA</option>
+                @foreach ($brands as $brand)
+                    <option value="{{ $brand }}">{{ $brand }}</option>
+                @endforeach
+            </select>
+            <select name="model">
+                <option selected disabled value="">MODELO</option>
+                @foreach ($models as $model)
+                    <option value="{{ $model }}">{{ $model }}</option>
+                @endforeach
+            </select>
+            <button type="submit"><i class="fa fa-car"></i> LOCALIZAR</button>
+        </form>
+    </div>
+
     <div class="main DivConteudoButton" role="main">
         <div id="content" class="content full padding-b0 contentDefault backOfertas">
             <div class="container">

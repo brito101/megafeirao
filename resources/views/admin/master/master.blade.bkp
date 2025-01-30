@@ -166,6 +166,12 @@
                         </li>
                     @endhasrole
 
+                    @hasanyrole('Anunciante')
+                        <li class="dash_sidebar_nav_item  {{ isActive('admin.client-banner.index') }}">
+                            <a class="icon-file-image-o" href="{{ route('admin.client-banner.index') }}">Cadastrar Banner</a>
+                        </li>
+                    @endhasrole
+
                     @hasanyrole('Administrador|Anunciante')
                         <li class="dash_sidebar_nav_item  {{ isActive('admin.contact') }}">
                             <a class="icon-envelope" href="{{ route('admin.contact') }}">Fale conosco</a>

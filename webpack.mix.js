@@ -29,7 +29,9 @@ mix
 
     .sass(
         "resources/views/web/assets/scss/app.scss",
-        "public/frontend/assets/css/app.css"
+        // "public/frontend/assets/css/app.css"
+        //2025-01-29
+        "public/frontend/assets/css/app-v1.css"
     )
 
     .scripts(

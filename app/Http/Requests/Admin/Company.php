@@ -47,7 +47,8 @@ class Company extends FormRequest
             'banner1' => 'nullable|image|mimes:jpg,png,jpeg|max:1024',
             'banner2' => 'nullable|image|mimes:jpg,png,jpeg|max:1024',
             'banner3' => 'nullable|image|mimes:jpg,png,jpeg,|max:1024',
-            'type' => 'nullable|in:concessionaria,particular'
+            'type' => 'nullable|in:concessionaria,particular',
+            'slug' => 'required|min:5|max:191|string|unique:companies,slug|regex:/^[a-z0-9-]+$/',
         ];
     }
 }

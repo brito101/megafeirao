@@ -120,9 +120,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         /** Banner */
         Route::resource('banner', 'BannerController');
 
-        /** Client Banner */
-        Route::resource('client-banner', 'ClientBannerController');
-
         /**Configurações */
         Route::resource('config', 'ConfigController');
     });

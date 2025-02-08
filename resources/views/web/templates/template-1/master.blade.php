@@ -35,29 +35,24 @@
 
 <body class="home">
     <div class="body">
-        <div class="custom-header">
-           
-            <div class="custom-header-navbar">
-                <!-- Main Navigation -->
-                <nav class="main-navigation" role="navigation" style="top: 0px;">
-                    <ul class="sf-menu">
-                        <li class="menuLocalizacao" title="Localização"><a
-                                href="{{ route('web.filterCompanyLocation', ['slug' => $company->slug]) }}"><i
-                                    class="fa fa-map-marker"></i> Localização</a></li>
-                        <li><div>
-                            <span class="tel-details">
-                                <a href="tel:{{ $company->cell }}">{{ $company->cell }}</a>
-                            </span>
-                            <a href="https://api.whatsapp.com/send?phone=+{{ $company->cell }}&text=Ola" target="_blank"><img
-                                    src="{{ asset('company-template/assets/img/whatsapp-logo.png') }}" alt="whatsapp"
-                                    style="width: 22px; "></a>
-        
-                        </div>
-                        </li>
-                    </ul>
-                </nav>
+        <header style="background: linear-gradient(to bottom, red 70%, #EBEBEB 70%); padding: 40px 20px;"">
+            <div style="width: 100%";>
+                <h1 style="color: white; flex-basis: 100%; text-align: center;">{{ $company->social_name }}</h1>
             </div>
-        </div>
+            <div style="display: flex; justify-content: center;">
+                <span style="display: inline-flex; gap: 10px; position: relative; top: 5px; z-index: 10;">
+                    <a href="#location"
+                        style="display: inline-block; background-color: #333; color: white; padding: 8px 16px; border-radius: 50px; text-decoration: none; font-size: 14px;">
+                        <i class="fa fa-map-marker" style="margin-right: 5px;"></i> Localização
+                    </a>
+                    <a href="https://api.whatsapp.com/send?phone=+{{ $company->cell }}&text=Ola" target="_blank"
+                        style="display: inline-block; background-color: #25D366; color: white; padding: 8px 16px; border-radius: 50px; text-decoration: none; font-size: 14px;"><img
+                            src="{{ asset('company-template/assets/img/whatsapp-logo.png') }}" alt="whatsapp"
+                            style="width: 22px; margin-right: 5px;">{{ $company->cell }}</a>
+                </span>
+            </div>
+        </header>
+
 
         @yield('content')
 
@@ -65,44 +60,13 @@
             <div class="site-footer-top">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-4 col-sm-6 footer_widget widget text_widget">
-                            <h4 class="widgettitle">{{ $company->social_name }}</h4>
-                            <p style="text-align: justify; margin-top: 10px">
-                                <a href="{{ route('web.filterCompany', ['slug' => $company->slug]) }}"><img
-                                        src="{{ $company->logo() }}" alt="Logo"></a>
-                            </p>
-                        </div>
-
-                        <div class="col-md-4 col-sm-6 footer_widget widget widget_custom_menu widget_links">
-                            <h4 class="widgettitle">Mapa do Site</h4>
-                            <ul style="width: 44%; float: left; margin-right: 30px;">
-                                <li><a href="{{ route('web.filterCompany', ['slug' => $company->slug]) }}"
-                                        title="Home"> Home</a></li>
-                                <li><a href="{{ route('web.filterCompanyAutomotive', ['slug' => $company->slug]) }}"
-                                        title="Nosso Estoque"> Veículos</a></li>
-                            </ul>
-                            <ul style="width: 46%; float: left;">
-                                <li><a href="{{ route('web.filterCompanyLocation', ['slug' => $company->slug]) }}"
-                                        title="Localização"> Localização</a></li>
-                                <li><a href="{{ route('web.filterCompanyContact', ['slug' => $company->slug]) }}"
-                                        title="Contato"> Contato</a></li>
-                            </ul>
-                            <div style="clear: both"></div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 footer_widget widget widget_newsletter">
-                            <h4 class="widgettitle">Contato</h4>
-                            <section class="infoFooter">
-
-                                <p class="tel">{{ $company->telephone }}</p>
-                                <p class="tel">{{ $company->cell }}</p>
-                                <h4 class="widgettitle"
-                                    style="margin-bottom: 10px; padding-bottom: 5px; padding-top: 25px;">Endereço</h4>
-                                <p class="endereco">
-                                    {{ $company->street != '' ? $company->street . ',' : '' }}
-                                    {{ $company->number != '' ? $company->number . ',' : '' }}<br />
-                                    {{ $company->neighborhood != '' ? $company->neighborhood . ', ' : '' }}{{ $company->city }}-{{ $company->state }}
-                                </p>
-                            </section>
+                        <div class="footer_widget widget text-center">
+                            <h3 style="color: #fff; font-size: 14px;">Tenha sua loja virtual grátis e ilimitada.</br><a
+                                    href="{{ route('admin.register') }}" style="color: #fff; font-size: 14px;">Clique aqui</a></h3>
+                            <div style="background-color: #fff; width: 175px; margin: 0 auto;">
+                                <img src="{{ url(asset('frontend/assets/images/brand.png')) }}" width="175"
+                                        alt="Mega Feirão Veículos" class="d-inline-block">
+                            </div>
                         </div>
                     </div>
                 </div>

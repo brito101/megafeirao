@@ -118,27 +118,15 @@ class WebController extends Controller
                 route('web.filterCompany', ['slug' => $company->slug]),
                 $company->cover()
             );
-            // $automotivesForSale = Automotive::sale()->available()->where('user', $company->user)->sortable(['created_at' => 'desc'])->paginate(10);
 
-            $automotivesForSale = Automotive::sale()->available()->where('user', $company->user)->orderBy('created_at', 'desc')->limit(12)->get();
+            $automotivesForSale = Automotive::sale()->available()->where('user', $company->user)->orderBy('created_at', 'desc')->get();
 
+            $fullList = Automotive::sale()->available()->where('user', $company->user)->get();
 
-            if ($company->template == 'Alfa') {
-                $fullList = Automotive::sale()->available()->where('user', $company->user)->get();
-
-                return view('web.templates.template-1.company', [
-                    'head' => $head,
-                    'company' => $company,
-                    'automotivesForSale' => $automotivesForSale,
-                    'brands' => $fullList->sortBy('brand')->pluck('brand')->unique(),
-                    'models' => $fullList->sortBy('model')->pluck('model')->unique(),
-                ]);
-            }
-
-            return view('web.company', [
+            return view('web.templates.template-1.company', [
                 'head' => $head,
                 'company' => $company,
-                'automotivesForSale' => $automotivesForSale
+                'automotivesForSale' => $automotivesForSale,
             ]);
         } else {
             return redirect()->route('web.companies');

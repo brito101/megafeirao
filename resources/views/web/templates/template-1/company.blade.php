@@ -5,9 +5,7 @@
         <div id="content" class="content full padding-b0 contentDefault backOfertas">
             <div class="container">
                 <div class="section-header-1">
-                    <h3>Ofertas em <strong>Destaque</strong></h3>
-                    <h2 class="sub-text-title-ch">Carros revisados com garantia!</h2>
-                    <hr class="hr-style">
+                    <h3><span style="color: red;">{{ $automotivesForSale->count() }}</span> veículos no estoque</h3>
                 </div>
                 <div class="row">
                     <!-- Listing Results -->
@@ -59,8 +57,55 @@
                         </section>
                     </div>
                 </div>
+                <div id="location" style="margin: 30px 0 50px; padding: 20px 10px 20px 0;">
+                    <div id="map" style="width: 100%; min-height: 400px;"></div>
+                </div>
             </div>
-
+            
         </div>
+
     </div>
+
+    
+@endsection
+
+
+@section('js')
+    @if ($company->type == 'concessionaria')
+        <script>
+            function markMap() {
+                var locationJson = $.getJSON(
+                    `https://maps.googleapis.com/maps/api/geocode/json?address={{ $company->city }},+{{ $company->state }}&key={{ env('GOOGLE_API_KEY') }}`,
+                    function(response) {
+                        if (response.status === 'OK' && response.results.length > 0) {
+                            const lat = response.results[0].geometry.location.lat;
+                            const lng = response.results[0].geometry.location.lng;
+
+                            const map = new google.maps.Map(document.getElementById('map'), {
+                                zoom: 12, // Ajuste o zoom para exibir uma área maior quando a localização não é precisa
+                                center: {
+                                    lat: lat,
+                                    lng: lng
+                                },
+                                mapTypeId: 'terrain'
+                            });
+
+                            new google.maps.Marker({
+                                position: {
+                                    lat: lat,
+                                    lng: lng
+                                },
+                                map,
+                                title: "{{ $company->city }}"
+                            });
+                        } else {
+                            console.error('Erro ao buscar localização no Google Maps:', response.status);
+                        }
+                    }
+                );
+            }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&callback=markMap">
+        </script>
+    @endif
 @endsection

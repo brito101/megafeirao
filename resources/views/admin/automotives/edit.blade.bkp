@@ -104,7 +104,12 @@
                                 <input type="hidden" name="user" value="{{ Auth::user()->id }}">
                             @endhasanyrole
 
-                            <div class="label_g2">
+                            <div class="label_g4">
+                                <label class="label">
+                                    <span class="legend">Marca:</span>
+                                    <input type="tel" name="brand" placeholder="Marca"
+                                        value="{{ old('brand') ?? $automotive->brand }}" />
+                                </label>
 
                                 <label class="label">
                                     <span class="legend">Modelo:</span>
@@ -118,14 +123,24 @@
                                         value="{{ old('year') ?? $automotive->year }}" />
                                 </label>
 
-                            </div>
-
-                            <div class="label_g2">
-
                                 <label class="label">
                                     <span class="legend">Quilometragem:</span>
                                     <input type="tel" name="mileage" placeholder="Quilometragem"
                                         value="{{ old('mileage') ?? $automotive->mileage }}" />
+                                </label>
+                            </div>
+
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">Câmbio:</span>
+                                    <input type="text" name="gear" placeholder="Manual/Automático"
+                                        value="{{ old('gear') ?? $automotive->gear }}" />
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">Combustível:</span>
+                                    <input type="text" name="fuel" placeholder="Gasolina, álcool, flex.."
+                                        value="{{ old('fuel') ?? $automotive->fuel }}" />
                                 </label>
                             </div>
 
@@ -139,6 +154,43 @@
                                 <span class="legend">Descrição do Veículo:</span>
                                 <textarea name="description" cols="30" rows="10" class="mce">{{ old('description') ?? $automotive->description }}</textarea>
                             </label>
+
+                            <div>
+                                <label class="label">
+                                    <span class="legend">Link de vídeo do Youtube:</span>
+                                    <input type="text" name="youtube_link"
+                                        value="{{ old('youtube_link') ?? $automotive->youtube_link }}"
+                                        placeholder="https://www.youtube.com/watch?v=....">
+                                </label>
+                            </div>
+
+                            @if ($automotive->youtube_link != null)
+                                <div class='col-12 align-self-center my-2 d-flex px-0'>
+                                    <div class='embed-responsive embed-responsive-16by9'>
+                                        <iframe class="embed-responsive-item"
+                                            src="{{ str_replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/', $automotive->youtube_link) }}"
+                                            title="YouTube video player" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div class="label">
+                                <span class="legend">Destacar Anúncio:</span>
+                                <label class="label">
+                                    <input type="checkbox" name="spotlight"
+                                        {{ old('spotlight') == 'on' || old('spotlight') == true ? 'checked' : ($automotive->spotlight == true ? 'checked' : '') }}>
+                                    <span>
+                                        @if ($automotive->spotlight == false)
+                                            Será consumido um crédito adicional de anúncio
+                                        @else
+                                            Anúncio destacado. Se desmarcar e marcar no futuro, um crédito adicional será
+                                            consumido.
+                                        @endif
+                                    </span>
+                                </label>
+                            </div>
 
                             <div id="images">
                                 <label class="label">

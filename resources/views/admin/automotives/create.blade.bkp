@@ -86,7 +86,12 @@
                                 <input type="hidden" name="user" value="{{ Auth::user()->id }}">
                             @endhasanyrole
 
-                            <div class="label_g2">
+                            <div class="label_g4">
+                                <label class="label">
+                                    <span class="legend">Marca:</span>
+                                    <input type="tel" name="brand" placeholder="Marca" value="{{ old('brand') }}" />
+                                </label>
+
                                 <label class="label">
                                     <span class="legend">Modelo:</span>
                                     <input type="text" name="model" placeholder="Modelo"
@@ -97,13 +102,25 @@
                                     <span class="legend">Ano:</span>
                                     <input type="tel" name="year" placeholder="Ano" value="{{ old('year') }}" />
                                 </label>
-                            </div>
-                            <div class="label_g2">
 
                                 <label class="label">
                                     <span class="legend">Quilometragem:</span>
                                     <input type="tel" name="mileage" placeholder="Quilometragem"
                                         value="{{ old('mileage') }}" />
+                                </label>
+                            </div>
+
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">Câmbio:</span>
+                                    <input type="text" name="gear" placeholder="Manual/Automático"
+                                        value="{{ old('gear') }}" />
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">Combustível:</span>
+                                    <input type="text" name="fuel" placeholder="Gasolina, álcool, flex.."
+                                        value="{{ old('fuel') }}" />
                                 </label>
                             </div>
 
@@ -120,6 +137,25 @@
                                 <textarea name="description" cols="30" rows="10" class="mce">{{ old('description') }}</textarea>
                             </label>
 
+                            <div>
+                                <label class="label">
+                                    <span class="legend">Link de vídeo do Youtube:</span>
+                                    <input type="text" name="youtube_link" value="{{ old('youtube_link') }}"
+                                        placeholder="https://www.youtube.com/watch?v=....">
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="label">
+                            <span class="legend">Destacar Anúncio:</span>
+                            <label class="label">
+                                <input type="checkbox" name="spotlight"
+                                    {{ old('spotlight') == 'on' || old('spotlight') == true ? 'checked' : '' }}>
+                                <span>
+                                    Será consumido um crédito adicional de anúncio
+                                </span>
+                            </label>
                         </div>
 
                         <label class="label">

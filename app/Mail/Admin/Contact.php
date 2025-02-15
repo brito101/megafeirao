@@ -13,6 +13,8 @@ class Contact extends Mailable
     use Queueable,
         SerializesModels;
 
+    public $data;
+
     /**
      * Create a new message instance.
      *
@@ -30,15 +32,28 @@ class Contact extends Mailable
      */
     public function build()
     {
-        return $this->replyTo($this->data['reply_email'], $this->data['reply_name'])
-            ->to(env('MAIL_TO_ADDRESS'), env('MAIL_TO_NAME'))
-            ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
-            ->subject('Fale Conosco: ' . $this->data['reply_name'])
-            ->markdown('emails.admin', [
-                'name' => $this->data['reply_name'],
-                'email' => $this->data['reply_email'],
-                'cell' => $this->data['cell'],
-                'message' => $this->data['message']
-            ])->attachFromStorage($this->data['file']);
+        if (isset($this->data['file'])) {
+            return $this->replyTo($this->data['reply_email'], $this->data['reply_name'])
+                ->to(env('MAIL_TO_ADDRESS'), env('MAIL_TO_NAME'))
+                ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
+                ->subject('Fale Conosco: ' . $this->data['reply_name'])
+                ->markdown('emails.admin', [
+                    'name' => $this->data['reply_name'],
+                    'email' => $this->data['reply_email'],
+                    'cell' => $this->data['cell'],
+                    'message' => $this->data['message']
+                ])->attachFromStorage($this->data['file']);
+        } else {
+            return $this->replyTo($this->data['reply_email'], $this->data['reply_name'])
+                ->to(env('MAIL_TO_ADDRESS'), env('MAIL_TO_NAME'))
+                ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
+                ->subject('Fale Conosco: ' . $this->data['reply_name'])
+                ->markdown('emails.admin', [
+                    'name' => $this->data['reply_name'],
+                    'email' => $this->data['reply_email'],
+                    'cell' => $this->data['cell'],
+                    'message' => $this->data['message']
+                ]);
+        }
     }
 }

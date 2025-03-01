@@ -68,11 +68,11 @@ class FilterController extends Controller
 
         if ($stateAutomotives->count()) {
             foreach ($stateAutomotives as $item) {
-                $states[] = array_filter($item->state);
+                $states[] = $item->state;
             }
 
-            if (!empty($states)) {
-                $collect = collect($states);
+            if (!empty(array_filter($states))) {
+                $collect = collect(array_filter($states));
                 return response()->json($this->setResponse('success', $collect->unique()->toArray()));
             } else {
                 return response()->json($this->setResponse('success', ['Indiferente']));

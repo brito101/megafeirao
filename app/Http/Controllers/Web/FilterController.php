@@ -98,7 +98,7 @@ class FilterController extends Controller
             }
 
             if (!empty(array_filter($models))) {
-                $collect = collect($models);
+                $collect = collect(array_filter($models));
                 return response()->json($this->setResponse('success', $collect->unique()->toArray()));
             } else {
                 return response()->json($this->setResponse('success', ['Indiferente']));

@@ -9,9 +9,9 @@
                         <h2 class="text-truncate h2 my-1 d-flex flex-wrap justify-content-between font-weight-bold">
                             <span
                                 class="col-12 col-md-8 px-0 text-truncate">{{ Illuminate\Support\Str::words($automotive->title, 7) }}</span>
+                            <span class="col-12 col-md-4 px-0 text-right text-primary">R$
+                                {{ $automotive->sale_price }}</span>
                         </h2>
-                        <p class="text-muted font-weight-bold">{{ $automotive->model }} - Ano {{ $automotive->year }} -
-                            {{ $automotive->mileage }} km</p>
 
                         <div id="carouselProperty" class="carousel slide" data-ride="carousel">
 
@@ -67,6 +67,44 @@
                             </ol>
                         </div>
 
+                        <div class="col-12 border rounded d-flex flex-wrap p-2">
+                            <div class="col-6 col-md-3 border-right d-flex justify-content-center align-items-center">
+                                <div class="text-center py-2" style="color: #183764; font-size: 1rem">
+                                    <p class="my-0 font-weight-bold text-truncate">{{ $automotive->year }}</p>
+                                    <p class="my-0" style="font-size: 0.825rem;">Ano/Modelo</p>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-3 d-flex d-md-none justify-content-center align-items-center">
+                                <div class="text-center py-2" style="color: #183764; font-size: 1rem">
+                                    <p class="my-0 font-weight-bold text-truncate">{{ $automotive->mileage }}</p>
+                                    <p class="my-0" style="font-size: 0.825rem;">Km</p>
+                                </div>
+                            </div>
+
+                            <div
+                                class="col-6 col-md-3 d-none d-md-flex justify-content-center align-items-center border-right">
+                                <div class="text-center py-2" style="color: #183764; font-size: 1rem">
+                                    <p class="my-0 font-weight-bold text-truncate">{{ $automotive->mileage }}</p>
+                                    <p class="my-0" style="font-size: 0.825rem;">Km</p>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-3 border-right d-flex justify-content-center align-items-center">
+                                <div class="text-center py-2" style="color: #183764; font-size: 1rem">
+                                    <p class="my-0 font-weight-bold text-truncate">{{ $automotive->fuel }}</p>
+                                    <p class="my-0" style="font-size: 0.825rem;">Combustível</p>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-3 d-flex justify-content-center align-items-center">
+                                <div class="text-center py-2" style="color: #183764; font-size: 1rem">
+                                    <p class="my-0 font-weight-bold text-truncate">{{ $automotive->gear }}</p>
+                                    <p class="my-0" style="font-size: 0.825rem;">Transmissão</p>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="main_property_price pt-4 text-muted">
 
                             @if (!empty($type))
@@ -96,19 +134,29 @@
                             </div>
                         @endif
 
+                        @if ($company && $company->type == 'concessionaria')
+                            <div class="main_property_location">
+                                <h6 class="icon-map-marker font-weight-bolder">
+                                    {{ $company->street != '' ? $company->street . ',' : '' }}
+                                    {{ $company->number != '' ? $company->number . ',' : '' }}
+                                    {{ $company->neighborhood != '' ? $company->neighborhood . ', ' : '' }}{{ $company->city }}-{{ $company->state }}{{ $company->zipcode != '' ? '. CEP: ' . $company->zipcode : '' }}
+
+                                </h6>
+                                <div id="map" style="width: 100%; min-height: 400px;"></div>
+                            </div>
+                        @endif
+
                     </div>
 
-                    <div class="col-12 col-lg-4 mt-3 mt-lg-0 text-center">
-                        <div class="col-12 d-flex justify-content-center">
-                            <span class="text-center text-primary font-weight-bold h1 border">R$
-                                {{ $automotive->sale_price }}</span>
-                        </div>
+                    <div class="col-12 col-lg-4 mt-3 mt-lg-0">
                         <a target="_blank"
                             href="https://api.whatsapp.com/send?phone=55+{{ $company->cell ?? $automotive->ownerObject()->cell }}&text=Olá, me interessei sobre o seu anúncio."
-                            class="btn btn-success btn-md icon-whatsapp mb-3"><b>WhatsApp</b>
+                            class="btn btn-success btn-lg btn-block icon-whatsapp mb-3"><b>Enviar WhatsApp</b>
                         </a>
 
                         <div class="main_property_contact">
+                            <h2 class="bg-front text-white icon-envelope text-center"><b>Enviar e-mail</b></h2>
+
                             <form action="{{ route('web.sendEmail') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="ownerEmail"
@@ -165,8 +213,26 @@
                             </div>
                         @endif
 
-                        @if ($banner && $banner->link4)
+                        @if ($banner && $banner->link3)
                             <div class="col-12 mt-5 px-0 text-center card">
+                                <a href="{{ $banner->link3 ?? route('web.register') }}"
+                                    class="d-flex justify-content-center align-content-center h-100">
+                                    <img src="{{ $banner->cover3 ? asset('storage/' . $banner->cover3) : url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
+                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                        title=""></a>
+                            </div>
+                        @else
+                            <div class="col-12 mt-5 px-0 text-center card">
+                                <a href="{{ route('web.register') }}"
+                                    class="d-flex justify-content-center align-content-center h-100">
+                                    <img src="{{ url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
+                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
+                                        title=""></a>
+                            </div>
+                        @endif
+
+                        @if ($banner && $banner->link4)
+                            <div class="col-12 mt-5 px-0 text-center">
                                 <a href="{{ $banner->link4 ?? route('web.register') }}"
                                     class="d-flex justify-content-center align-content-center h-100">
                                     <img src="{{ $banner->cover4 ? asset('storage/' . $banner->cover4) : url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
@@ -174,24 +240,6 @@
                                         title=""></a>
                             </div>
                         @else
-                            <div class="col-12 mt-5 px-0 text-center card">
-                                <a href="{{ route('web.register') }}"
-                                    class="d-flex justify-content-center align-content-center h-100">
-                                    <img src="{{ url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
-                                        title=""></a>
-                            </div>
-                        @endif
-
-                        @if ($banner && $banner->link5)
-                            <div class="col-12 mt-5 px-0 text-center">
-                                <a href="{{ $banner->link5 ?? route('web.register') }}"
-                                    class="d-flex justify-content-center align-content-center h-100">
-                                    <img src="{{ $banner->cover5 ? asset('storage/' . $banner->cover5) : url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
-                                        title=""></a>
-                            </div>
-                        @else
                             <div class="col-12 mt-5 px-0 text-center">
                                 <a href="{{ route('web.register') }}"
                                     class="d-flex justify-content-center align-content-center h-100">
@@ -201,59 +249,6 @@
                             </div>
                         @endif
 
-                    </div>
-                </div>
-
-                <div class="row my-5 pt-5" style="border-top: 2px solid #cbcbcb;">
-                    <div class="col-12 col-lg-8">
-                        @if ($company && $company->type == 'concessionaria')
-                            <div class="main_property_location">
-                                <h6 class="icon-map-marker font-weight-bolder">
-                                    {{ $company->street != '' ? $company->street . ',' : '' }}
-                                    {{ $company->number != '' ? $company->number . ',' : '' }}
-                                    {{ $company->neighborhood != '' ? $company->neighborhood . ', ' : '' }}{{ $company->city }}-{{ $company->state }}{{ $company->zipcode != '' ? '. CEP: ' . $company->zipcode : '' }}
-
-                                </h6>
-                                <div id="map" style="width: 100%; min-height: 400px;"></div>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="col-12 col-lg-4">
-                        @if ($banner && $banner->link6)
-                            <div class="col-12 mt-5 px-0 text-center card">
-                                <a href="{{ $banner->link6 ?? route('web.register') }}"
-                                    class="d-flex justify-content-center align-content-center h-100">
-                                    <img src="{{ $banner->cover6 ? asset('storage/' . $banner->cover6) : url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
-                                        title=""></a>
-                            </div>
-                        @else
-                            <div class="col-12 mt-5 px-0 text-center card">
-                                <a href="{{ route('web.register') }}"
-                                    class="d-flex justify-content-center align-content-center h-100">
-                                    <img src="{{ url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
-                                        title=""></a>
-                            </div>
-                        @endif
-
-                        @if ($banner && $banner->link7)
-                            <div class="col-12 mt-5 px-0 text-center">
-                                <a href="{{ $banner->link7 ?? route('web.register') }}"
-                                    class="d-flex justify-content-center align-content-center h-100">
-                                    <img src="{{ $banner->cover7 ? asset('storage/' . $banner->cover7) : url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
-                                        title=""></a>
-                            </div>
-                        @else
-                            <div class="col-12 mt-5 px-0 text-center">
-                                <a href="{{ route('web.register') }}"
-                                    class="d-flex justify-content-center align-content-center h-100">
-                                    <img src="{{ url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
-                                        title=""></a>
-                            </div>
-                        @endif
                     </div>
                 </div>
             </div>

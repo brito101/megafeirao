@@ -8,7 +8,7 @@
                     <div class="col-12 col-lg-8">
                         <h2 class="text-truncate h2 my-1 d-flex flex-wrap justify-content-between font-weight-bold">
                             <span
-                                class="col-12 col-md-8 px-0 text-truncate">{{ Illuminate\Support\Str::words($automotive->title, 7) }}</span>
+                                class="col-12 col-md-8 px-0 text-truncate">{{ Illuminate\Support\Str::words($automotive->title, 10) }}</span>
                         </h2>
                         <p class="text-muted font-weight-bold">{{ $automotive->model }} - Ano {{ $automotive->year }} -
                             {{ $automotive->mileage }} km</p>

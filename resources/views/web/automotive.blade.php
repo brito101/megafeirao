@@ -165,7 +165,7 @@
                             </div>
                         @endif
 
-                        @if ($banner && $banner->link4)
+                        {{-- @if ($banner && $banner->link4)
                             <div class="col-12 mt-5 px-0 text-center card">
                                 <a href="{{ $banner->link4 ?? route('web.register') }}"
                                     class="d-flex justify-content-center align-content-center h-100">
@@ -199,13 +199,14 @@
                                         class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
                                         title=""></a>
                             </div>
-                        @endif
+                        @endif --}}
 
                     </div>
                 </div>
 
                 <div class="row my-5 pt-5" style="border-top: 2px solid #cbcbcb;">
-                    <div class="col-12 col-lg-8">
+                    <div class="col-12">
+                        {{-- <div class="col-12 col-lg-8"> --}}
                         @if ($company && $company->type == 'concessionaria')
                             <div class="main_property_location">
                                 <h6 class="icon-map-marker font-weight-bolder">
@@ -218,7 +219,7 @@
                             </div>
                         @endif
                     </div>
-                    <div class="col-12 col-lg-4">
+                    {{-- <div class="col-12 col-lg-4">
                         @if ($banner && $banner->link6)
                             <div class="col-12 mt-5 px-0 text-center card">
                                 <a href="{{ $banner->link6 ?? route('web.register') }}"
@@ -254,7 +255,7 @@
                                         title=""></a>
                             </div>
                         @endif
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

@@ -55,7 +55,7 @@
                             </div>
 
                         </form>
-                        @if ($banner)
+                        {{-- @if ($banner)
                             <div class="col-12 d-flex flex-wrap justify-content-center align-content-start">
                                 @if ($banner->cover1)
                                     <div class="col-12 col-sm-4 px-2 px-lg-0 col-lg-12 my-2 text-center">
@@ -87,7 +87,7 @@
                                     </div>
                                 @endif
                             </div>
-                        @endif
+                        @endif --}}
                     </div>
 
                     <div class="col-12 col-md-9 overflow-hidden bg-light border">

@@ -1,15 +1,14 @@
-<div class="col-12 col-md-4 p-2">
+<div class="col-12 col-md-3 p-2">
     <article class="row mx-0 mx-md-2 border border-gray shadow-sm d-flex flex-wrap justify-content-between bg-white">
         <div class="col-12 img-responsive p-0 automotive_cover_container">
+            <a href="#" class="icon-heart-o h6 heart-like text-decoration-none" data-id="{{ $automotive->id }}"></a>
             <a href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}">
-                <a href="#" class="icon-heart-o h6 heart-like text-decoration-none"
-                    data-id="{{ $automotive->id }}"></a>
                 <img src="{{ $automotive->coverFront() }}" class="card-img-top filter_car_img"
                     alt="{{ $automotive->title }}">
-                
+
             </a>
         </div>
-        <div class="col-12 d-flex justify-content-between px-2 py-1 automotive_properties">
+        <div class="col-12 d-flex justify-content-between px-2 py-1">
             <div class="col-12 px-0">
                 <h2 class="h5 my-2 text-center">
                     <a href="{{ route('web.buyAutomotive', ['slug' => $automotive->slug]) }}"

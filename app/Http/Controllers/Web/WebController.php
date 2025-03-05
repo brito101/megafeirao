@@ -36,7 +36,7 @@ class WebController extends Controller
 
         if (!empty($automotives)) {
             $automotives = Automotive::whereIn('id', $automotives)->sale()->available()->inRandomOrder()->get();
-            $automotivesPaginate = Automotive::whereIn('id', $automotives->pluck('id'))->sale()->available()->inRandomOrder()->paginate(12);
+            $automotivesPaginate = Automotive::whereIn('id', $automotives->pluck('id'))->sale()->available()->inRandomOrder()->paginate(16);
         } else {
             $automotives = null;
             $automotivesPaginate = null;

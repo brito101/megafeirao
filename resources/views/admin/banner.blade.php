@@ -118,7 +118,7 @@
                     @endif
                 </div>
 
-                <div class="label_g2">
+                {{--<div class="label_g2">
                     <label class="label">
                         <span class="legend">PÁGINA ANÚNCIO - 3º Banner da lateral direita</span>
                         <input type="file" name="cover6">
@@ -147,7 +147,7 @@
                         </div>
                     @endif
                 </div>
-                {{-- ALT 05MAR --}}
+               
 
                 <div class="label_g2">
                     <label class="label">
@@ -162,7 +162,7 @@
                                 width="250">
                         </div>
                     @endif
-                </div>
+                </div> --}}
 
                 <div class="text-right mt-2">
                     <button class="icon-check-square-o btn btn-large btn-green">Atualizar Banners</button>

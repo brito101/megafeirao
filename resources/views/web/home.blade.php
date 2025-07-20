@@ -55,13 +55,13 @@
                             </div>
 
                         </form>
-                        {{-- @if ($banner)
+                        @if ($banner)
                             <div class="col-12 d-flex flex-wrap justify-content-center align-content-start">
                                 @if ($banner->cover1)
                                     <div class="col-12 col-sm-4 px-2 px-lg-0 col-lg-12 my-2 text-center">
                                         <a href="{{ $banner->link1 ?? route('web.register') }}"
                                             class="d-flex justify-content-center align-content-center h-100">
-                                            <img src="{{ asset('storage/' . $banner->cover5) }}"
+                                            <img src="{{ asset('storage/' . $banner->cover1) }}"
                                                 class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
                                                 title="" style="object-fit: contain;"></a>
                                     </div>
@@ -71,7 +71,7 @@
                                     <div class="col-12 col-sm-4 px-2 px-lg-0 col-lg-12 my-2 text-center">
                                         <a href="{{ $banner->link2 ?? route('web.register') }}"
                                             class="d-flex justify-content-center align-content-center h-100">
-                                            <img src="{{ asset('storage/' . $banner->cover6) }}"
+                                            <img src="{{ asset('storage/' . $banner->cover2) }}"
                                                 class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
                                                 title="" style="object-fit: contain;"></a>
                                     </div>
@@ -81,13 +81,13 @@
                                     <div class="col-12 col-sm-4 px-2 px-lg-0 col-lg-12 my-2 text-center">
                                         <a href="{{ $banner->link3 ?? route('web.register') }}"
                                             class="d-flex justify-content-center align-content-center h-100">
-                                            <img src="{{ asset('storage/' . $banner->cover7) }}"
+                                            <img src="{{ asset('storage/' . $banner->cover3) }}"
                                                 class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
                                                 title="" style="object-fit: contain;"></a>
                                     </div>
                                 @endif
                             </div>
-                        @endif --}}
+                        @endif
                     </div>
 
                     <div class="col-12 col-md-9 overflow-hidden bg-light border">
@@ -125,24 +125,5 @@
 @section('js')
     <script src="{{ url(asset('frontend/assets/js/like.js')) }}"></script>
     <script src="{{ url(asset('frontend/assets/js/jquery-ui.js')) }}"></script>
-    <script src="{{ url(asset('frontend/assets/js/filter.js')) }}"></script>
-    <script>
-        $("#filter-price").on('change', function(e) {
-            e.preventDefault();
-            let val = $(e.target).val();
-            if (val == 'ASC') {
-                location.href = '{{ env('APP_URL') }}/?sort=sale_price&direction=asc'
-            } else {
-                location.href = '{{ env('APP_URL') }}/?sort=sale_price&direction=desc'
-            }
-        });
-    </script>
-    <script>
-        $("#city-state").on("change", function() {
-            window.location.href = this.value;
-        })
-        $("#ordenation").on("change", function() {
-            window.location.href = this.value;
-        })
-    </script>
+    <script src="{{ url(asset('frontend/assets/js/filter.js')) }}"></script>    
 @endsection

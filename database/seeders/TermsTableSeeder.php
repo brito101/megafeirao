@@ -16,8 +16,7 @@ class TermsTableSeeder extends Seeder
     {
         DB::table('terms')->insert(
             [
-                'description' => 1,
-                'model_type' => '<p><strong>Acesso ao site</strong></p>
+                'description' => '<p><strong>Acesso ao site</strong></p>
 <p>Para acessar o conteúdo de site, pode ser solicitado ao usuário algumas informações pessoais como nome, e-mail e outros. Se acharmos que as informações não são corretas ou verdadeiras, temos o direito de recusar e/ou cancelar o acesso a qualquer tempo, sem notificação prévia.</p>
 <p><strong>Restrições ao uso</strong></p>
 <p>Você só poderá usar este site propósitos permitidos por nós. Você não poderá usá-lo em qualquer outro objetivo, especialmente comercial, sem o nosso consentimento prévio. Não associe nossas marcas a nenhuma outra. Não exponha nosso nome, logotipo, logomarca entre outros, indevidamente e de forma a causar confusão.</p>

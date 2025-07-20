@@ -165,7 +165,7 @@
                             </div>
                         @endif
 
-                        {{-- @if ($banner && $banner->link4)
+                        @if ($banner && $banner->link4)
                             <div class="col-12 mt-5 px-0 text-center card">
                                 <a href="{{ $banner->link4 ?? route('web.register') }}"
                                     class="d-flex justify-content-center align-content-center h-100">
@@ -199,7 +199,7 @@
                                         class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
                                         title=""></a>
                             </div>
-                        @endif --}}
+                        @endif
 
                     </div>
                 </div>

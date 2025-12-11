@@ -1,3 +1,28 @@
-*{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;margin:0;padding:0;text-rendering:geometricPrecision}img{max-width:100%}img a{border:none}ul{list-style:none}p{margin:0}embed,iframe,iframe[style],video{height:auto;max-width:100%}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  text-rendering: geometricPrecision;
+}
 
-/*# sourceMappingURL=reset.css.map*/
+img {
+  max-width: 100%;
+}
+img a {
+  border: none;
+}
+
+ul {
+  list-style: none;
+}
+
+p {
+  margin: 0;
+}
+
+embed, video, iframe, iframe[style] {
+  max-width: 100%;
+  height: auto;
+}

@@ -5,6 +5,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'Web\\WebController@home')->name('web.home');
+Route::post('/', 'Web\\WebController@home')->name('web.home.post');
 
 /** Página Destaque */
 Route::get('/destaque', 'Web\\WebController@spotlight')->name('web.spotlight');
@@ -40,6 +41,10 @@ Route::get('/politica-de-privacidade', 'Web\\WebController@policy')->name('web.p
 Route::get('/banner', 'Web\\WebController@banner')->name('web.banner');
 
 /** Filtro */
+Route::get('api/models-by-category', 'Web\\WebController@getModelsByCategory')->name('api.modelsByCategory');
+Route::get('api/prices-by-model', 'Web\\WebController@getPricesByModel')->name('api.pricesByModel');
+Route::get('api/years-by-price', 'Web\\WebController@getYearsByPrice')->name('api.yearsByPrice');
+
 Route::post('main-filter/category', 'Web\\FilterController@category')->name('component.main-filter.category');
 
 Route::post('main-filter/search', 'Web\\FilterController@search')->name('component.main-filter.search');

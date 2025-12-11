@@ -1,276 +1,743 @@
-@extends('web.master.master')
+@extends('web.master.master-2')
 
 @section('content')
-    <section class="main_property">
-        <div class="main_property_content py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-lg-8">
-                        <h2 class="text-truncate h2 my-1 d-flex flex-wrap justify-content-between font-weight-bold">
-                            <span
-                                class="col-12 col-md-8 px-0 text-truncate">{{ Illuminate\Support\Str::words($automotive->title, 10) }}</span>
-                        </h2>
-                        <p class="text-muted font-weight-bold">{{ $automotive->model }} - Ano {{ $automotive->year }} -
-                            {{ $automotive->mileage }} km</p>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 0 2rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Product Section */
+        .product-container {
+            max-width: 1200px;
+            margin: 2rem auto 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        /* Gallery */
+        .gallery {
+            position: relative;
+            max-width: 750px;
+            margin: 0 auto;
+        }
 
-                        <div id="carouselProperty" class="carousel slide" data-ride="carousel">
+        .main-image {
+            width: 100%;
+            height: 350px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+        }
 
-                            <div class="carousel-inner">
-                                @if ($automotive->images()->get()->count())
-                                    @foreach ($automotive->images()->get() as $image)
-                                        <div class="carousel-item {{ $loop->iteration == 1 ? 'active' : '' }}">
-                                            <a href="{{ $image->getUrlCroppedAttribute() }}" data-toggle="lightbox"
-                                                data-gallery="property-gallery" data-type="image">
-                                                <img src="{{ $image->getUrlCroppedAttribute() }}"
-                                                    class="d-block w-100 h-100" alt="{{ $automotive->title }}">
-                                            </a>
-                                        </div>
-                                    @endforeach
-                                @endif
-                            </div>
-                            @if ($automotive->images()->get()->count() > 1)
-                                <a class="carousel-control-prev" href="#carouselProperty" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Anterior</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselProperty" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Próximo</span>
-                                </a>
-                            @endif
-                            <ol class="carousel-indicators mx-0 px-4" style="position: relative!important;">
-                                @if ($automotive->images()->get()->count() > 1)
-                                    @foreach ($automotive->images()->get() as $image)
-                                        <li data-target="#carouselProperty" data-slide-to="{{ $loop->iteration - 1 }}"
-                                            {!! $loop->iteration == 1 ? 'class="active h-100"' : 'class="h-100"' !!}
-                                            style="width: 100%; max-height: 100px; display: flex; justify-content: center;">
-                                            <img src="{{ $image->getUrlCroppedAttribute() }}" class="rounded d-block w-100"
-                                                alt="{{ $automotive->title }}" style="object-fit: cover" />
-                                        </li>
-                                    @endforeach
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-                                    <a class="carousel-control-prev" href="#carouselProperty" role="button"
-                                        data-slide="prev" style="justify-content: start!important;">
-                                        <span
-                                            class="shadow-sm border border-navy icon-before icon-chevron-left text-primary bg-white rounded-circle"
-                                            aria-hidden="true"></span>
-                                        <span class="sr-only">Anterior</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#carouselProperty" role="button"
-                                        data-slide="next" style="justify-content: end!important;">
-                                        <span
-                                            class="shadow-sm border border-navy icon-before icon-chevron-right text-primary bg-white rounded-circle"
-                                            aria-hidden="true"></span>
-                                        <span class="sr-only">Próximo</span>
-                                    </a>
-                                @endif
-                            </ol>
-                        </div>
+        .image-thumbnails-container {
+            position: relative;
+            max-width: 700px;
+            overflow: hidden;
+        }
 
-                        <div class="main_property_price pt-4 text-muted">
+        .image-thumbnails {
+            display: flex;
+            gap: 0.5rem;
+            transition: transform 0.3s ease;
+            width: max-content;
+        }
 
-                            @if (!empty($type))
-                                <h1 class="main_property_price_big d-block d-lg-none text-primary font-weight-bold">R$
-                                    {{ $automotive->sale_price }}</h1>
-                            @else
-                                <p class="main_properties_price text-front d-block d-lg-none">
-                                    Entre em contato com a nossa equipe comercial!</p>
-                            @endif
-                        </div>
+        .thumbnail {
+            height: 70px;
+            min-width: 100px;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: var(--transition);
+            flex-shrink: 0;
+            position: relative;
+        }
 
-                        <div class="main_property_content_description">
-                            <h4 class="font-weight-bold">OBSERVAÇÕES</h4>
-                            {!! $automotive->description !!}
-                        </div>
+        .thumbnail:hover,
+        .thumbnail.active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
 
-                        @if ($automotive->youtube_link != null)
-                            <h4 class="font-weight-bold">VÍDEO DESCRITIVO</h4>
-                            <div class='col-12 align-self-center mb-5 d-flex px-0'>
-                                <div class='embed-responsive embed-responsive-16by9'>
-                                    <iframe class="embed-responsive-item"
-                                        src="{{ str_replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/', $automotive->youtube_link) }}"
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen></iframe>
-                                </div>
-                            </div>
-                        @endif
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
 
-                    </div>
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
 
-                    <div class="col-12 col-lg-4 mt-3 mt-lg-0 text-center">
-                        <div class="col-12 d-flex justify-content-center">
-                            <span class="text-center text-primary font-weight-bold h1 border">R$
-                                {{ $automotive->sale_price }}</span>
-                        </div>
-                        <a target="_blank"
-                            href="https://api.whatsapp.com/send?phone=55+{{ $company->cell ?? $automotive->ownerObject()->cell }}&text=Olá, me interessei sobre o seu anúncio."
-                            class="btn btn-success btn-md icon-whatsapp mb-3"><b>WhatsApp</b>
-                        </a>
+        .scroll-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
 
-                        <div class="main_property_contact">
-                            <form action="{{ route('web.sendEmail') }}" method="post">
-                                @csrf
-                                <input type="hidden" name="ownerEmail"
-                                    value="{{ $company->email ?? $automotive->ownerObject()->email }}">
-                                <div class="form-group">
-                                    {{-- <label for="name">Seu nome:</label> --}}
-                                    <input type="text" class="form-control" name="name"
-                                        placeholder="Informe seu nome completo" required>
-                                </div>
+        .scroll-btn.left {
+            left: 5px;
+        }
 
-                                <div class="form-group">
-                                    {{-- <label for="telephone">Seu telefone:</label> --}}
-                                    <input type="tel" name="cell" class="form-control"
-                                        placeholder="Informe seu telefone com DDD" required>
-                                </div>
+        .scroll-btn.right {
+            right: 5px;
+        }
 
-                                <div class="form-group">
-                                    {{-- <label for="email">Seu e-mail:</label> --}}
-                                    <input type="email" name="email" class="form-control"
-                                        placeholder="Informe seu melhor e-mail" required>
-                                </div>
+        /* Product Info */
+        .product-info h1 {
+            font-size: 1.75rem;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
 
-                                <div class="form-group">
-                                    {{-- <label for="message">Sua Mensagem:</label> --}}
-                                    <textarea name="message" id="message" cols="30" rows="5" class="form-control" required>Quero ter mais informações sobre o veículo {{ $automotive->title }}.</textarea>
-                                </div>
+        .product-subtitle {
+            color: #9ca3af;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
 
-                                <div class="form-group text-center">
-                                    <button
-                                        class="btn btn-block text-primary border border-primary bg-white">Enviar</button>
-                                    @if ($company && $company->telephone)
-                                        <p class="text-center text-front mb-0 mt-4 font-weight-bold">
-                                            {{ $company->telephone }}</p>
-                                    @endif
-                                    @if (($company && $company->cell) || $automotive->ownerObject()->cell)
-                                        <a target="_blank"
-                                            href="https://api.whatsapp.com/send?phone=55+{{ $company->cell ?? $automotive->ownerObject()->cell }}&text=Olá, me interessei sobre o seu anúncio."
-                                            class="text-dark text-decoration-none font-weight-bold mt-1 icon-whatsapp">{{ $company->cell ?? $automotive->ownerObject()->cell }}</a>
-                                    @endif
-                                </div>
-                            </form>
-                        </div>
+        .price-container {
+            background-color: #f9fafb;
+            padding: 1.75rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid #e5e7eb;
+        }
 
-                        @if ($company && $company->type == 'concessionaria')
-                            <div class="col-12 mt-5 px-0 text-center card">
-                                <a href="{{ route('web.filterCompany', ['slug' => $company->slug]) }}">
-                                    <img src="{{ $company->logo() }}" class="card-img-top"
-                                        alt="{{ $company->alias_name }}">
-                                </a>
-                                <a class="text-secondary fs-6"
-                                    href="{{ route('web.filterCompany', ['slug' => $company->slug]) }}">Ver todos os
-                                    carros
-                                    do anunciante</a>
-                            </div>
-                        @endif
+        .price {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+        }
 
-                        @if ($banner && $banner->link4)
-                            <div class="col-12 mt-5 px-0 text-center card">
-                                <a href="{{ $banner->link4 ?? route('web.register') }}"
-                                    class="d-flex justify-content-center align-content-center h-100">
-                                    <img src="{{ $banner->cover4 ? asset('storage/' . $banner->cover4) : url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
-                                        title=""></a>
-                            </div>
-                        @else
-                            <div class="col-12 mt-5 px-0 text-center card">
-                                <a href="{{ route('web.register') }}"
-                                    class="d-flex justify-content-center align-content-center h-100">
-                                    <img src="{{ url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
-                                        title=""></a>
-                            </div>
-                        @endif
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
 
-                        @if ($banner && $banner->link5)
-                            <div class="col-12 mt-5 px-0 text-center">
-                                <a href="{{ $banner->link5 ?? route('web.register') }}"
-                                    class="d-flex justify-content-center align-content-center h-100">
-                                    <img src="{{ $banner->cover5 ? asset('storage/' . $banner->cover5) : url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
-                                        title=""></a>
-                            </div>
-                        @else
-                            <div class="col-12 mt-5 px-0 text-center">
-                                <a href="{{ route('web.register') }}"
-                                    class="d-flex justify-content-center align-content-center h-100">
-                                    <img src="{{ url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
-                                        title=""></a>
-                            </div>
-                        @endif
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+            flex: 1;
+            text-align: center;
+        }
 
-                    </div>
+        .btn-primary {
+            background-color: #10b981;
+            color: white;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #dbeafe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3b82f6;
+            font-size: 1.1rem;
+        }
+
+        /* Details Section */
+        .details-section {
+            max-width: 1200px;
+            margin: 1rem auto 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+            text-align: left;
+        }
+
+        .details-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .description-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            max-height: 440px;
+            overflow-y: auto;
+            line-height: 1.4;
+        }
+
+        .description-content p {
+            margin-bottom: 1rem;
+        }
+
+        .map-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            flex-direction: column;
+        }
+
+        .description-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .description-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .description-content::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        .description-content::-webkit-scrollbar-thumb:hover {
+            background: #2980b9;
+        }
+
+        /* Similar Vehicles */
+        .similar-section {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .similar-container {
+            position: relative;
+            max-width: 1200px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .similar-track {
+            display: flex;
+            gap: 1.5rem;
+            transition: transform 0.5s ease;
+            width: max-content;
+        }
+
+        .vehicle-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            min-width: 220px;
+            flex-shrink: 0;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .vehicle-image {
+            height: 150px;
+            background-color: #eee;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .vehicle-info {
+            padding: 1.2rem;
+        }
+
+        .vehicle-title {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .vehicle-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        .vehicle-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .similar-scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .similar-scroll-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .similar-scroll-btn.left {
+            left: 10px;
+        }
+
+        .similar-scroll-btn.right {
+            right: 10px;
+        }
+        /* Indicadores de posição */
+        .position-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ddd;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .indicator.active {
+            background-color: var(--accent);
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-container,
+            .details-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-image {
+                height: 300px;
+            }
+            
+            .product-info h1 {
+                font-size: 1.5rem;
+            }
+            
+            .price {
+                font-size: 2rem;
+            }
+        }
+    </style>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="{{ route('web.home') }}">Início</a> > 
+        @if ($automotive->category)
+            <a href="{{ route('web.filter') }}?category={{ $automotive->category }}">{{ $automotive->category }}</a> > 
+        @endif
+        @if ($automotive->model)
+            <a href="{{ route('web.filter') }}?category={{ $automotive->category }}&model={{ $automotive->model }}">{{ $automotive->model }}</a> > 
+        @endif
+        <span>{{ $automotive->title }}</span>
+    </div>
+
+    <!-- Product Section -->
+    <section class="product-container">
+        <div class="gallery">
+            @if ($automotive->images()->get()->count())
+                <div class="main-image">
+                    <img id="mainImage" src="{{ $automotive->images()->first()->getUrlCroppedAttribute() }}" alt="{{ $automotive->title }}">
                 </div>
 
-                <div class="row my-5 pt-5" style="border-top: 2px solid #cbcbcb;">
-                    <div class="col-12">
-                        {{-- <div class="col-12 col-lg-8"> --}}
-                        @if ($company && $company->type == 'concessionaria')
-                            <div class="main_property_location">
-                                <h6 class="icon-map-marker font-weight-bolder">
-                                    {{ $company->street != '' ? $company->street . ',' : '' }}
-                                    {{ $company->number != '' ? $company->number . ',' : '' }}
-                                    {{ $company->neighborhood != '' ? $company->neighborhood . ', ' : '' }}{{ $company->city }}-{{ $company->state }}{{ $company->zipcode != '' ? '. CEP: ' . $company->zipcode : '' }}
-
-                                </h6>
-                                <div id="map" style="width: 100%; min-height: 400px;"></div>
+                <div class="image-thumbnails-container">
+                    <div class="image-thumbnails" id="thumbnails">
+                        @foreach ($automotive->images()->get() as $image)
+                            <div class="thumbnail {{ $loop->first ? 'active' : '' }}" 
+                                 onclick="changeImage('{{ $image->getUrlCroppedAttribute() }}')">
+                                <img src="{{ $image->getUrlCroppedAttribute() }}" 
+                                     alt="{{ $automotive->title }}">
                             </div>
-                        @endif
+                        @endforeach
                     </div>
-                    {{-- <div class="col-12 col-lg-4">
-                        @if ($banner && $banner->link6)
-                            <div class="col-12 mt-5 px-0 text-center card">
-                                <a href="{{ $banner->link6 ?? route('web.register') }}"
-                                    class="d-flex justify-content-center align-content-center h-100">
-                                    <img src="{{ $banner->cover6 ? asset('storage/' . $banner->cover6) : url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
-                                        title=""></a>
-                            </div>
-                        @else
-                            <div class="col-12 mt-5 px-0 text-center card">
-                                <a href="{{ route('web.register') }}"
-                                    class="d-flex justify-content-center align-content-center h-100">
-                                    <img src="{{ url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
-                                        title=""></a>
-                            </div>
-                        @endif
+                    <button class="scroll-btn left" onclick="scrollThumbnails(-1)">‹</button>
+                    <button class="scroll-btn right" onclick="scrollThumbnails(1)">›</button>
+                </div>
+            @endif
+        </div>
 
-                        @if ($banner && $banner->link7)
-                            <div class="col-12 mt-5 px-0 text-center">
-                                <a href="{{ $banner->link7 ?? route('web.register') }}"
-                                    class="d-flex justify-content-center align-content-center h-100">
-                                    <img src="{{ $banner->cover7 ? asset('storage/' . $banner->cover7) : url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
-                                        title=""></a>
+        <div class="product-info">
+            <h1>{{ $automotive->title }}</h1>
+            <p class="product-subtitle">{{ $automotive->model }} - Ano {{ $automotive->year }} - {{ number_format($automotive->mileage, 0, ',', '.') }} km</p>
+
+            <div class="price-container">
+                @if ($automotive->sale_price)
+                    <div class="price">R$ {{ $automotive->sale_price }}</div>
+                @else
+                    <p style="color: var(--gray); margin-bottom: 1rem;">
+                        Entre em contato com a nossa equipe comercial!
+                    </p>
+                @endif
+
+                <div class="action-buttons">
+                    @php
+                        $phone = $company->cell ?? $automotive->ownerObject()->cell;
+                        // Remove todos os caracteres não numéricos
+                        $phoneClean = preg_replace('/[^0-9]/', '', $phone);
+                    @endphp
+                    <a href="https://api.whatsapp.com/send?phone=55{{ $phoneClean }}&text=Olá, me interessei sobre o seu anúncio do {{ $automotive->title }}" 
+                       target="_blank" 
+                       class="btn btn-primary">
+                        <i class="fab fa-whatsapp"></i> Falar com Vendedor
+                    </a>
+                </div>
+
+                <div class="features-grid">
+                    @if ($automotive->mileage)
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-tachometer-alt"></i>
                             </div>
-                        @else
-                            <div class="col-12 mt-5 px-0 text-center">
-                                <a href="{{ route('web.register') }}"
-                                    class="d-flex justify-content-center align-content-center h-100">
-                                    <img src="{{ url(asset('frontend/assets/images/banner-horizontal-lateral.png')) }}"
-                                        class="img-thumbnail border-0 w-100 m-0 p-0 d-inline-block" alt=""
-                                        title=""></a>
+                            <div>
+                                <h4 style="font-size: 0.8rem; margin: 0; font-weight: 500; color: #6b7280;">Quilometragem</h4>
+                                <p style="margin: 0; font-size: 0.95rem; color: #1f2937; font-weight: 600;">{{ number_format($automotive->mileage, 0, ',', '.') }} km</p>
                             </div>
-                        @endif
-                    </div> --}}
+                        </div>
+                    @endif
+
+                    @if ($automotive->year)
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div>
+                                <h4 style="font-size: 0.8rem; margin: 0; font-weight: 500; color: #6b7280;">Ano</h4>
+                                <p style="margin: 0; font-size: 0.95rem; color: #1f2937; font-weight: 600;">{{ $automotive->year }}</p>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if ($automotive->model)
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-car-side"></i>
+                            </div>
+                            <div>
+                                <h4 style="font-size: 0.8rem; margin: 0; font-weight: 500; color: #6b7280;">Modelo</h4>
+                                <p style="margin: 0; font-size: 0.95rem; color: #1f2937; font-weight: 600;">{{ $automotive->model }}</p>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
     </section>
-@endsection
 
-@section('js')
+    <!-- Details Section -->
+    <section class="details-section">
+        <h2 class="section-title">Detalhes do Veículo</h2>
+
+        <div class="details-container">
+            <div class="description-content">
+                <h4 style="font-weight: bold; margin-bottom: 1rem;">OBSERVAÇÕES</h4>
+                {!! $automotive->description !!}
+
+                @if ($automotive->youtube_link)
+                    <h4 style="font-weight: bold; margin: 2rem 0 1rem 0;">VÍDEO DESCRITIVO</h4>
+                    <div class='embed-responsive embed-responsive-16by9' style="margin-bottom: 1rem;">
+                        <iframe class="embed-responsive-item"
+                            src="{{ str_replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/', $automotive->youtube_link) }}"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                @endif
+            </div>
+
+            <div class="map-container">
+                <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-map-marker-alt"></i> Localização
+                </h3>
+
+                @if ($company && $company->type == 'concessionaria')
+                    <div id="map" style="width: 100%; height: 300px; border-radius: 4px;"></div>
+                    <p style="margin-top: 1rem;">
+                        <strong>Endereço:</strong> 
+                        {{ $company->street != '' ? $company->street . ',' : '' }}
+                        {{ $company->number != '' ? $company->number . ',' : '' }}
+                        {{ $company->neighborhood != '' ? $company->neighborhood . ', ' : '' }}
+                        {{ $company->city }}-{{ $company->state }}
+                        {{ $company->zipcode != '' ? '. CEP: ' . $company->zipcode : '' }}
+                    </p>
+                @else
+                    <div class="map-placeholder">
+                        <i class="fas fa-map fa-3x"></i>
+                        <p>Localização disponível após contato</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </section>
+
+    <!-- Similar Vehicles -->
+    @if (isset($similarVehicles) && $similarVehicles && $similarVehicles->count() > 0)
+        <section class="similar-section">
+            <h2 class="section-title">Veículos Similares</h2>
+
+            <div class="similar-container">
+                <button class="similar-scroll-btn left" onclick="scrollSimilar(-1)">‹</button>
+                <button class="similar-scroll-btn right" onclick="scrollSimilar(1)">›</button>
+
+                <div class="similar-track" id="similarTrack">
+                    @foreach ($similarVehicles as $similar)
+                        <div class="vehicle-card">
+                            <a href="{{ route('web.buyAutomotive', ['slug' => $similar->slug]) }}">
+                                <div class="vehicle-image" style="background-image: url('{{ $similar->cover() }}')"></div>
+                            </a>
+                            <div class="vehicle-info">
+                                <h3 class="vehicle-title">
+                                    <a href="{{ route('web.buyAutomotive', ['slug' => $similar->slug]) }}" 
+                                       style="text-decoration: none; color: inherit;">
+                                        {{ Illuminate\Support\Str::words($similar->title, 5) }}
+                                    </a>
+                                </h3>
+                                <div class="vehicle-details">
+                                    <span>{{ $similar->year }}</span>
+                                    <span>{{ number_format($similar->mileage, 0, ',', '.') }} km</span>
+                                </div>
+                                @if ($similar->sale_price)
+                                    <div class="vehicle-price">R$ {{ $similar->sale_price }}</div>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="position-indicators" id="positionIndicators">
+                    <!-- Os indicadores serão gerados via JavaScript -->
+                </div>
+            </div>
+        </section>
+    @endif
+
+    <script>
+        // Galeria de imagens
+        let currentScroll = 0;
+        const scrollAmount = 120;
+
+        function changeImage(src) {
+            document.getElementById('mainImage').src = src;
+
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+
+            event.currentTarget.classList.add('active');
+        }
+
+        function scrollThumbnails(direction) {
+            const container = document.querySelector('.image-thumbnails-container');
+            const thumbnails = document.getElementById('thumbnails');
+            const maxScroll = thumbnails.scrollWidth - container.clientWidth;
+
+            currentScroll += direction * scrollAmount;
+
+            if (currentScroll < 0) {
+                currentScroll = maxScroll;
+            } else if (currentScroll > maxScroll) {
+                currentScroll = 0;
+            }
+
+            thumbnails.style.transform = `translateX(-${currentScroll}px)`;
+        }
+
+        // Auto-scroll thumbnails
+        setInterval(() => {
+            scrollThumbnails(1);
+        }, 3000);
+
+        // Veículos Similares
+        const similarTrack = document.getElementById('similarTrack');
+        if (similarTrack) {
+            let currentSimilarPosition = 0;
+            const similarCards = document.querySelectorAll('.vehicle-card');
+            const totalSimilarCards = similarCards.length;
+
+            if (totalSimilarCards > 0) {
+                const cardWidth = similarCards[0].offsetWidth + 24;
+
+                // Criar indicadores de posição
+                const positionIndicators = document.getElementById('positionIndicators');
+                for (let i = 0; i < totalSimilarCards; i++) {
+                    const indicator = document.createElement('div');
+                    indicator.className = `indicator ${i === 0 ? 'active' : ''}`;
+                    indicator.addEventListener('click', () => goToPosition(i));
+                    positionIndicators.appendChild(indicator);
+                }
+
+                function scrollSimilar(direction) {
+                    const maxPosition = totalSimilarCards - 1;
+
+                    currentSimilarPosition += direction;
+
+                    if (currentSimilarPosition < 0) {
+                        currentSimilarPosition = maxPosition;
+                    } else if (currentSimilarPosition > maxPosition) {
+                        currentSimilarPosition = 0;
+                    }
+
+                    updateSimilarPosition();
+                }
+
+                function goToPosition(position) {
+                    currentSimilarPosition = position;
+                    updateSimilarPosition();
+                }
+
+                function updateSimilarPosition() {
+                    const track = document.getElementById('similarTrack');
+                    const translateX = -currentSimilarPosition * cardWidth;
+                    track.style.transform = `translateX(${translateX}px)`;
+
+                    // Atualizar indicadores ativos
+                    const indicators = document.querySelectorAll('.indicator');
+                    indicators.forEach((indicator, index) => {
+                        indicator.classList.toggle('active', index === currentSimilarPosition);
+                    });
+                }
+
+                let similarAutoScrollInterval;
+
+                function startSimilarAutoScroll() {
+                    similarAutoScrollInterval = setInterval(() => {
+                        scrollSimilar(1);
+                    }, 3000);
+                }
+
+                function stopSimilarAutoScroll() {
+                    clearInterval(similarAutoScrollInterval);
+                }
+
+                const similarContainer = document.querySelector('.similar-container');
+                similarContainer.addEventListener('mouseenter', stopSimilarAutoScroll);
+                similarContainer.addEventListener('mouseleave', startSimilarAutoScroll);
+
+                startSimilarAutoScroll();
+
+                window.scrollSimilar = scrollSimilar;
+
+                window.addEventListener('resize', () => {
+                    if (similarCards.length > 0) {
+                        updateSimilarPosition();
+                    }
+                });
+
+                window.addEventListener('load', () => {
+                    if (similarCards.length > 0) {
+                        updateSimilarPosition();
+                    }
+                });
+            }
+        }
+    </script>
+
     @if ($company && $company->type == 'concessionaria')
         <script>
             function markMap() {
-
                 var locationJson = $.getJSON(
                     'https://maps.googleapis.com/maps/api/geocode/json?address={{ $company->street }},+{{ $company->number }}+{{ $company->city }}+{{ $company->neighborhood }}&key={{ env('GOOGLE_API_KEY') }}',
                     function(response) {
-
                         lat = response.results[0].geometry.location.lat;
                         lng = response.results[0].geometry.location.lng;
 
@@ -293,8 +760,6 @@
                     });
             }
         </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&callback=markMap">
-        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&callback=markMap"></script>
     @endif
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 @endsection

@@ -27,24 +27,62 @@ class WebController extends Controller
             asset('frontend/assets/images/share.png')
         );
 
-        $filter = new FilterController();
-
-        $itemAutomotives = $filter->createQuery('id');
-        foreach ($itemAutomotives as $automotive) {
-            $automotives[] = $automotive->id;
+        // Construir query com filtros
+        $query = Automotive::sale()->available();
+        
+        // Aplicar filtros se existirem
+        if ($request->has('category') && $request->category != '') {
+            $query->where('category', $request->category);
         }
-
-        if (!empty($automotives)) {
-            $automotives = Automotive::whereIn('id', $automotives)->sale()->available()->inRandomOrder()->get();
-            $automotivesPaginate = Automotive::whereIn('id', $automotives->pluck('id'))->sale()->available()->inRandomOrder()->paginate(16);
-        } else {
-            $automotives = null;
-            $automotivesPaginate = null;
+        
+        if ($request->has('model') && $request->model != '') {
+            $query->where('model', $request->model);
         }
-
-        $filter->clearAllData();
+        
+        if ($request->has('price_max') && $request->price_max != '') {
+            $query->where('sale_price', '<=', $request->price_max);
+        }
+        
+        if ($request->has('year_min') && $request->year_min != '') {
+            $query->where('year', '>=', $request->year_min);
+        }
+        
+        // Paginação
+        $automotivesPaginate = $query->paginate(16);
 
         $collect = Automotive::sale()->available()->get();
+        
+        // Pré-carregar categorias (marcas) para o dropdown
+        $categories = $collect->pluck('category')->filter()->unique()->sort()->values();
+        
+        // Buscar preços únicos do banco e formatar
+        $priceRanges = [];
+        $uniquePrices = Automotive::sale()->available()
+            ->select('sale_price')
+            ->distinct()
+            ->orderBy('sale_price')
+            ->pluck('sale_price')
+            ->filter();
+        
+        foreach ($uniquePrices as $price) {
+            // Converter string com vírgula para float se necessário
+            $priceValue = is_numeric($price) ? $price : (float)str_replace(['.', ','], ['', '.'], $price);
+            $priceRanges[] = [
+                'value' => $priceValue,
+                'label' => 'R$ ' . number_format($priceValue, 2, ',', '.')
+            ];
+        }
+        
+        // Buscar anos únicos do banco
+        $years = Automotive::sale()->available()
+            ->select('year')
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->pluck('year')
+            ->filter()
+            ->values()
+            ->toArray();
+        
         $cities = [];
         if ($collect->count()) {
             foreach ($collect as $automotive) {
@@ -89,7 +127,100 @@ class WebController extends Controller
             'cityState' => $cityState,
             'collect' => $collect,
             'mileageMax' => $mileageCar,
+            'categories' => $categories,
+            'priceRanges' => $priceRanges,
+            'years' => $years,
         ]);
+    }
+    
+    /**
+     * Retorna modelos de uma categoria específica (AJAX)
+     */
+    public function getModelsByCategory(Request $request)
+    {
+        $category = $request->input('category');
+        
+        if (!$category) {
+            return response()->json([]);
+        }
+        
+        $models = Automotive::sale()
+            ->available()
+            ->where('category', $category)
+            ->pluck('model')
+            ->filter()
+            ->unique()
+            ->sort()
+            ->values();
+        
+        return response()->json($models);
+    }
+    
+    /**
+     * Retorna preços de uma categoria e modelo específicos (AJAX)
+     */
+    public function getPricesByModel(Request $request)
+    {
+        $category = $request->input('category');
+        $model = $request->input('model');
+        
+        if (!$category || !$model) {
+            return response()->json([]);
+        }
+        
+        $query = Automotive::sale()
+            ->available()
+            ->where('category', $category)
+            ->where('model', $model);
+        
+        $uniquePrices = $query->select('sale_price')
+            ->distinct()
+            ->orderBy('sale_price')
+            ->pluck('sale_price')
+            ->filter();
+        
+        $priceRanges = [];
+        foreach ($uniquePrices as $price) {
+            $priceValue = is_numeric($price) ? $price : (float)str_replace(['.', ','], ['', '.'], $price);
+            $priceRanges[] = [
+                'value' => $priceValue,
+                'label' => 'R$ ' . number_format($priceValue, 2, ',', '.')
+            ];
+        }
+        
+        return response()->json($priceRanges);
+    }
+    
+    /**
+     * Retorna anos de uma categoria, modelo e preço específicos (AJAX)
+     */
+    public function getYearsByPrice(Request $request)
+    {
+        $category = $request->input('category');
+        $model = $request->input('model');
+        $price = $request->input('price');
+        
+        if (!$category || !$model) {
+            return response()->json([]);
+        }
+        
+        $query = Automotive::sale()
+            ->available()
+            ->where('category', $category)
+            ->where('model', $model);
+        
+        if ($price) {
+            $query->where('sale_price', '<=', $price);
+        }
+        
+        $years = $query->select('year')
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->pluck('year')
+            ->filter()
+            ->values();
+        
+        return response()->json($years);
     }
 
     public function companies()
@@ -340,6 +471,16 @@ class WebController extends Controller
             $forRent = Automotive::rent()->available()->first();
             $company = Company::where('user', $automotive->ownerObject()->id)->first();
             $banner = Banner::first();
+            
+            // Buscar veículos similares (mesma categoria, excluindo o atual)
+            $similarVehicles = Automotive::sale()
+                ->available()
+                ->where('category', $automotive->category)
+                ->where('id', '!=', $automotive->id)
+                ->inRandomOrder()
+                ->take(10)
+                ->get();
+            
             return view('web.automotive', [
                 'head' => $head,
                 'forSale' => $forSale,
@@ -347,7 +488,8 @@ class WebController extends Controller
                 'automotive' => $automotive,
                 'type' => 'sale',
                 'company' => $company,
-                'banner' => $banner
+                'banner' => $banner,
+                'similarVehicles' => $similarVehicles
             ]);
         } else {
             return redirect()->route('web.filter');
